@@ -51,7 +51,7 @@ async function wikidataArtist(name){
   const memberIds=[...new Set(currentMemberClaims.map(c=>c.mainsnak.datavalue.value.id))];
   const ids=[countryId,genderId,placeId,genreId,...memberIds].filter(Boolean);
   let labels={};
-  if(ids.length){const lr=await fetch(base+'wbgetentities&props=labels&languages=nl%7Cen&ids='+ids.join('%7C'));if(lr.ok)labels=(await lr.json()).entities||{};}
+  if(ids.length){const lr=await fetch(base+'wbgetentities&props=labels%7Cclaims&languages=nl%7Cen&ids='+ids.join('%7C'));if(lr.ok)labels=(await lr.json()).entities||{};}
   const label=id=>id?(labels[id]?.labels?.nl?.value||labels[id]?.labels?.en?.value||null):null;
   const human=(entity.claims?.P31||[]).some(c=>c.mainsnak?.datavalue?.value?.id==='Q5');
   const rawDate=claim('P569')?.time;
@@ -60,7 +60,16 @@ async function wikidataArtist(name){
   const started=claim('P2031')?.time||claim('P571')?.time;
   const year=started?.match(/^\+(\d{4})/)?.[1]||null;
   const gender=label(genderId);
-  return {id:match.id,human,birth,age,country:label(countryId),countryId,gender,genre:label(genreId),place:label(placeId),started:year,members:memberIds.map(label).filter(Boolean)};
+  const memberGenders=memberIds.map(id=>{
+   const genderClaim=(labels[id]?.claims?.P21||[]).find(c=>c.rank!=='deprecated')?.mainsnak?.datavalue?.value?.id;
+   if(genderClaim==='Q6581097')return 'Male';
+   if(genderClaim==='Q6581072')return 'Female';
+   if(['Q48270','Q1097630'].includes(genderClaim))return 'Non-binair';
+   return null;
+  });
+  const groupGender=memberIds.length>0&&memberGenders.every(Boolean)?
+   (new Set(memberGenders).size===1?memberGenders[0]:'Mixed'):null;
+  return {id:match.id,human,birth,age,country:label(countryId),countryId,gender,genre:label(genreId),place:label(placeId),started:year,members:memberIds.map(label).filter(Boolean),groupGender};
  })().catch(()=>null);
  wdCache.set(name,task);return task;
 }
@@ -137,7 +146,7 @@ function spotleGenre(name,info,wd,extraGenre){
 function spotleGender(wd,verifiedBand){
  if(verifiedBand?.gender)return verifiedBand.gender;
  const raw=(wd?.gender||'').trim().toLowerCase();
- if(!wd?.human)return '—';
+ if(!wd?.human)return wd?.groupGender||'—';
  if(['male','mannelijk','man','masculin','männlich'].includes(raw))return 'Male';
  if(['female','vrouwelijk','vrouw','féminin','weiblich'].includes(raw))return 'Female';
  if(['non-binary','nonbinary','non-binair','non-binaire','non-binary gender','genderqueer'].includes(raw))return 'Non-binair';
@@ -157,7 +166,7 @@ function spotleGrid(info,wd,debut,extraGenre,artistName){
  const country=countryFlags[wd?.countryId];
  const verifiedBand=verifiedBands[(artistName||'').trim().toLowerCase()];
  const grid=document.createElement('div');grid.className='spotle-grid';
- const values=[['Debut',verifiedBand?.debut||debut?.year||'—'],['Members',verifiedBand?verifiedBand.members.length:(wd?.human?'Solo':wd?.members?.length||'—')],['Popularity',verifiedBand?.popularity??'—'],['Gender',spotleGender(wd,verifiedBand)],['Genre',spotleGenre(artistName,info,wd,extraGenre)],['Country',verifiedBand?.country||(country?country.join(' '):(wd?.country||'—'))]];
+ const values=[['Debut',verifiedBand?.debut||debut?.year||'—'],['Members',verifiedBand?verifiedBand.members.length:(wd?.human?'Solo':wd?.members?.length||'—')],['Popularity','—'],['Gender',spotleGender(wd,verifiedBand)],['Genre',spotleGenre(artistName,info,wd,extraGenre)],['Country',verifiedBand?.country||(country?country.join(' '):(wd?.country||'—'))]];
  for(const [label,value] of values){const tile=document.createElement('div');tile.className='spotle-tile';const name=document.createElement('div');name.className='spotle-label';name.textContent=label;const val=document.createElement('div');val.className='spotle-value';val.textContent=value;tile.append(name,val);grid.append(tile);}
  return grid;
 }
