@@ -134,12 +134,21 @@ function spotleGenre(name,info,wd,extraGenre){
  if(/^(southern rap|trap|gangsta rap|conscious hip hop|alternative hip hop|pop rap)$/i.test(raw))return 'Hip-hop';
  return raw;
 }
+function spotleGender(wd,verifiedBand){
+ if(verifiedBand?.gender)return verifiedBand.gender;
+ const raw=(wd?.gender||'').trim().toLowerCase();
+ if(!wd?.human)return '—';
+ if(['male','mannelijk','man','masculin','männlich'].includes(raw))return 'Male';
+ if(['female','vrouwelijk','vrouw','féminin','weiblich'].includes(raw))return 'Female';
+ if(['non-binary','nonbinary','non-binair','non-binaire','non-binary gender','genderqueer'].includes(raw))return 'Non-binair';
+ return '—';
+}
 const verifiedBands={
  'red hot chili peppers':{
   debut:1984,
   country:'🇺🇸 USA',
   members:['Anthony Kiedis — zang','Flea — basgitaar','John Frusciante — gitaar','Chad Smith — drums'],
-  gender:'Mannelijk'
+  gender:'Male'
  }
 };
 function spotleGrid(info,wd,debut,extraGenre,artistName){
@@ -147,7 +156,7 @@ function spotleGrid(info,wd,debut,extraGenre,artistName){
  const country=countryFlags[wd?.countryId];
  const verifiedBand=verifiedBands[(artistName||'').trim().toLowerCase()];
  const grid=document.createElement('div');grid.className='spotle-grid';
- const values=[['Debut',verifiedBand?.debut||debut?.year||'—'],['Members',verifiedBand?verifiedBand.members.length:(wd?.human?'Solo':wd?.members?.length||'—')],['Popularity','—'],['Gender',verifiedBand?.gender||wd?.gender||'—'],['Genre',spotleGenre(artistName,info,wd,extraGenre)],['Country',verifiedBand?.country||(country?country.join(' '):(wd?.country||'—'))]];
+ const values=[['Debut',verifiedBand?.debut||debut?.year||'—'],['Members',verifiedBand?verifiedBand.members.length:(wd?.human?'Solo':wd?.members?.length||'—')],['Popularity','—'],['Gender',spotleGender(wd,verifiedBand)],['Genre',spotleGenre(artistName,info,wd,extraGenre)],['Country',verifiedBand?.country||(country?country.join(' '):(wd?.country||'—'))]];
  for(const [label,value] of values){const tile=document.createElement('div');tile.className='spotle-tile';const name=document.createElement('div');name.className='spotle-label';name.textContent=label;const val=document.createElement('div');val.className='spotle-value';val.textContent=value;tile.append(name,val);grid.append(tile);}
  return grid;
 }
