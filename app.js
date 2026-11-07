@@ -86,7 +86,7 @@ async function musicBrainzDebut(artist){
      all.push(...page.items);offset+=page.items.length;
      if(!page.next)break;
     }
-    const eligible=all.filter(x=>/^\\d{4}/.test(x.release_date||'')&&!/remaster|deluxe|anniversary|live|karaoke|instrumental|compilation/i.test(x.name||''));
+    const eligible=all.filter(x=>/^\d{4}/.test(x.release_date||'')&&!/remaster|deluxe|anniversary|live|karaoke|instrumental|compilation/i.test(x.name||''));
     const albums=eligible.filter(x=>x.album_group==='album');
     const pool=albums.length?albums:eligible;
     pool.sort((a,b)=>a.release_date.localeCompare(b.release_date));
