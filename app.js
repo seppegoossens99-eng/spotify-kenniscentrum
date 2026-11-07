@@ -53,6 +53,11 @@ async function wikidataArtist(name){
   const ids=[countryId,genderId,placeId,genreId,...memberIds].filter(Boolean);
   let labels={};
   if(ids.length){const lr=await fetch(base+'wbgetentities&props=labels%7Cclaims&languages=nl%7Cen&ids='+ids.join('%7C'));if(lr.ok)labels=(await lr.json()).entities||{};}
+  const instrumentIds=[...new Set(memberIds.flatMap(id=>(labels[id]?.claims?.P1303||[]).map(c=>c.mainsnak?.datavalue?.value?.id).filter(Boolean)))];
+  if(instrumentIds.length){
+   const instrumentLabels=await fetch(base+'wbgetentities&props=labels&languages=nl%7Cen&ids='+instrumentIds.join('%7C'));
+   if(instrumentLabels.ok)Object.assign(labels,(await instrumentLabels.json()).entities||{});
+  }
   const label=id=>id?(labels[id]?.labels?.nl?.value||labels[id]?.labels?.en?.value||null):null;
   const human=(entity.claims?.P31||[]).some(c=>c.mainsnak?.datavalue?.value?.id==='Q5');
   const rawDate=claim('P569')?.time;
@@ -78,7 +83,7 @@ async function wikidataArtist(name){
    const birthTime=(entityMember?.claims?.P569||[]).find(c=>c.rank!=='deprecated')?.mainsnak?.datavalue?.value?.time;
    const born=birthTime?.match(/^\+(\d{4})-(\d{2})-(\d{2})/);
    const birth=born&&born[2]!=='00'&&born[3]!=='00'?born[3]+'/'+born[2]+'/'+born[1]:null;
-   return {id,name:label(id)||id,current:currentIds.includes(id),instruments,birth};
+   return {id,name:label(id)||id,current:currentIds.includes(id),instruments:instruments.map(label).filter(Boolean),birth};
   });
   return {id:match.id,human,birth,age,country:label(countryId),countryId,gender,genre:label(genreId),place:label(placeId),started:year,members:currentIds.map(label).filter(Boolean),formerMembers:[...new Set(formerMemberClaims.map(c=>c.mainsnak.datavalue.value.id))].filter(id=>!currentIds.includes(id)).map(label).filter(Boolean),memberDetails,groupGender};
  })().catch(()=>null);
@@ -230,7 +235,16 @@ for(const a of t.artists||[]){const card=document.createElement('article');card.
  for(const member of wd.memberDetails){
   const item=document.createElement('div');item.className='fact';
   const title=document.createElement('dt');title.textContent=member.name+(member.current?' · huidig volgens Wikidata':' · voormalig volgens Wikidata');
-  const value=document.createElement('dd');value.textContent=member.birth?'Geboren: '+member.birth:'Geen aanvullende biografische gegevens beschikbaar';
+  const value=document.createElement('dd');
+  const parts=[];
+  if(member.instruments?.length)parts.push('Instrumenten: '+member.instruments.join(', '));
+  if(member.birth){
+   parts.push('Geboren: '+member.birth);
+   const p=member.birth.split('/').map(Number);
+   const now=new Date();const age=now.getFullYear()-p[2]-(now.getMonth()+1<p[1]||(now.getMonth()+1===p[1]&&now.getDate()<p[0])?1:0);
+   if(age>=0&&age<125)parts.push('Leeftijd: '+age+' jaar');
+  }
+  value.textContent=parts.join(' · ')||'Geen aanvullende biografische gegevens beschikbaar';
   const ref=document.createElement('a');ref.href='https://www.wikidata.org/wiki/'+encodeURIComponent(member.id);ref.target='_blank';ref.rel='noopener noreferrer';ref.textContent='Bekijk lid op Wikidata ↗';
   item.append(title,value,ref);memberList.append(item);
  }
