@@ -77,17 +77,34 @@ async function musicBrainzDebut(artist){
  if(debutOverrides[artist.id])return {year:debutOverrides[artist.id],source:'Spotle bevestigd'};
  if(debutCache.has(artist.id))return debutCache.get(artist.id);
  const task=(async()=>{
+  const spotifyFallback=async()=>{
+   try{
+    let offset=0,all=[];
+    while(offset<200){
+     const page=await spotify('artists/'+encodeURIComponent(artist.id)+'/albums?include_groups=album,single&limit=50&offset='+offset);
+     if(!page?.items?.length)break;
+     all.push(...page.items);offset+=page.items.length;
+     if(!page.next)break;
+    }
+    const eligible=all.filter(x=>/^\\d{4}/.test(x.release_date||'')&&!/remaster|deluxe|anniversary|live|karaoke|instrumental|compilation/i.test(x.name||''));
+    const albums=eligible.filter(x=>x.album_group==='album');
+    const pool=albums.length?albums:eligible;
+    pool.sort((a,b)=>a.release_date.localeCompare(b.release_date));
+    const chosen=pool[0];
+    return chosen?{year:Number(chosen.release_date.slice(0,4)),source:'Spotify: '+chosen.name,approximate:true}:null;
+   }catch{return null;}
+  };
   const query=encodeURIComponent('artist:"'+artist.name.replace(/"/g,'')+'"');
   const search=await mbFetch('https://musicbrainz.org/ws/2/artist/?query='+query+'&fmt=json&limit=10');
   const norm=x=>x.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/gi,'').toLowerCase();
   const matches=(search.artists||[]).filter(x=>norm(x.name)===norm(artist.name)&&Number(x.score)>=95);
-  if(matches.length!==1)return null;
+  if(matches.length!==1)return spotifyFallback();
   const groups=await mbFetch('https://musicbrainz.org/ws/2/release-group?artist='+encodeURIComponent(matches[0].id)+'&fmt=json&limit=100');
   const valid=(groups['release-groups']||[]).filter(x=>/^(Album|Single|EP)$/.test(x['primary-type']||'')&&!/Bootleg|Demo|Live/.test((x['secondary-types']||[]).join(' '))&&/^\d{4}-\d{2}-\d{2}$/.test(x['first-release-date']||''));
   const albums=valid.filter(x=>x['primary-type']==='Album');
   const chosen=(albums.length?albums:valid).sort((a,b)=>a['first-release-date'].localeCompare(b['first-release-date']))[0];
-  return chosen?{year:Number(chosen['first-release-date'].slice(0,4)),source:chosen.title,link:'https://musicbrainz.org/release-group/'+chosen.id}:null;
- })().catch(()=>null);
+  return chosen?{year:Number(chosen['first-release-date'].slice(0,4)),source:chosen.title,link:'https://musicbrainz.org/release-group/'+chosen.id}:spotifyFallback();
+ })().catch(async()=>{try{const page=await spotify('artists/'+encodeURIComponent(artist.id)+'/albums?include_groups=album&limit=50');const albums=(page?.items||[]).filter(x=>/^\d{4}/.test(x.release_date||''));albums.sort((a,b)=>a.release_date.localeCompare(b.release_date));return albums[0]?{year:Number(albums[0].release_date.slice(0,4)),source:'Spotify (voorlopig)',approximate:true}:null;}catch{return null;}});
  debutCache.set(artist.id,task);return task;
 }
 function spotleGrid(info,wd,debut){
