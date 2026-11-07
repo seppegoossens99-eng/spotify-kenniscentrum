@@ -33,7 +33,7 @@ async function wikidataArtist(name){
   const search=await fetch(base+'wbsearchentities&language=en&type=item&limit=8&search='+encodeURIComponent(name));
   if(!search.ok)throw Error('Wikidata niet beschikbaar');
   const results=(await search.json()).search||[];
-  const normalize=x=>x.normalize('NFKD').replace(/[\\u0300-\\u036f]/g,'').replace(/[^a-z0-9]/gi,'').toLowerCase();
+  const normalize=x=>x.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/gi,'').toLowerCase();
   const match=results.find(x=>normalize(x.label)===normalize(name));
   if(!match)return null;
   const res=await fetch(base+'wbgetentities&props=claims%7Clabels&languages=nl%7Cen&ids='+encodeURIComponent(match.id));
@@ -52,9 +52,9 @@ async function wikidataArtist(name){
   const human=(entity.claims?.P31||[]).some(c=>c.mainsnak?.datavalue?.value?.id==='Q5');
   const rawDate=claim('P569')?.time;
   let birth=null,age=null;
-  if(rawDate){const m=rawDate.match(/^\\+(\\d{4})-(\\d{2})-(\\d{2})/);if(m){birth=m[3]!=='00'&&m[2]!=='00'?m[3]+'/'+m[2]+'/'+m[1]:m[1];if(m[2]!=='00'&&m[3]!=='00'){const now=new Date();age=now.getUTCFullYear()-Number(m[1])-(now.getUTCMonth()+1<Number(m[2])||(now.getUTCMonth()+1===Number(m[2])&&now.getUTCDate()<Number(m[3]))?1:0);}}}
+  if(rawDate){const m=rawDate.match(/^\+(\d{4})-(\d{2})-(\d{2})/);if(m){birth=m[3]!=='00'&&m[2]!=='00'?m[3]+'/'+m[2]+'/'+m[1]:m[1];if(m[2]!=='00'&&m[3]!=='00'){const now=new Date();age=now.getUTCFullYear()-Number(m[1])-(now.getUTCMonth()+1<Number(m[2])||(now.getUTCMonth()+1===Number(m[2])&&now.getUTCDate()<Number(m[3]))?1:0);}}}
   const started=claim('P2031')?.time||claim('P571')?.time;
-  const year=started?.match(/^\\+(\\d{4})/)?.[1]||null;
+  const year=started?.match(/^\+(\d{4})/)?.[1]||null;
   const gender=label(genderId);
   return {id:match.id,human,birth,age,country:label(countryId),gender,place:label(placeId),started:year};
  })().catch(()=>null);
