@@ -26,20 +26,39 @@ async function spotify(path){let token=await getToken();let r=await fetch('https
 function fact(label,value){if(value===null||value===undefined||value==='')return;const cell=document.createElement('div');cell.className='fact';const dt=document.createElement('dt');dt.textContent=label;const dd=document.createElement('dd');dd.textContent=String(value);cell.append(dt,dd);return cell;}
 function addFacts(el,rows){el.replaceChildren();for(const [label,value] of rows){const node=fact(label,value);if(node)el.append(node);}}
 const wdCache=new Map();
-async function wikidataArtist(name){
- if(wdCache.has(name))return wdCache.get(name);
+async function wikidataArtist(name,spotifyArtistId){
+ const cacheKey=spotifyArtistId||name;
+ if(wdCache.has(cacheKey))return wdCache.get(cacheKey);
  const task=(async()=>{
   const base='https://www.wikidata.org/w/api.php?origin=*&format=json&action=';
   const search=await fetch(base+'wbsearchentities&language=en&type=item&limit=8&search='+encodeURIComponent(name));
   if(!search.ok)throw Error('Wikidata niet beschikbaar');
   const results=(await search.json()).search||[];
   const normalize=x=>x.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/gi,'').toLowerCase();
-  const match=results.find(x=>normalize(x.label)===normalize(name));
-  if(!match)return null;
-  const res=await fetch(base+'wbgetentities&props=claims%7Clabels&languages=nl%7Cen&ids='+encodeURIComponent(match.id));
+  const candidates=results.filter(x=>normalize(x.label)===normalize(name));
+  if(!candidates.length)return null;
+  const res=await fetch(base+'wbgetentities&props=claims%7Clabels&languages=nl%7Cen&ids='+candidates.map(x=>encodeURIComponent(x.id)).join('%7C'));
   if(!res.ok)throw Error('Wikidata niet beschikbaar');
-  const entity=(await res.json()).entities?.[match.id];
-  if(!entity)return null;
+  const entities=(await res.json()).entities||{};
+  const musicTypes=new Set(['Q5741069','Q215380','Q2088357','Q43229','Q483501','Q105756498','Q9212979','Q5']);
+  const musicianOccupations=new Set(['Q177220','Q49757','Q488205','Q639669','Q2252262','Q753110','Q36834','Q765778','Q2405480','Q183945','Q130857','Q55960555']);
+  const candidatesWithEvidence=candidates.map(c=>{
+   const e=entities[c.id];if(!e)return null;
+   const claims=e.claims||{};
+   const values=p=>(claims[p]||[]).filter(x=>x.rank!=='deprecated').map(x=>x.mainsnak?.datavalue?.value).filter(Boolean);
+   const spotifyIds=values('P1902').map(v=>typeof v==='string'?v:v.id);
+   const types=values('P31').map(v=>v.id);
+   const occupations=values('P106').map(v=>v.id);
+   const description=(c.description||'').toLowerCase();
+   const musical=types.some(t=>musicTypes.has(t)&&t!=='Q5')||occupations.some(o=>musicianOccupations.has(o))||/singer|rapper|musician|songwriter|record producer|disc jockey|dj|band|music group|musical group|duo|singer-songwriter|zanger|muzikant|artiest/.test(description);
+   return {candidate:c,entity:e,spotifyIds,musical};
+  }).filter(Boolean);
+  const direct=candidatesWithEvidence.filter(x=>x.spotifyIds.includes(spotifyArtistId));
+  const possible=candidatesWithEvidence.filter(x=>x.musical&&!x.spotifyIds.length);
+  const selected=direct.length===1?direct[0]:direct.length>1?null:possible.length===1?possible[0]:null;
+  if(!selected)return null;
+  const match=selected.candidate;
+  const entity=selected.entity;
   const claim=id=>(entity.claims?.[id]||[]).find(x=>x.rank!=='deprecated')?.mainsnak?.datavalue?.value;
   const item=id=>claim(id)?.id||null;
   const countryId=item('P27')||item('P17')||item('P495');
@@ -87,7 +106,7 @@ async function wikidataArtist(name){
   });
   return {id:match.id,human,birth,age,country:label(countryId),countryId,gender,genre:label(genreId),place:label(placeId),started:year,members:currentIds.map(label).filter(Boolean),formerMembers:[...new Set(formerMemberClaims.map(c=>c.mainsnak.datavalue.value.id))].filter(id=>!currentIds.includes(id)).map(label).filter(Boolean),memberDetails,groupGender};
  })().catch(()=>null);
- wdCache.set(name,task);return task;
+ wdCache.set(cacheKey,task);return task;
 }
 const debutOverrides={'40ZNYROS4zLfyyBSs2PGe2':2019,'60d24wfXkVzDSfLS6hyCjZ':2012,'0hEurMDQu99nJRq8pTxO14':1999};
 const debutCache=new Map();
@@ -228,7 +247,7 @@ if(t.external_ids?.isrc){
   releaseFacts.append(source);
  });
 }
-for(const a of t.artists||[]){const card=document.createElement('article');card.className='artist';const head=document.createElement('button');head.type='button';head.className='artisthead artist-toggle';head.setAttribute('aria-expanded','false');const profile=document.createElement('div');profile.className='artist-profile';profile.hidden=true;head.addEventListener('click',()=>{profile.hidden=!profile.hidden;head.setAttribute('aria-expanded',String(!profile.hidden));});const img=document.createElement('img');img.alt='Foto van '+a.name;const detail=document.createElement('div');const h=document.createElement('h4');h.textContent=a.name;const link=document.createElement('a');link.textContent='Spotify-profiel ↗';link.href=a.external_urls?.spotify||'https://open.spotify.com/';link.target='_blank';link.rel='noopener noreferrer';detail.append(h);head.append(img,detail);card.append(head,profile);const spotifyRow=document.createElement('div');spotifyRow.className='artist-link';spotifyRow.append(link);profile.append(spotifyRow);const knownDebut={'zach bryan':2019,'martin garrix':2012,'john mayer':1999,'red hot chili peppers':1984}[a.name.trim().toLowerCase()];const spotle=spotleGrid(null,null,knownDebut?{year:knownDebut}:null,null,a.name);profile.prepend(spotle);$('artists').append(card);if(a.id){spotify('artists/'+encodeURIComponent(a.id)).then(info=>{img.src=info.images?.[0]?.url||t.album?.images?.[0]?.url||'';const rows=[['Naam',info.name],['Genres',info.genres?.join(', ')||null],['Spotify-volgers',Number.isFinite(info.followers?.total)?info.followers.total.toLocaleString('nl-BE'):null]];const dl=document.createElement('dl');dl.className='facts';addFacts(dl,rows);let artistWd=null,artistDebut=null,artistGenre=null;let shownGrid=spotleGrid(info,null,null,null,a.name);spotle.replaceWith(shownGrid);profile.prepend(dl);const updateGrid=()=>{if(!card.isConnected)return;const next=spotleGrid(info,artistWd,artistDebut,artistGenre,a.name);shownGrid.replaceWith(next);shownGrid=next;};if(!info.genres?.length){musicBrainzGenre(a).then(genre=>{if(genre){artistGenre=genre;updateGrid();}}); }musicBrainzDebut(a).then(debut=>{if(!debut||!card.isConnected)return;artistDebut=debut;updateGrid();if(debut.link){const link=document.createElement('a');link.href=debut.link;link.target='_blank';link.rel='noopener noreferrer';link.className='artist-source';link.textContent='Debuutbron: MusicBrainz ('+debut.source+') ↗';profile.append(link);}});wikidataArtist(a.name).then(wd=>{if(!wd||!card.isConnected)return;artistWd=wd;updateGrid();addFacts(dl,[...rows,['Geboortedatum',wd.birth],['Leeftijd',wd.age===null?null:wd.age+' jaar'],['Geboorteplaats',wd.place],['Land',wd.country],['Geslacht',wd.gender],['Genres (Wikidata)',wd.genre],['Actief / opgericht sinds',wd.started],['Huidige bandleden (volgens bron)',verifiedBands[a.name.trim().toLowerCase()]?.members.join(', ')|| (wd.members?.length?wd.members.join(', '):null)],['Voormalige bandleden (volgens bron)',wd.formerMembers?.length?wd.formerMembers.join(', '):null]]);if(wd.memberDetails?.length&&!verifiedBands[a.name.trim().toLowerCase()]){
+for(const a of t.artists||[]){const card=document.createElement('article');card.className='artist';const head=document.createElement('button');head.type='button';head.className='artisthead artist-toggle';head.setAttribute('aria-expanded','false');const profile=document.createElement('div');profile.className='artist-profile';profile.hidden=true;head.addEventListener('click',()=>{profile.hidden=!profile.hidden;head.setAttribute('aria-expanded',String(!profile.hidden));});const img=document.createElement('img');img.alt='Foto van '+a.name;const detail=document.createElement('div');const h=document.createElement('h4');h.textContent=a.name;const link=document.createElement('a');link.textContent='Spotify-profiel ↗';link.href=a.external_urls?.spotify||'https://open.spotify.com/';link.target='_blank';link.rel='noopener noreferrer';detail.append(h);head.append(img,detail);card.append(head,profile);const spotifyRow=document.createElement('div');spotifyRow.className='artist-link';spotifyRow.append(link);profile.append(spotifyRow);const knownDebut={'zach bryan':2019,'martin garrix':2012,'john mayer':1999,'red hot chili peppers':1984}[a.name.trim().toLowerCase()];const spotle=spotleGrid(null,null,knownDebut?{year:knownDebut}:null,null,a.name);profile.prepend(spotle);$('artists').append(card);if(a.id){spotify('artists/'+encodeURIComponent(a.id)).then(info=>{img.src=info.images?.[0]?.url||t.album?.images?.[0]?.url||'';const rows=[['Naam',info.name],['Genres',info.genres?.join(', ')||null],['Spotify-volgers',Number.isFinite(info.followers?.total)?info.followers.total.toLocaleString('nl-BE'):null]];const dl=document.createElement('dl');dl.className='facts';addFacts(dl,rows);let artistWd=null,artistDebut=null,artistGenre=null;let shownGrid=spotleGrid(info,null,null,null,a.name);spotle.replaceWith(shownGrid);profile.prepend(dl);const updateGrid=()=>{if(!card.isConnected)return;const next=spotleGrid(info,artistWd,artistDebut,artistGenre,a.name);shownGrid.replaceWith(next);shownGrid=next;};if(!info.genres?.length){musicBrainzGenre(a).then(genre=>{if(genre){artistGenre=genre;updateGrid();}}); }musicBrainzDebut(a).then(debut=>{if(!debut||!card.isConnected)return;artistDebut=debut;updateGrid();if(debut.link){const link=document.createElement('a');link.href=debut.link;link.target='_blank';link.rel='noopener noreferrer';link.className='artist-source';link.textContent='Debuutbron: MusicBrainz ('+debut.source+') ↗';profile.append(link);}});wikidataArtist(a.name,a.id).then(wd=>{if(!wd||!card.isConnected)return;artistWd=wd;updateGrid();addFacts(dl,[...rows,['Geboortedatum',wd.birth],['Leeftijd',wd.age===null?null:wd.age+' jaar'],['Geboorteplaats',wd.place],['Land',wd.country],['Geslacht',wd.gender],['Genres (Wikidata)',wd.genre],['Actief / opgericht sinds',wd.started],['Huidige bandleden (volgens bron)',verifiedBands[a.name.trim().toLowerCase()]?.members.join(', ')|| (wd.members?.length?wd.members.join(', '):null)],['Voormalige bandleden (volgens bron)',wd.formerMembers?.length?wd.formerMembers.join(', '):null]]);if(wd.memberDetails?.length&&!verifiedBands[a.name.trim().toLowerCase()]){
  const memberSection=document.createElement('details');memberSection.className='member-details';
  const summary=document.createElement('summary');summary.textContent='Bandleden · extra gegevens';memberSection.append(summary);
  const memberList=document.createElement('div');memberList.className='extras';
