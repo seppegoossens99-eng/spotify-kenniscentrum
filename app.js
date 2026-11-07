@@ -197,12 +197,12 @@ async function musicBrainzProfile(artist){
  const task=(async()=>{
   const query=encodeURIComponent('artist:"'+artist.name.replace(/"/g,'')+'"');
   const result=await mbFetch('https://musicbrainz.org/ws/2/artist/?query='+query+'&fmt=json&limit=25');
-  const norm=x=>x.normalize('NFKD').replace(/[\\u0300-\\u036f]/g,'').replace(/[^a-z0-9]/gi,'').toLowerCase();
+  const norm=x=>x.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/gi,'').toLowerCase();
   const matches=(result.artists||[]).filter(x=>norm(x.name)===norm(artist.name)&&Number(x.score)>=95);
   if(matches.length!==1)return null;
   const match=matches[0];
   const detail=await mbFetch('https://musicbrainz.org/ws/2/artist/'+encodeURIComponent(match.id)+'?inc=genres+url-rels&fmt=json');
-  const spotifyLinks=(detail.relations||[]).filter(x=>x.type==='streaming music'&&/open\\.spotify\\.com\\/artist\\//.test(x.url?.resource||'')).map(x=>x.url.resource);
+  const spotifyLinks=(detail.relations||[]).filter(x=>x.type==='streaming music'&&/open\.spotify\.com\/artist\//.test(x.url?.resource||'')).map(x=>x.url.resource);
   if(spotifyLinks.length&&!spotifyLinks.some(url=>url.includes('/artist/'+artist.id)))return null;
   const genres=(detail.genres||[]).filter(x=>x.name).sort((a,b)=>(b.count||0)-(a.count||0));
   return {id:match.id,genre:genres[0]?.name||null,countryCode:detail.country||null,countryName:detail.area?.name||null,type:detail.type||null};
