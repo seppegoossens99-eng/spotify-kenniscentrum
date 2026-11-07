@@ -127,7 +127,7 @@ async function musicBrainzGenre(artist){
  genreCache.set(artist.id,task);return task;
 }
 function spotleGenre(name,info,wd,extraGenre){
- const confirmed={'jelly roll':'Hip-hop'};
+ const confirmed={'jelly roll':'Hip-hop','red hot chili peppers':'Rock'};
  const key=(name||'').trim().toLowerCase();
  if(confirmed[key])return confirmed[key];
  const raw=info?.genres?.[0]||wd?.genre||extraGenre||'—';
