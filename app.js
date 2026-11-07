@@ -76,7 +76,7 @@ async function wikidataArtist(name){
    const entityMember=labels[id];
    const instruments=(entityMember?.claims?.P1303||[]).filter(c=>c.rank!=='deprecated').map(c=>c.mainsnak?.datavalue?.value?.id).filter(Boolean);
    const birthTime=(entityMember?.claims?.P569||[]).find(c=>c.rank!=='deprecated')?.mainsnak?.datavalue?.value?.time;
-   const born=birthTime?.match(/^\\+(\\d{4})-(\\d{2})-(\\d{2})/);
+   const born=birthTime?.match(/^\+(\d{4})-(\d{2})-(\d{2})/);
    const birth=born&&born[2]!=='00'&&born[3]!=='00'?born[3]+'/'+born[2]+'/'+born[1]:null;
    return {id,name:label(id)||id,current:currentIds.includes(id),instruments,birth};
   });
