@@ -146,6 +146,7 @@ function spotleGender(wd,verifiedBand){
 const verifiedBands={
  'red hot chili peppers':{
   debut:1984,
+  popularity:82,
   country:'🇺🇸 USA',
   members:['Anthony Kiedis — zang','Flea — basgitaar','John Frusciante — gitaar','Chad Smith — drums'],
   gender:'Male'
@@ -156,7 +157,7 @@ function spotleGrid(info,wd,debut,extraGenre,artistName){
  const country=countryFlags[wd?.countryId];
  const verifiedBand=verifiedBands[(artistName||'').trim().toLowerCase()];
  const grid=document.createElement('div');grid.className='spotle-grid';
- const values=[['Debut',verifiedBand?.debut||debut?.year||'—'],['Members',verifiedBand?verifiedBand.members.length:(wd?.human?'Solo':wd?.members?.length||'—')],['Popularity','—'],['Gender',spotleGender(wd,verifiedBand)],['Genre',spotleGenre(artistName,info,wd,extraGenre)],['Country',verifiedBand?.country||(country?country.join(' '):(wd?.country||'—'))]];
+ const values=[['Debut',verifiedBand?.debut||debut?.year||'—'],['Members',verifiedBand?verifiedBand.members.length:(wd?.human?'Solo':wd?.members?.length||'—')],['Popularity',verifiedBand?.popularity??'—'],['Gender',spotleGender(wd,verifiedBand)],['Genre',spotleGenre(artistName,info,wd,extraGenre)],['Country',verifiedBand?.country||(country?country.join(' '):(wd?.country||'—'))]];
  for(const [label,value] of values){const tile=document.createElement('div');tile.className='spotle-tile';const name=document.createElement('div');name.className='spotle-label';name.textContent=label;const val=document.createElement('div');val.className='spotle-value';val.textContent=value;tile.append(name,val);grid.append(tile);}
  return grid;
 }
