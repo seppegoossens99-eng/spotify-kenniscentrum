@@ -127,7 +127,7 @@ function spotleGenre(name,info,wd,extraGenre){
  const confirmed={'jelly roll':'Hip-hop'};
  const key=(name||'').trim().toLowerCase();
  if(confirmed[key])return confirmed[key];
- const raw=spotleGenre(artistName,info,wd,extraGenre);
+ const raw=info?.genres?.[0]||wd?.genre||extraGenre||'—';
  if(/^(southern rap|trap|gangsta rap|conscious hip hop|alternative hip hop|pop rap)$/i.test(raw))return 'Hip-hop';
  return raw;
 }
