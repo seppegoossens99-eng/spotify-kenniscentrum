@@ -61,7 +61,7 @@ async function wikidataArtist(name){
  })().catch(()=>null);
  wdCache.set(name,task);return task;
 }
-const debutOverrides={'40ZNYROS4zLfyyBSs2PGe2':2019,'60d24wfXkVzDSfLS6hyCjZ':2012};
+const debutOverrides={'40ZNYROS4zLfyyBSs2PGe2':2019,'60d24wfXkVzDSfLS6hyCjZ':2012,'0hEurMDQu99nJRq8pTxO14':1999};
 const debutCache=new Map();
 let mbQueue=Promise.resolve();
 function mbFetch(url){
@@ -87,8 +87,7 @@ async function musicBrainzDebut(artist){
      if(!page.next)break;
     }
     const eligible=all.filter(x=>/^\d{4}/.test(x.release_date||'')&&!/remaster|deluxe|anniversary|live|karaoke|instrumental|compilation/i.test(x.name||''));
-    const albums=eligible.filter(x=>x.album_group==='album');
-    const pool=albums.length?albums:eligible;
+    const pool=eligible;
     pool.sort((a,b)=>a.release_date.localeCompare(b.release_date));
     const chosen=pool[0];
     return chosen?{year:Number(chosen.release_date.slice(0,4)),source:'Spotify: '+chosen.name,approximate:true}:null;
@@ -101,8 +100,7 @@ async function musicBrainzDebut(artist){
   if(matches.length!==1)return spotifyFallback();
   const groups=await mbFetch('https://musicbrainz.org/ws/2/release-group?artist='+encodeURIComponent(matches[0].id)+'&fmt=json&limit=100');
   const valid=(groups['release-groups']||[]).filter(x=>/^(Album|Single|EP)$/.test(x['primary-type']||'')&&!/Bootleg|Demo|Live/.test((x['secondary-types']||[]).join(' '))&&/^\d{4}-\d{2}-\d{2}$/.test(x['first-release-date']||''));
-  const albums=valid.filter(x=>x['primary-type']==='Album');
-  const chosen=(albums.length?albums:valid).sort((a,b)=>a['first-release-date'].localeCompare(b['first-release-date']))[0];
+  const chosen=valid.sort((a,b)=>a['first-release-date'].localeCompare(b['first-release-date']))[0];
   return chosen?{year:Number(chosen['first-release-date'].slice(0,4)),source:chosen.title,link:'https://musicbrainz.org/release-group/'+chosen.id}:spotifyFallback();
  })().catch(async()=>{try{const page=await spotify('artists/'+encodeURIComponent(artist.id)+'/albums?include_groups=album&limit=50');const albums=(page?.items||[]).filter(x=>/^\d{4}/.test(x.release_date||''));albums.sort((a,b)=>a.release_date.localeCompare(b.release_date));return albums[0]?{year:Number(albums[0].release_date.slice(0,4)),source:'Spotify (voorlopig)',approximate:true}:null;}catch{return null;}});
  debutCache.set(artist.id,task);return task;
