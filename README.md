@@ -18,14 +18,14 @@ De zes vakken zijn direct zichtbaar per artiest; biografieën en bandleden staan
 
 | Vak | Betekenis en bron |
 | --- | --- |
-| Debut | Vroegste gevonden studioalbum, single of EP in MusicBrainz. Live-uitgaven, compilaties en remixes tellen niet mee. Maximaal 500 releasegroepen per artiest; een gedeeltelijke inventarisatie is gemarkeerd met ≈. Niet gegarandeerd het historische debuut. |
+| Debut | Vroegste gevonden studioalbum, single of EP in MusicBrainz. Live-uitgaven, compilaties en remixes tellen daar niet mee. Daarnaast wordt de eigen Spotify-discografie opgehaald (albums/singles, geen compilaties of uitgaven van andere artiesten). De vroegste bronuitgave bepaalt het getoonde jaar. Een Spotify-schatting of gedeeltelijke inventarisatie is gemarkeerd met ≈. Als alleen de huidige eigen albumuitgave bekend is, betekent ≤ dat het debuut uiterlijk in dat jaar plaatsvond, niet dat het exacte debuut bevestigd is. Maximaal 500 releasegroepen of Spotify-uitgaven per artiest; geen garantie op het historische debuut. |
 | Members | Solo, of het aantal bekende huidige leden volgens Wikidata. Ontbrekende einddatums betekenen niet dat een bron actueel is. |
 | Popularity | Spotify-score tussen 0 en 100, als die beschikbaar is voor jouw app. **Geen Spotle-rangschikking.** |
 | Gender | Wikidata. Bij bands alleen weergegeven als de bron voor alle bekende huidige leden een waarde bevat. |
 | Genre | Eerste Spotify-genre; anders Wikidata of het meest gestemde MusicBrainz-genre. |
 | Country | Wikidata-nationaliteit of herkomst, anders MusicBrainz. |
 
-Dit zijn **geen officiële Spotle-antwoorden**. Het spel kan andere definities en eigen gegevens gebruiken. Onbekende of niet eenduidig gevonden gegevens blijven onbekend; er zijn geen handmatig ingevulde populariteitscijfers of uitzonderingen per bekende artiest. Naamgenoten worden niet willekeurig samengevoegd; Spotify-identificaties in de bron worden gecontroleerd waar beschikbaar.
+Dit zijn **geen officiële Spotle-antwoorden**. Het spel kan andere definities en eigen gegevens gebruiken. Onbekende of niet eenduidig gevonden gegevens blijven onbekend; er zijn geen handmatig ingevulde populariteitscijfers of uitzonderingen per bekende artiest. Naamgenoten worden niet willekeurig samengevoegd; Spotify-identificaties in de bron worden gecontroleerd waar beschikbaar. Een via Spotify geverifieerde Wikidata-koppeling naar MusicBrainz wordt rechtstreeks gebruikt, zodat uitval van de naamzoekdienst het debuut niet onnodig blokkeert. Tijdelijke MusicBrainz-fouten (429/503) worden één keer opnieuw geprobeerd als de opgegeven wachttijd maximaal tien seconden is.
 
 Per bandlid worden naam, lidmaatschap, instrumenten, geboortedatum, leeftijd, geboorteplaats, land en foto getoond waar de bron die bevat. Voor overleden personen wordt geen huidige leeftijd berekend. De Spotify-releasedatum is die van de specifieke albumuitgave. Een ISRC-zoekopdracht zoekt daarnaast naar de vroegste gevonden officiële uitgave van dezelfde opname, niet van de oorspronkelijke compositie. De WhoSampled-link is een zoeklink; samples worden niet automatisch bevestigd.
 
@@ -56,7 +56,7 @@ npm ci --cache /tmp/spotify-npm-cache
 CHROMIUM_PATH=/usr/bin/chromium npm test
 ```
 
-De browsertests starten zelf een tijdelijke lokale server en gebruiken gesimuleerde API-antwoorden. Ze controleren de zes vakken, bandleden, onbekende bronnen, Spotify 403/401/429, tokenvernieuwing, OAuth-state, stoppen, verborgen tabbladen, afmelden tijdens een verzoek, late antwoorden na een nummerwissel en mobiele overloop. Ze bewijzen geen toegang tot een echt Spotify-account. Controleer na een release ook handmatig met Spotify: verbinden, nummer ophalen, wisselen, pauzeren, stoppen, afmelden en opnieuw openen.
+De browsertests starten zelf een tijdelijke lokale server en gebruiken gesimuleerde API-antwoorden. Ze controleren de zes vakken, bandleden, onbekende bronnen, Spotify 403/401/429, tokenvernieuwing, OAuth-state, debuut-terugval en bovengrenzen, de rechtstreekse Zach Top-identiteitskoppeling, stoppen, verborgen tabbladen, afmelden tijdens een verzoek, late antwoorden na een nummerwissel en mobiele overloop. Ze bewijzen geen toegang tot een echt Spotify-account. Controleer na een release ook handmatig met Spotify: verbinden, nummer ophalen, wisselen, pauzeren, stoppen, afmelden en opnieuw openen.
 
 ## Privacy en werking
 

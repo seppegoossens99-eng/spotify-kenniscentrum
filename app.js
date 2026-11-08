@@ -245,7 +245,7 @@ async function wikidataArtist(name,spotifyArtistId){
     place:label(memberClaim('P19')?.id),country:label(memberClaim('P27')?.id),
     image:photo?'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(photo)+'?width=200':null};
   });
-  return {id:match.id,human,birth,age,death,image:claim('P18')?'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(claim('P18'))+'?width=300':null,country:label(countryId),countryId,gender,genre:label(genreId),place:label(placeId),started:year,members:currentIds.map(label).filter(Boolean),formerMembers:[...new Set(formerMemberClaims.map(c=>c.mainsnak.datavalue.value.id))].filter(id=>!currentIds.includes(id)).map(label).filter(Boolean),memberDetails,groupGender};
+  return {id:match.id,human,birth,age,death,musicBrainzId:claim('P434'),verifiedSpotify:!!spotifyArtistId&&selected.spotifyIds.includes(spotifyArtistId),image:claim('P18')?'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(claim('P18'))+'?width=300':null,country:label(countryId),countryId,gender,genre:label(genreId),place:label(placeId),started:year,members:currentIds.map(label).filter(Boolean),formerMembers:[...new Set(formerMemberClaims.map(c=>c.mainsnak.datavalue.value.id))].filter(id=>!currentIds.includes(id)).map(label).filter(Boolean),memberDetails,groupGender};
  })().catch(()=>null);
  wdCache.set(cacheKey,task); task.then(value => { if (!value && wdCache.get(cacheKey) === task) wdCache.delete(cacheKey); }); return task;
 }
@@ -254,7 +254,15 @@ async function wikidataArtist(name,spotifyArtistId){
 let mbQueue = Promise.resolve();
 function mbFetch(url) {
   const job = mbQueue.catch(() => {}).then(async () => {
-    const response = await request(url, { headers: { Accept: 'application/json' } });
+    let response = await request(url, { headers: { Accept: 'application/json' } });
+    if ([429, 503].includes(response.status)) {
+      const retryAfter = Number(response.headers.get('Retry-After'));
+      // Retry a temporary outage once, without blocking all sources for a long wait.
+      if (!Number.isFinite(retryAfter) || retryAfter <= 10) {
+        await new Promise(resolve => setTimeout(resolve, Math.max(1200, (retryAfter || 0) * 1000)));
+        response = await request(url, { headers: { Accept: 'application/json' } });
+      }
+    }
     if (!response.ok) throw Error('MusicBrainz niet beschikbaar');
     return response.json();
   });
@@ -266,22 +274,36 @@ async function musicBrainzProfile(artist) {
   if (mbProfileCache.has(artist.id)) return mbProfileCache.get(artist.id);
   const task = (async () => {
     const norm = value => value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^\p{L}\p{N}]/gu, '').toLowerCase();
-    const query = 'artist:"' + artist.name.replace(/["\\]/g, '') + '"';
-    const result = await mbFetch('https://musicbrainz.org/ws/2/artist/?query=' + encodeURIComponent(query) + '&fmt=json&limit=25');
-    const matches = (result.artists || []).filter(item => norm(item.name) === norm(artist.name) && Number(item.score) >= 95);
-    // Never guess between artists with the same name.
-    if (matches.length !== 1) return null;
-    const detail = await mbFetch('https://musicbrainz.org/ws/2/artist/' + encodeURIComponent(matches[0].id) + '?inc=genres+url-rels&fmt=json');
+    const wd = await wikidataArtist(artist.name, artist.id);
+    // A verified cross-reference avoids the separate, sometimes unavailable search service.
+    let id = wd?.verifiedSpotify && /^[a-f\d]{8}(?:-[a-f\d]{4}){3}-[a-f\d]{12}$/i.test(wd.musicBrainzId || '') ? wd.musicBrainzId : null;
+    if (!id) {
+      const query = 'artist:"' + artist.name.replace(/["\\]/g, '') + '"';
+      const result = await mbFetch('https://musicbrainz.org/ws/2/artist/?query=' + encodeURIComponent(query) + '&fmt=json&limit=25');
+      const matches = (result.artists || []).filter(item => norm(item.name) === norm(artist.name) && Number(item.score) >= 95);
+      // Never guess between artists with the same name.
+      if (matches.length !== 1) return null;
+      id = matches[0].id;
+    }
+    const detail = await mbFetch('https://musicbrainz.org/ws/2/artist/' + encodeURIComponent(id) + '?inc=genres+url-rels&fmt=json');
     const links = (detail.relations || []).map(item => item.url?.resource).filter(url => /^https:\/\/open\.spotify\.com\/artist\//.test(url || ''));
     if (links.length && !links.some(url => new URL(url).pathname === '/artist/' + artist.id)) return null;
     const genres = (detail.genres || []).filter(item => item.name && item.count > 0).sort((a, b) => b.count - a.count);
-    return { id: detail.id || matches[0].id, genre: genres[0]?.name, countryCode: detail.country, type: detail.type };
+    return { id: detail.id || id, genre: genres[0]?.name, countryCode: detail.country, type: detail.type };
   })().catch(() => null);
   mbProfileCache.set(artist.id, task);
   task.then(value => { if (!value && mbProfileCache.get(artist.id) === task) mbProfileCache.delete(artist.id); });
   return task;
 }
 const debutCache = new Map();
+function releasedYear(date) {
+  const match = /^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$/.exec(date || '');
+  if (!match || Number(match[1]) < 1) return null;
+  const month = Number(match[2] || 1), day = Number(match[3] || 1);
+  const parsed = new Date(`${match[1]}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}T00:00:00Z`);
+  if (!Number.isFinite(parsed.getTime()) || parsed.getUTCMonth() + 1 !== month || parsed.getUTCDate() !== day || parsed > new Date()) return null;
+  return Number(match[1]);
+}
 async function musicBrainzDebut(artist) {
   if (debutCache.has(artist.id)) return debutCache.get(artist.id);
   const task = (async () => {
@@ -298,7 +320,7 @@ async function musicBrainzDebut(artist) {
     }
     const valid = all.filter(item => /^(Album|Single|EP)$/.test(item['primary-type'] || '') &&
       !(item['secondary-types'] || []).some(type => /^(Live|Compilation|Remix|DJ-mix|Mixtape\/Street|Demo)$/i.test(type)) &&
-      /^\d{4}(?:-\d{2}(?:-\d{2})?)?$/.test(item['first-release-date'] || ''));
+      releasedYear(item['first-release-date']) !== null);
     valid.sort((a, b) => a['first-release-date'].localeCompare(b['first-release-date']));
     const first = valid[0];
     return first ? { year: Number(first['first-release-date'].slice(0, 4)), title: first.title, partial: all.length < total,
@@ -306,6 +328,38 @@ async function musicBrainzDebut(artist) {
   })().catch(() => null);
   debutCache.set(artist.id, task);
   task.then(value => { if (!value && debutCache.get(artist.id) === task) debutCache.delete(artist.id); });
+  return task;
+}
+const spotifyDebutCache = new Map();
+function catalogDebut(albums, artistId, partial = false) {
+  const eligible = albums.filter(album => ['album', 'single'].includes(album.album_type) &&
+    !['appears_on', 'compilation'].includes(album.album_group) &&
+    album.artists?.some(artist => artist.id === artistId) && releasedYear(album.release_date) !== null);
+  eligible.sort((a, b) => a.release_date.localeCompare(b.release_date));
+  const first = eligible[0];
+  return first ? { year: releasedYear(first.release_date), title: first.name,
+    link: first.id ? 'https://open.spotify.com/album/' + encodeURIComponent(first.id) : null,
+    approximate: true, partial, source: 'Spotify' } : null;
+}
+async function spotifyDebut(artist) {
+  if (spotifyDebutCache.has(artist.id)) return spotifyDebutCache.get(artist.id);
+  const task = (async () => {
+    const albums = [];
+    let offset = 0, partial = false;
+    try {
+      while (offset < 500) {
+        const page = await spotify('artists/' + encodeURIComponent(artist.id) + '/albums?include_groups=album,single&limit=50&offset=' + offset);
+        if (!page?.items?.length) break;
+        albums.push(...page.items);
+        offset += page.items.length;
+        partial = Boolean(page.next);
+        if (!page.next) break;
+      }
+    } catch { partial = true; }
+    return catalogDebut(albums, artist.id, partial);
+  })();
+  spotifyDebutCache.set(artist.id, task);
+  task.then(value => { if ((!value || value.partial) && spotifyDebutCache.get(artist.id) === task) spotifyDebutCache.delete(artist.id); });
   return task;
 }
 const trackReleaseCache = new Map();
@@ -342,12 +396,18 @@ function countryName(code) {
   const flag = String.fromCodePoint(...[...code].map(char => 127397 + char.charCodeAt(0)));
   return flag + ' ' + new Intl.DisplayNames(['nl'], { type: 'region' }).of(code);
 }
-function spotleGrid(info, wd, debut, mb) {
+function debutExplanation(debut) {
+  if (!debut) return 'Geen betrouwbare debuutbron gevonden. Probeer later opnieuw.';
+  if (debut.upperBound) return 'Alleen deze Spotify-uitgave is bekend: het debuut was uiterlijk in ' + debut.year + '. Het exacte debuutjaar is niet bevestigd.';
+  if (debut.approximate) return 'Schatting op basis van de vroegste gevonden Spotify-uitgave. Het historische debuut kan vroeger liggen.' + (debut.partial ? ' De discografie is niet volledig opgehaald.' : '');
+  return (debut.partial ? 'Gedeeltelijke discografie. ' : '') + 'Vroegste gevonden studio-uitgave in MusicBrainz; geen garantie op het historische debuut.';
+}
+function spotleGrid(info, wd, debut, mb, debutPending = false) {
   const grid = document.createElement('dl'); grid.className = 'spotle-grid';
   const popularity = Number.isFinite(info?.popularity) ? info.popularity + '/100' : 'Onbekend';
   const gender = wd?.human ? wd.gender : wd?.groupGender;
   const values = [
-    ['Debut', debut ? debut.year + (debut.partial ? ' ≈' : '') : 'Onbekend', 'Vroegste gevonden studioalbum, single of EP in MusicBrainz; kan afwijken van Spotle.'],
+    ['Debut', debut ? (debut.upperBound ? '≤ ' : '') + debut.year + (!debut.upperBound && (debut.partial || debut.approximate) ? ' ≈' : '') : debutPending ? 'Zoeken…' : 'Onbekend', debutExplanation(debut)],
     ['Members', wd?.human || mb?.type === 'Person' ? 'Solo' : wd?.members?.length || 'Onbekend', 'Huidige leden volgens Wikidata; de bron kan onvolledig of verouderd zijn.'],
     ['Popularity', popularity, 'Spotify-populariteit van 0 tot 100, geen Spotle-rangschikking. Niet voor elke app beschikbaar.'],
     ['Gender', gender || 'Onbekend', 'Volgens Wikidata; bij groepen alleen bepaald als alle bekende huidige leden gegevens hebben.'],
@@ -387,13 +447,14 @@ function renderMembers(members) {
   }
   section.append(list); return section;
 }
-function renderArtist(artist, version, example = null) {
+function renderArtist(artist, version, example = null, album = null) {
   const card = document.createElement('article'); card.className = 'artist';
   const head = document.createElement('div'); head.className = 'artisthead';
   const image = document.createElement('img'); image.loading = 'lazy'; image.hidden = true;
   const name = document.createElement('h4'); name.textContent = artist.name;
   head.append(image, name);
-  let grid = spotleGrid(null, null, null, null);
+  let grid = spotleGrid(null, null, null, null, true);
+  const debutStatus = note('Debuutjaar zoeken…', 'hint debut-status');
   const sourceStatus = note('Aanvullende bronnen laden…', 'source-status'); sourceStatus.setAttribute('role', 'status');
   const details = document.createElement('details');
   const summary = document.createElement('summary'); summary.textContent = 'Artiestgegevens & bandleden';
@@ -402,12 +463,18 @@ function renderArtist(artist, version, example = null) {
   if (!example) sources.append(sourceLink('Spotify-profiel', 'https://open.spotify.com/artist/' + encodeURIComponent(artist.id)));
   const members = document.createElement('div');
   details.append(summary, facts, members, sources);
-  card.append(head, grid, sourceStatus, details); $('artists').append(card);
-  let info = null, wd = null, mb = null, debut = null, pending = 4;
+  card.append(head, grid, debutStatus, sourceStatus, details); $('artists').append(card);
+  let info = null, wd = null, mb = null, debut = null, spotifyEstimate = null, pending = 5, debutPending = 2;
+  const albumBound = album ? catalogDebut([album], artist.id) : null;
+  if (albumBound) albumBound.upperBound = true;
   const alive = () => version === viewVersion && card.isConnected;
   const update = () => {
     if (!alive()) return;
-    const next = spotleGrid(info, wd, debut, mb); grid.replaceWith(next); grid = next;
+    // A source can miss older releases. Never replace known earlier evidence with a later year.
+    const chosenDebut = [debut, spotifyEstimate, albumBound].filter(Boolean).sort((a, b) => a.year - b.year)[0] || null;
+    const next = spotleGrid(info, wd, chosenDebut, mb, debutPending > 0); grid.replaceWith(next); grid = next;
+    debutStatus.textContent = example ? 'Fictief debuutjaar, alleen ter illustratie.' : chosenDebut ? debutExplanation(chosenDebut) : debutPending ? 'Debuutjaar wordt gezocht in MusicBrainz en Spotify…' : debutExplanation(null);
+    if (chosenDebut?.link && !example) debutStatus.append(' ', sourceLink('Debuutbron', chosenDebut.link));
     setImage(image, info?.images?.[0]?.url || wd?.image, 'Foto van ' + artist.name);
     addFacts(facts, [['Naam', artist.name], ['Genres', info?.genres?.join(', ') || wd?.genre || mb?.genre || 'Onbekend'],
       ['Land', wd?.country || countryName(mb?.countryCode) || 'Onbekend'], ['Geboorteplaats / opgericht in', wd?.place || 'Onbekend'],
@@ -418,19 +485,21 @@ function renderArtist(artist, version, example = null) {
     if (!example) sources.append(sourceLink('Spotify-profiel', 'https://open.spotify.com/artist/' + encodeURIComponent(artist.id)));
     if (wd?.id && !example) sources.append(sourceLink('Biografie: Wikidata', 'https://www.wikidata.org/wiki/' + wd.id));
     if (mb?.id && !example) sources.append(sourceLink('Genre / identiteit: MusicBrainz', 'https://musicbrainz.org/artist/' + mb.id));
-    if (debut?.link && !example) sources.append(sourceLink('Debuut: ' + debut.title, debut.link));
+    if (chosenDebut?.link && !example) sources.append(sourceLink('Debuut: ' + chosenDebut.title, chosenDebut.link));
     if (example) sourceStatus.textContent = 'Fictief voorbeeld · geen echte Spotify- of Spotle-gegevens.';
     else if (pending) sourceStatus.textContent = 'Bronnen laden… De beschikbare gegevens verschijnen meteen.';
-    else sourceStatus.textContent = [info ? 'Spotify' : null, wd ? 'Wikidata' : null, mb ? 'MusicBrainz' : null].filter(Boolean).join(' · ') || 'Geen betrouwbare aanvullende match gevonden. Probeer later opnieuw.';
+    else sourceStatus.textContent = [info || spotifyEstimate || albumBound ? 'Spotify' : null, wd ? 'Wikidata' : null, mb ? 'MusicBrainz' : null].filter(Boolean).join(' · ') || 'Geen betrouwbare aanvullende match gevonden. Probeer later opnieuw.';
     if (!pending && !example) sourceStatus.append(document.createTextNode(' · Onbekend betekent: niet beschikbaar of niet eenduidig gevonden.'));
-    if (debut) sources.append(note((debut.partial ? 'Gedeeltelijke discografie. ' : '') + 'Debuut = vroegste gevonden studio-uitgave; geen garantie op het historische debuut of de Spotle-waarde.'));
+    if (chosenDebut && !example) sources.append(note(debutExplanation(chosenDebut)));
   };
   if (example) { ({ info, wd, mb, debut } = example); pending = 0; update(); return; }
-  const load = (promise, assign) => promise.then(value => { if (alive()) assign(value); }).catch(() => {}).finally(() => { pending--; update(); });
+  update();
+  const load = (promise, assign, isDebut = false) => promise.then(value => { if (alive()) assign(value); }).catch(() => {}).finally(() => { pending--; if (isDebut) debutPending--; update(); });
   load(spotify('artists/' + encodeURIComponent(artist.id)), value => { info = value; });
   load(wikidataArtist(artist.name, artist.id), value => { wd = value; });
   load(musicBrainzProfile(artist), value => { mb = value; });
-  load(musicBrainzDebut(artist), value => { debut = value; });
+  load(musicBrainzDebut(artist), value => { debut = value; }, true);
+  load(spotifyDebut(artist), value => { spotifyEstimate = value; }, true);
 }
 function renderTrack(track, playing, version) {
   $('emptyState').hidden = true; $('result').hidden = false;
@@ -447,7 +516,7 @@ function renderTrack(track, playing, version) {
   $('sampleSearch').hidden = demo;
   $('sampleSearch').href = 'https://www.google.com/search?q=' + encodeURIComponent('site:whosampled.com ' + (track.artists || []).map(artist => artist.name).join(' ') + ' ' + track.name);
   $('artists').replaceChildren();
-  for (const artist of track.artists || []) renderArtist(artist, version, demo ? exampleArtist : null);
+  for (const artist of track.artists || []) renderArtist(artist, version, demo ? exampleArtist : null, track.album);
   addFacts($('extras'), [['Spotify-albumtype', track.album?.album_type], ['ISRC', track.external_ids?.isrc], ['Expliciete inhoud', track.explicit ? 'Ja' : 'Nee']]);
   if (demo) return;
   if (!track.external_ids?.isrc) { $('releaseStatus').textContent = 'Geen ISRC beschikbaar om de oorspronkelijke opname betrouwbaar op te zoeken.'; return; }

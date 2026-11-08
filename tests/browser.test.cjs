@@ -63,7 +63,7 @@ async function setup(t, options = {}) {
   await page.goto(origin);
   return { context, page, calls };
 }
-async function waitSources(page) { await page.waitForFunction(() => !document.querySelector('.source-status').textContent.includes('laden')); }
+async function waitSources(page) { await page.waitForFunction(() => document.querySelector('#refresh').textContent === 'Huidig nummer ophalen' && document.querySelector('.source-status') && !document.querySelector('.source-status').textContent.includes('laden')); }
 const values = page => page.locator('.spotle-value').allTextContents();
 
 test('voorbeeld is volledig lokaal, mobiel bruikbaar en start geen polling', async t => {
@@ -239,4 +239,100 @@ test('Wikidata gebruikt de Spotify-identiteit ook als de artiest een andere schr
   } });
   await page.locator('#refresh').click(); await waitSources(page);
   assert.equal((await values(page))[1], 'Solo');
+});
+
+// Regression: Zach Top's MusicBrainz search returned 503, while the verified
+// Wikidata P434 lookup and his 2019 single remained available (2026-11-08).
+test('Zach Top: directe identiteit vult 2019 in wanneer de zoekdienst uitvalt', async t => {
+  const artistId = '4FGPzWzgjURDNT7JQ8pYgH', mbId = '9939a762-5ca9-4c12-a735-0d62e21df4e3';
+  const { page, calls } = await setup(t, { route: async (route, url, json) => {
+    if (url.pathname.endsWith('/currently-playing')) {
+      await json({ is_playing: true, item: { ...track, name: 'South of Sanity', artists: [{ id: artistId, name: 'Zach Top' }] } }); return true;
+    }
+    if (url.hostname === 'www.wikidata.org') {
+      if (url.searchParams.get('action') === 'wbsearchentities') await json({ search: [{ id: 'Q126414316', label: 'Zach Top', description: 'American singer/songwriter' }] });
+      else await json({ entities: { Q126414316: { claims: { P31: [item('Q5')], P1902: [claim(artistId)], P434: [claim(mbId)] } } } });
+      return true;
+    }
+    if (url.hostname === 'musicbrainz.org') {
+      if (url.pathname === '/ws/2/artist/') { await route.fulfill({ status: 503, body: '{}' }); return true; }
+      if (url.pathname === '/ws/2/artist/' + mbId) { await json({ id: mbId, name: 'Zach Top', type: 'Person', relations: [{ url: { resource: 'https://open.spotify.com/artist/' + artistId } }] }); return true; }
+      if (url.pathname === '/ws/2/release-group') {
+        await json({ 'release-group-count': 2, 'release-groups': [
+          { id: 'b93d4d9f-38e4-47a5-830d-9bc84a2187f2', title: 'In a World Gone Wrong', 'primary-type': 'Single', 'first-release-date': '2019-09-25' },
+          { id: 'd41e8f05-3a1c-4a87-baa5-1ebd9cc29472', title: 'Zach Top', 'primary-type': 'Album', 'first-release-date': '2022-05-13' }
+        ] }); return true;
+      }
+    }
+    return false;
+  } });
+  await page.locator('#refresh').click(); await waitSources(page);
+  assert.equal((await values(page))[0], '2019');
+  assert.equal(calls.some(url => new URL(url).pathname === '/ws/2/artist/'), false, 'broken name search was bypassed');
+  assert.match(await page.locator('.debut-status a').getAttribute('href'), /b93d4d9f-38e4-47a5-830d-9bc84a2187f2/);
+});
+const catalogAlbum = (id, date, artists = [{ id: 'artist1' }]) => ({ id, name: id, release_date: date, album_type: 'single', album_group: 'single', artists });
+test('Spotify-terugval leest alle paginas en sluit andere artiesten, compilaties en toekomstige uitgaven uit', async t => {
+  const { page, calls } = await setup(t, { noSources: true, route: async (route, url, json) => {
+    if (!url.pathname.endsWith('/albums')) return false;
+    await json(url.searchParams.get('offset') === '0' ? { items: [catalogAlbum('new', '2021'), catalogAlbum('other', '1990', [{ id: 'different' }])], next: 'next-page' } : {
+      items: [catalogAlbum('old', '2017-04-03'), catalogAlbum('future', '2999'), { ...catalogAlbum('compilation', '1991'), album_type: 'compilation' }], next: null }); return true;
+  } });
+  await page.locator('#refresh').click(); await waitSources(page);
+  assert.equal((await values(page))[0], '2017 ≈');
+  assert.match(await page.locator('.debut-status').textContent(), /Schatting.*Spotify/);
+  assert.equal(await page.locator('.debut-status a').getAttribute('href'), 'https://open.spotify.com/album/old');
+  await page.locator('#refresh').click(); await waitSources(page);
+  assert.equal(calls.filter(url => new URL(url).pathname.endsWith('/albums')).length, 2, 'successful catalog is cached');
+});
+test('onvolledige Spotify-discografie blijft als schatting herkenbaar en kan opnieuw worden geprobeerd', async t => {
+  let pages = 0;
+  const { page } = await setup(t, { noSources: true, route: async (route, url, json) => {
+    if (!url.pathname.endsWith('/albums')) return false;
+    pages++;
+    if (url.searchParams.get('offset') === '0') await json({ items: [catalogAlbum('known', '2020')], next: 'next-page' });
+    else await route.fulfill({ status: 503, body: '{}' });
+    return true;
+  } });
+  await page.locator('#refresh').click(); await waitSources(page);
+  assert.equal((await values(page))[0], '2020 ≈');
+  assert.match(await page.locator('.debut-status').textContent(), /niet volledig/);
+  await page.locator('#refresh').click(); await waitSources(page);
+  assert.equal(pages, 4, 'partial result is not permanently cached');
+});
+test('bij bronuitval toont de huidige eigen uitgave alleen een bovengrens voor het debuut', async t => {
+  const { page } = await setup(t, { noSources: true, artistForbidden: true, route: async (route, url, json) => {
+    if (!url.pathname.endsWith('/currently-playing')) return false;
+    await json({ is_playing: true, item: { ...track, album: { ...track.album, id: 'current', album_type: 'album', artists: [{ id: 'artist1' }] } } }); return true;
+  } });
+  await page.locator('#refresh').click(); await waitSources(page);
+  assert.equal((await values(page))[0], '≤ 2020');
+  assert.match(await page.locator('.debut-status').textContent(), /uiterlijk in 2020.*niet bevestigd/);
+});
+test('de huidige uitgave wordt niet ten onrechte het debuut van een gastartiest', async t => {
+  const { page } = await setup(t, { noSources: true, artistForbidden: true, route: async (route, url, json) => {
+    if (!url.pathname.endsWith('/currently-playing')) return false;
+    await json({ is_playing: true, item: { ...track, album: { ...track.album, album_type: 'album', artists: [{ id: 'someone-else' }] } } }); return true;
+  } });
+  await page.locator('#refresh').click(); await waitSources(page);
+  assert.equal((await values(page))[0], 'Onbekend');
+});
+test('tijdelijk MusicBrainz-probleem wordt eenmaal opnieuw geprobeerd', async t => {
+  let searches = 0;
+  const { page } = await setup(t, { route: async (route, url) => {
+    if (url.hostname !== 'musicbrainz.org' || url.pathname !== '/ws/2/artist/') return false;
+    searches++;
+    if (searches === 1) { await route.fulfill({ status: 503, headers: { 'Retry-After': '0' }, body: '{}' }); return true; }
+    return false;
+  } });
+  await page.locator('#refresh').click(); await waitSources(page);
+  assert.equal(searches, 2); assert.equal((await values(page))[0], '2008');
+});
+test('vroegere Spotify-uitgave wordt niet vervangen door een latere MusicBrainz-uitgave', async t => {
+  const { page } = await setup(t, { route: async (route, url, json) => {
+    if (!url.pathname.endsWith('/albums')) return false;
+    await json({ items: [catalogAlbum('early', '2001')], next: null }); return true;
+  } });
+  await page.locator('#refresh').click(); await waitSources(page);
+  assert.equal((await values(page))[0], '2001 ≈');
 });
