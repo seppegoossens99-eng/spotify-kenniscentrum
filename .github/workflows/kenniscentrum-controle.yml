@@ -1,0 +1,43 @@
+name: Kenniscentrum automatische controle
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kenniscentrum-healthcheck
+  cancel-in-progress: true
+
+jobs:
+  controle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Repository ophalen
+        uses: actions/checkout@v4
+      - name: JavaScript-syntax controleren
+        run: node --check app.js
+      - name: Website-structuur controleren
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          html = Path("index.html").read_text(encoding="utf-8")
+          js = Path("app.js").read_text(encoding="utf-8")
+          required = ("id=\"result\"", "id=\"trackFacts\"", "id=\"artists\"", "id=\"sampleSearch\"", "app.js")
+          missing = [x for x in required if x not in html]
+          if missing:
+              raise SystemExit("Ontbrekende HTML-onderdelen: " + ", ".join(missing))
+          if "loadTrack" not in js or "spotleGrid" not in js:
+              raise SystemExit("Belangrijke functies ontbreken")
+          print("Website-structuur OK")
+          PY
+      - name: Publieke website controleren
+        run: |
+          curl --fail --location --retry 2 --max-time 25 --silent --show-error \
+            "https://seppegoossens99-eng.github.io/spotify-kenniscentrum/" \
+            -o /tmp/kenniscentrum.html
+          grep -q "Spotify" /tmp/kenniscentrum.html
