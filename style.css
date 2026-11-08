@@ -7,3 +7,18 @@
 .spotle-label{font-size:clamp(10px,2.5vw,16px);line-height:1.2}
 .spotle-value{font-size:clamp(14px,3.8vw,23px);font-weight:800;line-height:1.2;margin-top:5px;overflow-wrap:anywhere}
 @media(min-width:650px){.spotle-tile{min-height:105px}}
+
+[hidden]{display:none!important}
+a{color:#65e795;text-underline-offset:3px}
+button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid #7eedaa;outline-offset:4px}
+.settings{margin-top:0}.settings summary{font-size:16px}.setup-content{margin-top:20px}
+.section-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}.section-heading h3{font-size:24px;margin:14px 0}
+.empty-state{padding:36px}.empty-state h2{margin-top:12px}.empty-state p{max-width:62ch;line-height:1.65}
+.artists{grid-template-columns:1fr;margin:20px 0}.artist{padding:22px}.artisthead{margin-bottom:18px}.artist h4{font-size:24px;overflow-wrap:anywhere}.artisthead img{width:90px;height:90px;flex-shrink:0}
+.spotle-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;margin:0}.spotle-tile{min-height:110px;border-radius:14px}.spotle-value{margin-left:0;font-size:20px}.spotle-label{font-size:13px}.spotle-tile.unknown{background:#2b3037;border-color:#454d58;color:#bec5d0;text-shadow:none}.unknown .spotle-value{font-size:15px}
+.source-status{font-size:12px;color:#bbc3cd;margin:14px 0 0;line-height:1.6}.artist details{margin-top:16px;padding-top:16px}.artist details .facts{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:16px}
+.sources{display:flex;flex-wrap:wrap;gap:12px;align-items:start;margin-top:16px}.sources p{flex-basis:100%;line-height:1.6}.artist-source{font-size:13px;line-height:1.6}
+.member-section h5{font-size:17px;margin:25px 0 12px}.member-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.member{background:#1b1d25;padding:16px;border:1px solid #383a47;border-radius:12px}.member h6{font-size:16px;margin:0 0 12px}.member img{width:76px;height:76px;margin-bottom:12px}.member .facts{grid-template-columns:1fr!important}.member .artist-source{display:inline-block;margin-top:10px}
+.data-help{margin-bottom:24px;color:#b8bdca;font-size:13px;line-height:1.7}.hero{margin-bottom:20px}.hero>div{min-width:0}.hero h2{overflow-wrap:anywhere}#trackFactsTitle{margin-top:0}#sampleStatus{font-size:13px;line-height:1.6;margin-bottom:12px}
+@media(max-width:750px){.spotle-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.spotle-tile{min-height:100px}.artist{padding:17px}.member-list{grid-template-columns:1fr}}
+@media(max-width:420px){.shell{padding:22px 12px 40px}.hero{gap:12px}.hero img{width:82px;height:82px}.hero h2{font-size:23px}.artisthead img{width:65px;height:65px}.artist h4{font-size:21px}.facts,.artist details .facts{grid-template-columns:1fr}.spotle-value{font-size:18px}.unknown .spotle-value{font-size:13px}.section-heading .eyebrow{display:none}.empty-state{padding:22px}.inputrow input{flex-basis:100%}.controls .actions{width:100%}.controls button{width:100%}}

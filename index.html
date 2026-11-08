@@ -1,1 +1,95 @@
-<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101116"><title>Spotify Kenniscentrum</title><link rel="stylesheet" href="style.css"></head><body><main class="shell"><header><div><div class="eyebrow">MUZIEK · ONTDEKKEN</div><h1>Spotify <span>Kenniscentrum</span></h1><p class="muted">Alle feiten over wat je hoort. Zonder lange biografieën.</p></div><span id="status" class="status">Niet verbonden</span></header><section class="panel settings"><label for="clientId">Spotify Client ID <small>(geen Client Secret)</small></label><div class="inputrow"><input id="clientId" placeholder="Plak je Client ID" autocomplete="off"><button id="saveClient">Opslaan</button></div><p class="hint">Registreer deze exacte Redirect URI in Spotify Developer Dashboard:</p><div class="inputrow"><code id="redirect"></code><button id="copyRedirect">Kopieer</button></div><div class="actions"><button id="login" class="primary">Verbinden met Spotify</button><button id="logout" hidden>Verbinding verbreken</button></div></section><section class="panel controls"><div><h2>Kennis-modus</h2><p class="muted">Automatisch volgen is standaard uit.</p></div><div class="actions"><button id="toggleAuto" disabled>Automatisch starten</button><button id="refresh" disabled>Huidig nummer ophalen</button></div></section><p id="message" role="status" aria-live="polite"></p><section id="result" class="panel" hidden><div class="hero"><img id="cover" alt="Albumhoes"><div><div class="eyebrow">NU OP SPOTIFY</div><h2 id="trackTitle"></h2><p id="artistNames" class="muted"></p><a id="spotifyLink" target="_blank" rel="noopener noreferrer">Open in Spotify ↗</a></div></div><h3>Nummer · Basisgegevens</h3><dl id="trackFacts" class="facts"></dl><section id="sampleConnections"><h3>Samples & muzikale connecties</h3><p id="sampleStatus" class="muted">Zoek samples, covers en remixes voor dit nummer bij WhoSampled.</p><a id="sampleSearch" target="_blank" rel="noopener noreferrer">Zoek dit nummer bij WhoSampled ↗</a></section><h3>Artiesten</h3><div id="artists" class="artists"></div><details><summary>Extra gegevens</summary><div id="extras" class="extras"></div></details></section><footer>Gegevens uit Spotify. De eerste Spotify-releasedatum is niet noodzakelijk de oorspronkelijke uitgavedatum. Uitgebreide biografische bronnen volgen in een volgende versie.</footer></main><script src="app.js?v=20261107-debut-accuracy" defer></script></body></html>
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101116">
+  <meta name="description" content="Leer de artiesten achter je Spotify-muziek kennen. Een artiestenkader met debuut, bandleden, genre en herkomst, alleen wanneer jij dat wilt.">
+  <title>Spotify Kenniscentrum</title>
+  <link rel="stylesheet" href="style.css?v=20261108">
+  <script src="app.js?v=20261108" defer></script>
+</head>
+<body>
+<main class="shell">
+  <header>
+    <div>
+      <div class="eyebrow">LUISTEREN · ONTDEKKEN · ONTHOUDEN</div>
+      <h1>Spotify <span>Kenniscentrum</span></h1>
+      <p class="muted">Leer de artiest achter je nummer kennen. Op jouw moment.</p>
+    </div>
+    <span id="status" class="status" role="status">Niet verbonden</span>
+  </header>
+
+  <section class="panel controls" aria-labelledby="modeTitle">
+    <div>
+      <h2 id="modeTitle">Jouw kennismodus</h2>
+      <p id="modeStatus" class="muted">Uit · er wordt niets automatisch opgehaald.</p>
+    </div>
+    <div class="actions">
+      <button id="toggleAuto" class="primary" aria-pressed="false" disabled>Kennismodus starten</button>
+      <button id="refresh" disabled>Huidig nummer ophalen</button>
+      <button id="logout" hidden>Verbinding verbreken</button>
+    </div>
+  </section>
+
+  <details class="panel settings" open>
+    <summary>Verbinden met Spotify</summary>
+    <div class="setup-content">
+      <p class="hint">Eenmalig instellen: maak een app in het <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener noreferrer">Spotify Developer Dashboard ↗</a>. Voeg onderstaande Redirect URI exact toe en vul je Client ID in. Je hebt geen Client Secret nodig.</p>
+      <label for="clientId">Spotify Client ID</label>
+      <div class="inputrow">
+        <input id="clientId" placeholder="Je Client ID van 32 tekens" autocomplete="off" spellcheck="false" aria-describedby="setupHelp">
+        <button id="saveClient">Opslaan</button>
+      </div>
+      <p class="hint">Redirect URI voor dit adres:</p>
+      <div class="inputrow"><code id="redirect"></code><button id="copyRedirect">Kopieer</button></div>
+      <p id="setupHelp" class="hint">Je account moet toegang hebben tot je Spotify-app. Spotify kan beperkingen opleggen in Development Mode. Verbinden start het ophalen niet automatisch.</p>
+      <div class="actions"><button id="login" class="primary">Verbinden met Spotify</button></div>
+    </div>
+  </details>
+
+  <p id="message" role="status" aria-live="polite" aria-atomic="true"></p>
+  <section id="emptyState" class="panel empty-state">
+    <div class="eyebrow">VAN LUISTEREN NAAR WETEN</div>
+    <h2>Wie hoor je eigenlijk?</h2>
+    <p>Speel een nummer af in Spotify en start hierboven je kennismodus. Je ziet meteen het artiestenkader en ontdekt meer over de artiesten en bandleden.</p>
+    <button id="showExample">Bekijk een fictief voorbeeld</button>
+    <p class="hint">Geen Spotify-account nodig voor het voorbeeld. Stop de kennismodus wanneer je weer gewoon wilt luisteren.</p>
+  </section>
+
+  <section id="result" hidden aria-label="Kennis over het huidige nummer" aria-busy="false">
+    <div class="panel hero">
+      <img id="cover" alt="Albumhoes" hidden>
+      <div>
+        <div id="playbackState" class="eyebrow">NU OP SPOTIFY</div>
+        <h2 id="trackTitle"></h2>
+        <p id="artistNames" class="muted"></p>
+        <a id="spotifyLink" target="_blank" rel="noopener noreferrer">Open in Spotify ↗</a>
+      </div>
+    </div>
+    <section aria-labelledby="artistTitle">
+      <div class="section-heading"><h3 id="artistTitle">Het artiestenkader</h3><span class="eyebrow">SNEL LEREN</span></div>
+      <p class="hint">Een overzicht zoals bij Spotle. Dit zijn brongegevens, geen officiële Spotle-antwoorden of rangschikkingen. Onbekende gegevens blijven zichtbaar als onbekend.</p>
+      <div id="artists" class="artists"></div>
+      <details class="data-help"><summary>Wat betekenen de zes vakken?</summary>
+        <p><strong>Debut:</strong> het jaar van de vroegste gevonden studio-uitgave in MusicBrainz. <strong>Members:</strong> solo of het aantal bekende huidige bandleden in Wikidata. <strong>Popularity:</strong> de Spotify-score op 100, als Spotify die levert; geen Spotle-positie.</p>
+        <p><strong>Gender:</strong> volgens Wikidata, bij groepen op basis van bekende huidige leden. <strong>Genre:</strong> Spotify, anders Wikidata of MusicBrainz. <strong>Country:</strong> nationaliteit of herkomst volgens de bron. De indeling kan verschillen van het spel; databanken kunnen onvolledig zijn.</p>
+      </details>
+    </section>
+    <section class="panel" aria-labelledby="trackFactsTitle">
+      <h3 id="trackFactsTitle">Het nummer</h3>
+      <dl id="trackFacts" class="facts"></dl>
+      <p id="releaseStatus" class="hint" role="status"></p><div id="releaseSource"></div>
+      <section id="sampleConnections">
+        <h3>Samples & muzikale connecties</h3>
+        <p id="sampleStatus" class="muted">Zoek zelf naar samples, covers en remixes bij WhoSampled. De link opent een zoekopdracht; er zijn nog geen connecties bevestigd.</p>
+        <a id="sampleSearch" target="_blank" rel="noopener noreferrer">Zoek dit nummer bij WhoSampled ↗</a>
+      </section>
+      <details><summary>Extra nummergegevens</summary><dl id="extras" class="extras facts"></dl></details>
+    </section>
+  </section>
+  <footer>Onafhankelijk project, niet verbonden aan Spotify of Spotle. Bronnen: Spotify, Wikidata en MusicBrainz; foto's via Spotify of Wikimedia Commons (zie de bron voor maker en licentie). Tokens blijven in dit tabblad. Automatisch volgen staat standaard uit en doet geen nieuwe controles in een verborgen tabblad. Een gestart bronverzoek kan nog afronden nadat je de modus stopt.</footer>
+  <noscript><p>Schakel JavaScript in om met Spotify te verbinden en artiestengegevens op te halen.</p></noscript>
+</main>
+</body>
+</html>

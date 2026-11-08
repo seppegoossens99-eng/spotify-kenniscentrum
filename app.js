@@ -8,36 +8,168 @@ let currentKey = null;
 let accessToken = null;
 let expiresAt = 0;
 let refreshing = null;
+let sessionVersion = 0;
+let viewVersion = 0;
+let loading = false;
+let demo = false;
+let rateLimitUntil = 0;
 $('redirect').textContent = REDIRECT;
 $('clientId').value = localStorage.getItem(KEY) || '';
-function message(s){$('message').textContent=s || '';}
-function status(s){$('status').textContent=s;}
-function bytesBase64Url(bytes){return btoa(String.fromCharCode(...bytes)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
-async function sha256(s){return new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)));}
-function randomVerifier(){return bytesBase64Url(crypto.getRandomValues(new Uint8Array(64)));}
-function saveTokens(data){accessToken=data.access_token;expiresAt=Date.now()+Math.max(0,data.expires_in-60)*1000;sessionStorage.setItem('skc_access',accessToken);sessionStorage.setItem('skc_exp',String(expiresAt));if(data.refresh_token)sessionStorage.setItem('skc_refresh',data.refresh_token);connected(true);}
-function connected(yes){$('login').hidden=yes;$('logout').hidden=!yes;$('refresh').disabled=!yes;$('toggleAuto').disabled=!yes;status(yes?'Verbonden':'Niet verbonden');}
-$('saveClient').onclick=()=>{const v=$('clientId').value.trim();if(!/^[a-f0-9]{32}$/i.test(v)){message('Controleer je Client ID: dit is normaal een code van 32 tekens.');return;}localStorage.setItem(KEY,v);message('Client ID opgeslagen op dit apparaat.');};
-$('copyRedirect').onclick=async()=>{try{await navigator.clipboard.writeText(REDIRECT);message('Redirect URI gekopieerd.');}catch{message('Selecteer en kopieer de Redirect URI handmatig.');}};
-$('login').onclick=async()=>{const id=$('clientId').value.trim();if(!/^[a-f0-9]{32}$/i.test(id)){message('Vul eerst je Spotify Client ID in en klik op Opslaan.');return;}localStorage.setItem(KEY,id);const verifier=randomVerifier();const state=randomVerifier();sessionStorage.setItem('skc_verifier',verifier);sessionStorage.setItem('skc_state',state);const challenge=bytesBase64Url(await sha256(verifier));const u=new URL('https://accounts.spotify.com/authorize');u.search=new URLSearchParams({response_type:'code',client_id:id,scope:SCOPES,redirect_uri:REDIRECT,code_challenge_method:'S256',code_challenge:challenge,state}).toString();location.assign(u.toString());};
-async function tokenRequest(params){const id=localStorage.getItem(KEY);if(!id)throw Error('Client ID ontbreekt.');const r=await fetch('https://accounts.spotify.com/api/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({...params,client_id:id})});const data=await r.json();if(!r.ok)throw Error(data.error_description||data.error||'Spotify-aanmelding mislukt');return data;}
-async function getToken(){if(accessToken && Date.now()<expiresAt)return accessToken;const refresh=sessionStorage.getItem('skc_refresh');if(!refresh)throw Error('Verbind eerst met Spotify.');if(!refreshing)refreshing=tokenRequest({grant_type:'refresh_token',refresh_token:refresh}).then(data=>{saveTokens(data);return accessToken;}).finally(()=>{refreshing=null;});return refreshing;}
-async function spotify(path){let token=await getToken();let r=await fetch('https://api.spotify.com/v1/'+path,{headers:{Authorization:'Bearer '+token}});if(r.status===401 && sessionStorage.getItem('skc_refresh')){expiresAt=0;token=await getToken();r=await fetch('https://api.spotify.com/v1/'+path,{headers:{Authorization:'Bearer '+token}});}if(r.status===204)return null;if(!r.ok){if(r.status===429)throw Error('Spotify-limiet bereikt. Probeer later opnieuw.');if(r.status===403)throw Error('Geen toegang. Controleer de Spotify-appinstellingen en het gekoppelde account.');throw Error('Spotify API-fout '+r.status);}return r.json();}
-function fact(label,value){if(value===null||value===undefined||value==='')return;const cell=document.createElement('div');cell.className='fact';const dt=document.createElement('dt');dt.textContent=label;const dd=document.createElement('dd');dd.textContent=String(value);cell.append(dt,dd);return cell;}
-function addFacts(el,rows){el.replaceChildren();for(const [label,value] of rows){const node=fact(label,value);if(node)el.append(node);}}
+function message(text) { $('message').textContent = text || ''; }
+function status(text) { $('status').textContent = text; }
+function bytesBase64Url(bytes) { return btoa(String.fromCharCode(...bytes)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
+async function sha256(text) { return new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))); }
+function randomVerifier() { return bytesBase64Url(crypto.getRandomValues(new Uint8Array(64))); }
+async function request(url, options = {}) {
+  try {
+    return await fetch(url, { ...options, signal: AbortSignal.timeout(15000) });
+  } catch (error) {
+    throw Error(error.name === 'TimeoutError' ? 'De bron antwoordt niet op tijd. Probeer opnieuw.' : 'Geen verbinding met de bron. Controleer je internetverbinding.');
+  }
+}
+function clearSession() {
+  sessionVersion++;
+  viewVersion++;
+  accessToken = null;
+  expiresAt = 0;
+  refreshing = null;
+  currentKey = null;
+  ['skc_access', 'skc_exp', 'skc_refresh', 'skc_verifier', 'skc_state'].forEach(key => sessionStorage.removeItem(key));
+  stopAuto();
+  connected(false);
+}
+function saveTokens(data) {
+  if (!data.access_token || !Number.isFinite(data.expires_in)) throw Error('Ongeldig antwoord van Spotify. Verbind opnieuw.');
+  accessToken = data.access_token;
+  expiresAt = Date.now() + Math.max(0, data.expires_in - 60) * 1000;
+  sessionStorage.setItem('skc_access', accessToken);
+  sessionStorage.setItem('skc_exp', String(expiresAt));
+  if (data.refresh_token) sessionStorage.setItem('skc_refresh', data.refresh_token);
+  connected(true);
+}
+function connected(yes) {
+  $('login').hidden = yes;
+  $('logout').hidden = !yes;
+  $('refresh').disabled = !yes || loading;
+  $('toggleAuto').disabled = !yes;
+  status(yes ? 'Verbonden' : 'Niet verbonden');
+  document.querySelector('.settings').open = !yes;
+}
+$('saveClient').onclick = () => {
+  const id = $('clientId').value.trim();
+  if (!/^[a-f0-9]{32}$/i.test(id)) return message('Controleer je Client ID: dit is normaal een code van 32 tekens.');
+  if (id !== localStorage.getItem(KEY)) { clearSession(); $('result').hidden = true; }
+  localStorage.setItem(KEY, id);
+  message('Client ID opgeslagen op dit apparaat.');
+};
+$('copyRedirect').onclick = async () => {
+  try { await navigator.clipboard.writeText(REDIRECT); message('Redirect URI gekopieerd.'); }
+  catch { message('Selecteer en kopieer de Redirect URI handmatig.'); }
+};
+$('login').onclick = async () => {
+  const id = $('clientId').value.trim();
+  if (!/^[a-f0-9]{32}$/i.test(id)) return message('Vul eerst je Spotify Client ID in.');
+  try {
+    if (!window.isSecureContext || !crypto.subtle) throw Error('Open de website via HTTPS of een lokaal loopbackadres om veilig te verbinden.');
+    clearSession();
+    demo = false;
+    $('result').hidden = true;
+    localStorage.setItem(KEY, id);
+    const verifier = randomVerifier(), state = randomVerifier();
+    sessionStorage.setItem('skc_verifier', verifier);
+    sessionStorage.setItem('skc_state', state);
+    const challenge = bytesBase64Url(await sha256(verifier));
+    const url = new URL('https://accounts.spotify.com/authorize');
+    url.search = new URLSearchParams({ response_type: 'code', client_id: id, scope: SCOPES, redirect_uri: REDIRECT, code_challenge_method: 'S256', code_challenge: challenge, state });
+    location.assign(url.toString());
+  } catch (error) { message(error.message); }
+};
+async function tokenRequest(params) {
+  const version = sessionVersion;
+  const id = localStorage.getItem(KEY);
+  if (!id) throw Error('Client ID ontbreekt.');
+  const response = await request('https://accounts.spotify.com/api/token', {
+    method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ ...params, client_id: id })
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    if (data.error === 'invalid_grant' && version === sessionVersion) clearSession();
+    throw Error(data.error === 'invalid_grant' ? 'Je Spotify-sessie is verlopen. Verbind opnieuw.' : data.error_description || 'Spotify-aanmelding mislukt.');
+  }
+  return data;
+}
+async function getToken() {
+  if (accessToken && Date.now() < expiresAt) return accessToken;
+  const refresh = sessionStorage.getItem('skc_refresh');
+  if (!refresh) { clearSession(); throw Error('Verbind opnieuw met Spotify.'); }
+  if (!refreshing) {
+    const version = sessionVersion;
+    const job = tokenRequest({ grant_type: 'refresh_token', refresh_token: refresh }).then(data => {
+      if (version !== sessionVersion) throw Error('De verbinding is verbroken.');
+      saveTokens(data);
+      return accessToken;
+    });
+    refreshing = job;
+    job.finally(() => { if (refreshing === job) refreshing = null; }).catch(() => {});
+  }
+  return refreshing;
+}
+async function spotify(path) {
+  if (Date.now() < rateLimitUntil) throw Error('Spotify-limiet bereikt. Wacht even voor je opnieuw probeert.');
+  const version = sessionVersion;
+  const send = async () => request('https://api.spotify.com/v1/' + path, { headers: { Authorization: 'Bearer ' + await getToken() } });
+  let response = await send();
+  if (version !== sessionVersion) throw Error('De verbinding is verbroken.');
+  if (response.status === 401 && sessionStorage.getItem('skc_refresh')) {
+    expiresAt = 0;
+    response = await send();
+  }
+  if (version !== sessionVersion) throw Error('De verbinding is verbroken.');
+  if (response.status === 204) return null;
+  if (response.status === 401) { clearSession(); throw Error('Je Spotify-sessie is verlopen. Verbind opnieuw.'); }
+  if (response.status === 429) {
+    rateLimitUntil = Date.now() + Math.max(1, Number(response.headers.get('Retry-After')) || 30) * 1000;
+    throw Error('Spotify-limiet bereikt. Automatisch ophalen wacht tot je weer verzoeken mag doen.');
+  }
+  if (response.status === 403) throw Error('Geen Spotify-toegang. Controleer je appinstellingen en of je account is toegestaan.');
+  if (!response.ok) throw Error('Spotify API-fout ' + response.status + '. Probeer later opnieuw.');
+  return response.json();
+}
+function fact(label, value) {
+  if (value === null || value === undefined || value === '') return null;
+  const cell = document.createElement('div'); cell.className = 'fact';
+  const dt = document.createElement('dt'); dt.textContent = label;
+  const dd = document.createElement('dd'); dd.textContent = String(value);
+  cell.append(dt, dd); return cell;
+}
+function addFacts(element, rows) { element.replaceChildren(...rows.map(([key, value]) => fact(key, value)).filter(Boolean)); }
+function sourceLink(text, href) {
+  const link = document.createElement('a'); link.textContent = text + ' ↗';
+  link.href = href; link.target = '_blank'; link.rel = 'noopener noreferrer'; link.className = 'artist-source';
+  return link;
+}
+function note(text, className = 'muted') { const p = document.createElement('p'); p.className = className; p.textContent = text; return p; }
+function setImage(image, url, alt) {
+  image.alt = alt;
+  image.hidden = !url;
+  image.onerror = () => { image.hidden = true; };
+  if (url) image.src = url; else image.removeAttribute('src');
+}
+
 const wdCache=new Map();
 async function wikidataArtist(name,spotifyArtistId){
  const cacheKey=spotifyArtistId||name;
  if(wdCache.has(cacheKey))return wdCache.get(cacheKey);
  const task=(async()=>{
   const base='https://www.wikidata.org/w/api.php?origin=*&format=json&action=';
-  const search=await fetch(base+'wbsearchentities&language=en&type=item&limit=8&search='+encodeURIComponent(name));
+  const search=await request(base+'wbsearchentities&language=en&type=item&limit=8&search='+encodeURIComponent(name));
   if(!search.ok)throw Error('Wikidata niet beschikbaar');
   const results=(await search.json()).search||[];
-  const normalize=x=>x.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/gi,'').toLowerCase();
-  const candidates=results.filter(x=>normalize(x.label)===normalize(name));
+  const normalize=x=>x.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^\p{L}\p{N}]/gu,'').toLowerCase();
+  const candidates=results; // A matching Spotify ID also verifies an alias or stage name.
   if(!candidates.length)return null;
-  const res=await fetch(base+'wbgetentities&props=claims%7Clabels&languages=nl%7Cen&ids='+candidates.map(x=>encodeURIComponent(x.id)).join('%7C'));
+  const res=await request(base+'wbgetentities&props=claims%7Clabels&languages=nl%7Cen&ids='+candidates.map(x=>encodeURIComponent(x.id)).join('%7C'));
   if(!res.ok)throw Error('Wikidata niet beschikbaar');
   const entities=(await res.json()).entities||{};
   const musicTypes=new Set(['Q5741069','Q215380','Q2088357','Q43229','Q483501','Q105756498','Q9212979','Q5']);
@@ -54,7 +186,7 @@ async function wikidataArtist(name,spotifyArtistId){
    return {candidate:c,entity:e,spotifyIds,musical};
   }).filter(Boolean);
   const direct=candidatesWithEvidence.filter(x=>x.spotifyIds.includes(spotifyArtistId));
-  const possible=candidatesWithEvidence.filter(x=>x.musical&&!x.spotifyIds.length);
+  const possible=candidatesWithEvidence.filter(x=>x.musical&&!x.spotifyIds.length&&normalize(x.candidate.label)===normalize(name));
   const selected=direct.length===1?direct[0]:direct.length>1?null:possible.length===1?possible[0]:null;
   if(!selected)return null;
   const match=selected.candidate;
@@ -71,17 +203,20 @@ async function wikidataArtist(name,spotifyArtistId){
   const memberIds=[...new Set(memberClaims.map(c=>c.mainsnak.datavalue.value.id))];
   const ids=[countryId,genderId,placeId,genreId,...memberIds].filter(Boolean);
   let labels={};
-  if(ids.length){const lr=await fetch(base+'wbgetentities&props=labels%7Cclaims&languages=nl%7Cen&ids='+ids.join('%7C'));if(lr.ok)labels=(await lr.json()).entities||{};}
-  const instrumentIds=[...new Set(memberIds.flatMap(id=>(labels[id]?.claims?.P1303||[]).map(c=>c.mainsnak?.datavalue?.value?.id).filter(Boolean)))];
+  if(ids.length){const lr=await request(base+'wbgetentities&props=labels%7Cclaims&languages=nl%7Cen&ids='+ids.join('%7C'));if(lr.ok)labels=(await lr.json()).entities||{};}
+  const instrumentIds=[...new Set(memberIds.flatMap(id=>['P1303','P19','P27'].flatMap(prop=>(labels[id]?.claims?.[prop]||[]).filter(c=>c.rank!=='deprecated').map(c=>c.mainsnak?.datavalue?.value?.id).filter(Boolean))))];
   if(instrumentIds.length){
-   const instrumentLabels=await fetch(base+'wbgetentities&props=labels&languages=nl%7Cen&ids='+instrumentIds.join('%7C'));
+   const instrumentLabels=await request(base+'wbgetentities&props=labels&languages=nl%7Cen&ids='+instrumentIds.join('%7C'));
    if(instrumentLabels.ok)Object.assign(labels,(await instrumentLabels.json()).entities||{});
   }
   const label=id=>id?(labels[id]?.labels?.nl?.value||labels[id]?.labels?.en?.value||null):null;
   const human=(entity.claims?.P31||[]).some(c=>c.mainsnak?.datavalue?.value?.id==='Q5');
-  const rawDate=claim('P569')?.time;
+  const birthValue=claim('P569');
+  const rawDate=birthValue?.time;
+  const died=claim('P570')?.time;
+  const death=died?.match(/^\+(\d{4})/)?.[1]||null;
   let birth=null,age=null;
-  if(rawDate){const m=rawDate.match(/^\+(\d{4})-(\d{2})-(\d{2})/);if(m){birth=m[3]!=='00'&&m[2]!=='00'?m[3]+'/'+m[2]+'/'+m[1]:m[1];if(m[2]!=='00'&&m[3]!=='00'){const now=new Date();age=now.getUTCFullYear()-Number(m[1])-(now.getUTCMonth()+1<Number(m[2])||(now.getUTCMonth()+1===Number(m[2])&&now.getUTCDate()<Number(m[3]))?1:0);}}}
+  if(rawDate){const m=rawDate.match(/^\+(\d{4})-(\d{2})-(\d{2})/);if(m){birth=birthValue.precision>=11&&m[3]!=='00'&&m[2]!=='00'?m[3]+'/'+m[2]+'/'+m[1]:m[1];if(!death&&birthValue.precision>=11&&m[2]!=='00'&&m[3]!=='00'){const now=new Date();age=now.getUTCFullYear()-Number(m[1])-(now.getUTCMonth()+1<Number(m[2])||(now.getUTCMonth()+1===Number(m[2])&&now.getUTCDate()<Number(m[3]))?1:0);}}}
   const started=claim('P2031')?.time||claim('P571')?.time;
   const year=started?.match(/^\+(\d{4})/)?.[1]||null;
   const gender=label(genderId);
@@ -99,202 +234,304 @@ async function wikidataArtist(name,spotifyArtistId){
   const memberDetails=memberIds.map(id=>{
    const entityMember=labels[id];
    const instruments=(entityMember?.claims?.P1303||[]).filter(c=>c.rank!=='deprecated').map(c=>c.mainsnak?.datavalue?.value?.id).filter(Boolean);
-   const birthTime=(entityMember?.claims?.P569||[]).find(c=>c.rank!=='deprecated')?.mainsnak?.datavalue?.value?.time;
+   const birthValue=(entityMember?.claims?.P569||[]).find(c=>c.rank!=='deprecated')?.mainsnak?.datavalue?.value;
+   const birthTime=birthValue?.time;
+   const deceased=(entityMember?.claims?.P570||[]).some(c=>c.rank!=='deprecated'&&c.mainsnak?.datavalue?.value);
    const born=birthTime?.match(/^\+(\d{4})-(\d{2})-(\d{2})/);
-   const birth=born&&born[2]!=='00'&&born[3]!=='00'?born[3]+'/'+born[2]+'/'+born[1]:null;
-   return {id,name:label(id)||id,current:currentIds.includes(id),instruments:instruments.map(label).filter(Boolean),birth};
+   const birth=born?(birthValue?.precision>=11&&born[2]!=='00'&&born[3]!=='00'?born[3]+'/'+born[2]+'/'+born[1]:born[1]):null;
+   const memberClaim=prop=>(entityMember?.claims?.[prop]||[]).find(c=>c.rank!=='deprecated')?.mainsnak?.datavalue?.value;
+   const photo=memberClaim('P18');
+   return {id,name:label(id)||id,deceased,current:currentIds.includes(id),instruments:instruments.map(label).filter(Boolean),birth,
+    place:label(memberClaim('P19')?.id),country:label(memberClaim('P27')?.id),
+    image:photo?'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(photo)+'?width=200':null};
   });
-  return {id:match.id,human,birth,age,country:label(countryId),countryId,gender,genre:label(genreId),place:label(placeId),started:year,members:currentIds.map(label).filter(Boolean),formerMembers:[...new Set(formerMemberClaims.map(c=>c.mainsnak.datavalue.value.id))].filter(id=>!currentIds.includes(id)).map(label).filter(Boolean),memberDetails,groupGender};
+  return {id:match.id,human,birth,age,death,image:claim('P18')?'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(claim('P18'))+'?width=300':null,country:label(countryId),countryId,gender,genre:label(genreId),place:label(placeId),started:year,members:currentIds.map(label).filter(Boolean),formerMembers:[...new Set(formerMemberClaims.map(c=>c.mainsnak.datavalue.value.id))].filter(id=>!currentIds.includes(id)).map(label).filter(Boolean),memberDetails,groupGender};
  })().catch(()=>null);
- wdCache.set(cacheKey,task);return task;
+ wdCache.set(cacheKey,task); task.then(value => { if (!value && wdCache.get(cacheKey) === task) wdCache.delete(cacheKey); }); return task;
 }
-const debutOverrides={'40ZNYROS4zLfyyBSs2PGe2':2019,'60d24wfXkVzDSfLS6hyCjZ':2012,'0hEurMDQu99nJRq8pTxO14':1999};
-const debutCache=new Map();
-let mbQueue=Promise.resolve();
-function mbFetch(url){
- const job=mbQueue.catch(()=>{}).then(async()=>{
-  const response=await fetch(url,{headers:{Accept:'application/json'}});
-  if(!response.ok)throw Error('MusicBrainz niet beschikbaar');
-  return response.json();
- });
- mbQueue=job.then(()=>new Promise(resolve=>setTimeout(resolve,1200)),()=>new Promise(resolve=>setTimeout(resolve,1200)));
- return job;
+
+// MusicBrainz permits roughly one request per second. Share lookups across artist cards.
+let mbQueue = Promise.resolve();
+function mbFetch(url) {
+  const job = mbQueue.catch(() => {}).then(async () => {
+    const response = await request(url, { headers: { Accept: 'application/json' } });
+    if (!response.ok) throw Error('MusicBrainz niet beschikbaar');
+    return response.json();
+  });
+  mbQueue = job.then(() => new Promise(resolve => setTimeout(resolve, 1200)), () => new Promise(resolve => setTimeout(resolve, 1200)));
+  return job;
 }
-async function musicBrainzDebut(artist){
- const confirmedByName={'zach bryan':2019,'martin garrix':2012,'john mayer':1999,'red hot chili peppers':1984};
- const confirmed=debutOverrides[artist.id]||({'red hot chili peppers':1984}[artist.name.trim().toLowerCase()]);
- if(confirmed)return {year:confirmed,source:'Spotle bevestigd'};
- if(debutCache.has(artist.id))return debutCache.get(artist.id);
- const task=(async()=>{
-  const spotifyFallback=async()=>{
-   try{
-    let offset=0,all=[];
-    while(offset<200){
-     const page=await spotify('artists/'+encodeURIComponent(artist.id)+'/albums?include_groups=album,single&limit=50&offset='+offset);
-     if(!page?.items?.length)break;
-     all.push(...page.items);offset+=page.items.length;
-     if(!page.next)break;
+const mbProfileCache = new Map();
+async function musicBrainzProfile(artist) {
+  if (mbProfileCache.has(artist.id)) return mbProfileCache.get(artist.id);
+  const task = (async () => {
+    const norm = value => value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^\p{L}\p{N}]/gu, '').toLowerCase();
+    const query = 'artist:"' + artist.name.replace(/["\\]/g, '') + '"';
+    const result = await mbFetch('https://musicbrainz.org/ws/2/artist/?query=' + encodeURIComponent(query) + '&fmt=json&limit=25');
+    const matches = (result.artists || []).filter(item => norm(item.name) === norm(artist.name) && Number(item.score) >= 95);
+    // Never guess between artists with the same name.
+    if (matches.length !== 1) return null;
+    const detail = await mbFetch('https://musicbrainz.org/ws/2/artist/' + encodeURIComponent(matches[0].id) + '?inc=genres+url-rels&fmt=json');
+    const links = (detail.relations || []).map(item => item.url?.resource).filter(url => /^https:\/\/open\.spotify\.com\/artist\//.test(url || ''));
+    if (links.length && !links.some(url => new URL(url).pathname === '/artist/' + artist.id)) return null;
+    const genres = (detail.genres || []).filter(item => item.name && item.count > 0).sort((a, b) => b.count - a.count);
+    return { id: detail.id || matches[0].id, genre: genres[0]?.name, countryCode: detail.country, type: detail.type };
+  })().catch(() => null);
+  mbProfileCache.set(artist.id, task);
+  task.then(value => { if (!value && mbProfileCache.get(artist.id) === task) mbProfileCache.delete(artist.id); });
+  return task;
+}
+const debutCache = new Map();
+async function musicBrainzDebut(artist) {
+  if (debutCache.has(artist.id)) return debutCache.get(artist.id);
+  const task = (async () => {
+    const profile = await musicBrainzProfile(artist);
+    if (!profile) return null;
+    const all = [];
+    let total = 0;
+    for (let offset = 0; offset < 500; offset += 100) {
+      const page = await mbFetch('https://musicbrainz.org/ws/2/release-group?artist=' + encodeURIComponent(profile.id) + '&fmt=json&limit=100&offset=' + offset);
+      const groups = page['release-groups'] || [];
+      all.push(...groups);
+      total = page['release-group-count'] || all.length;
+      if (!groups.length || all.length >= total) break;
     }
-    const eligible=all.filter(x=>/^\d{4}/.test(x.release_date||'')&&!/remaster|deluxe|anniversary|live|karaoke|instrumental|compilation/i.test(x.name||''));
-    const pool=eligible.filter(x=>x.artists?.some(a=>a.id===artist.id));
-    pool.sort((a,b)=>a.release_date.localeCompare(b.release_date));
-    const chosen=pool[0];
-    return chosen?{year:Number(chosen.release_date.slice(0,4)),source:'Spotify: '+chosen.name,approximate:true}:null;
-   }catch{return null;}
+    const valid = all.filter(item => /^(Album|Single|EP)$/.test(item['primary-type'] || '') &&
+      !(item['secondary-types'] || []).some(type => /^(Live|Compilation|Remix|DJ-mix|Mixtape\/Street|Demo)$/i.test(type)) &&
+      /^\d{4}(?:-\d{2}(?:-\d{2})?)?$/.test(item['first-release-date'] || ''));
+    valid.sort((a, b) => a['first-release-date'].localeCompare(b['first-release-date']));
+    const first = valid[0];
+    return first ? { year: Number(first['first-release-date'].slice(0, 4)), title: first.title, partial: all.length < total,
+      link: 'https://musicbrainz.org/release-group/' + first.id } : null;
+  })().catch(() => null);
+  debutCache.set(artist.id, task);
+  task.then(value => { if (!value && debutCache.get(artist.id) === task) debutCache.delete(artist.id); });
+  return task;
+}
+const trackReleaseCache = new Map();
+async function earliestRecordingRelease(isrc) {
+  if (!/^[A-Z]{2}[A-Z0-9]{3}\d{7}$/i.test(isrc || '')) return null;
+  const key = isrc.toUpperCase();
+  if (trackReleaseCache.has(key)) return trackReleaseCache.get(key);
+  const task = (async () => {
+    const result = await mbFetch('https://musicbrainz.org/ws/2/isrc/' + key + '?fmt=json');
+    const candidates = [];
+    for (const recording of (result.recordings || []).slice(0, 5)) {
+      const detail = await mbFetch('https://musicbrainz.org/ws/2/recording/' + encodeURIComponent(recording.id) + '?inc=releases&fmt=json');
+      for (const release of detail.releases || []) {
+        if (release.status === 'Official' && /^\d{4}(?:-\d{2}(?:-\d{2})?)?$/.test(release.date || '')) {
+          candidates.push({ date: release.date, title: release.title, recordingId: recording.id });
+        }
+      }
+    }
+    candidates.sort((a, b) => a.date.localeCompare(b.date));
+    return candidates[0] || null;
+  })().catch(() => null);
+  trackReleaseCache.set(key, task);
+  task.then(value => { if (!value && trackReleaseCache.get(key) === task) trackReleaseCache.delete(key); });
+  return task;
+}
+function dateNL(value) {
+  if (!value) return null;
+  const parts = value.split('-');
+  return parts.reverse().join('/');
+}
+function duration(ms) { return Number.isFinite(ms) ? `${Math.floor(ms / 60000)}:${String(Math.floor(ms / 1000) % 60).padStart(2, '0')}` : null; }
+function countryName(code) {
+  if (!/^[A-Z]{2}$/.test(code || '')) return null;
+  const flag = String.fromCodePoint(...[...code].map(char => 127397 + char.charCodeAt(0)));
+  return flag + ' ' + new Intl.DisplayNames(['nl'], { type: 'region' }).of(code);
+}
+function spotleGrid(info, wd, debut, mb) {
+  const grid = document.createElement('dl'); grid.className = 'spotle-grid';
+  const popularity = Number.isFinite(info?.popularity) ? info.popularity + '/100' : 'Onbekend';
+  const gender = wd?.human ? wd.gender : wd?.groupGender;
+  const values = [
+    ['Debut', debut ? debut.year + (debut.partial ? ' ≈' : '') : 'Onbekend', 'Vroegste gevonden studioalbum, single of EP in MusicBrainz; kan afwijken van Spotle.'],
+    ['Members', wd?.human || mb?.type === 'Person' ? 'Solo' : wd?.members?.length || 'Onbekend', 'Huidige leden volgens Wikidata; de bron kan onvolledig of verouderd zijn.'],
+    ['Popularity', popularity, 'Spotify-populariteit van 0 tot 100, geen Spotle-rangschikking. Niet voor elke app beschikbaar.'],
+    ['Gender', gender || 'Onbekend', 'Volgens Wikidata; bij groepen alleen bepaald als alle bekende huidige leden gegevens hebben.'],
+    ['Genre', info?.genres?.[0] || wd?.genre || mb?.genre || 'Onbekend', 'Eerste Spotify-genre, anders Wikidata of het meest gestemde MusicBrainz-genre.'],
+    ['Country', wd?.country || countryName(mb?.countryCode) || 'Onbekend', 'Nationaliteit of land van herkomst volgens Wikidata, anders MusicBrainz.']
+  ];
+  for (const [label, value, explanation] of values) {
+    const tile = document.createElement('div'); tile.className = 'spotle-tile'; tile.title = explanation;
+    const dt = document.createElement('dt'); dt.className = 'spotle-label'; dt.textContent = label;
+    const dd = document.createElement('dd'); dd.className = 'spotle-value'; dd.textContent = value;
+    tile.classList.toggle('unknown', value === 'Onbekend'); tile.append(dt, dd); grid.append(tile);
+  }
+  return grid;
+}
+function renderMembers(members) {
+  const section = document.createElement('section'); section.className = 'member-section';
+  const title = document.createElement('h5'); title.textContent = 'Bandleden · volgens Wikidata'; section.append(title);
+  const list = document.createElement('div'); list.className = 'member-list';
+  for (const member of members) {
+    const article = document.createElement('article'); article.className = 'member';
+    const image = document.createElement('img'); image.loading = 'lazy';
+    setImage(image, member.image, 'Foto van ' + member.name);
+    const heading = document.createElement('h6'); heading.textContent = member.name;
+    const facts = document.createElement('dl'); facts.className = 'facts';
+    let age = null;
+    if (/^\d{2}\/\d{2}\/\d{4}$/.test(member.birth || '') && !member.deceased) {
+      const [day, month, year] = member.birth.split('/').map(Number), now = new Date();
+      age = now.getUTCFullYear() - year - (now.getUTCMonth() + 1 < month || (now.getUTCMonth() + 1 === month && now.getUTCDate() < day) ? 1 : 0);
+      if (age < 0 || age > 125) age = null;
+    }
+    addFacts(facts, [['Lidmaatschap', member.current ? 'Huidig volgens bron' : 'Voormalig volgens bron'], ['Instrumenten', member.instruments?.join(', ') || 'Onbekend'],
+      ['Geboren', member.birth || 'Onbekend'], ['Leeftijd', member.deceased ? 'Overleden' : age !== null ? age + ' jaar' : 'Onbekend'],
+      ['Geboorteplaats', member.place || 'Onbekend'], ['Land', member.country || 'Onbekend']]);
+    article.append(image, heading, facts);
+    if (member.id) article.append(sourceLink('Wikidata', 'https://www.wikidata.org/wiki/' + member.id));
+    list.append(article);
+  }
+  section.append(list); return section;
+}
+function renderArtist(artist, version, example = null) {
+  const card = document.createElement('article'); card.className = 'artist';
+  const head = document.createElement('div'); head.className = 'artisthead';
+  const image = document.createElement('img'); image.loading = 'lazy'; image.hidden = true;
+  const name = document.createElement('h4'); name.textContent = artist.name;
+  head.append(image, name);
+  let grid = spotleGrid(null, null, null, null);
+  const sourceStatus = note('Aanvullende bronnen laden…', 'source-status'); sourceStatus.setAttribute('role', 'status');
+  const details = document.createElement('details');
+  const summary = document.createElement('summary'); summary.textContent = 'Artiestgegevens & bandleden';
+  const facts = document.createElement('dl'); facts.className = 'facts';
+  const sources = document.createElement('div'); sources.className = 'sources';
+  if (!example) sources.append(sourceLink('Spotify-profiel', 'https://open.spotify.com/artist/' + encodeURIComponent(artist.id)));
+  const members = document.createElement('div');
+  details.append(summary, facts, members, sources);
+  card.append(head, grid, sourceStatus, details); $('artists').append(card);
+  let info = null, wd = null, mb = null, debut = null, pending = 4;
+  const alive = () => version === viewVersion && card.isConnected;
+  const update = () => {
+    if (!alive()) return;
+    const next = spotleGrid(info, wd, debut, mb); grid.replaceWith(next); grid = next;
+    setImage(image, info?.images?.[0]?.url || wd?.image, 'Foto van ' + artist.name);
+    addFacts(facts, [['Naam', artist.name], ['Genres', info?.genres?.join(', ') || wd?.genre || mb?.genre || 'Onbekend'],
+      ['Land', wd?.country || countryName(mb?.countryCode) || 'Onbekend'], ['Geboorteplaats / opgericht in', wd?.place || 'Onbekend'],
+      ['Geboortedatum', wd?.birth], ['Leeftijd', wd?.death ? 'Overleden in ' + wd.death : wd?.age != null ? wd.age + ' jaar' : null],
+      ['Actief / opgericht sinds', wd?.started], ['Spotify-volgers', Number.isFinite(info?.followers?.total) ? info.followers.total.toLocaleString('nl-BE') : null]]);
+    members.replaceChildren(...(wd?.memberDetails?.length ? [renderMembers(wd.memberDetails)] : []));
+    sources.replaceChildren();
+    if (!example) sources.append(sourceLink('Spotify-profiel', 'https://open.spotify.com/artist/' + encodeURIComponent(artist.id)));
+    if (wd?.id && !example) sources.append(sourceLink('Biografie: Wikidata', 'https://www.wikidata.org/wiki/' + wd.id));
+    if (mb?.id && !example) sources.append(sourceLink('Genre / identiteit: MusicBrainz', 'https://musicbrainz.org/artist/' + mb.id));
+    if (debut?.link && !example) sources.append(sourceLink('Debuut: ' + debut.title, debut.link));
+    if (example) sourceStatus.textContent = 'Fictief voorbeeld · geen echte Spotify- of Spotle-gegevens.';
+    else if (pending) sourceStatus.textContent = 'Bronnen laden… De beschikbare gegevens verschijnen meteen.';
+    else sourceStatus.textContent = [info ? 'Spotify' : null, wd ? 'Wikidata' : null, mb ? 'MusicBrainz' : null].filter(Boolean).join(' · ') || 'Geen betrouwbare aanvullende match gevonden. Probeer later opnieuw.';
+    if (!pending && !example) sourceStatus.append(document.createTextNode(' · Onbekend betekent: niet beschikbaar of niet eenduidig gevonden.'));
+    if (debut) sources.append(note((debut.partial ? 'Gedeeltelijke discografie. ' : '') + 'Debuut = vroegste gevonden studio-uitgave; geen garantie op het historische debuut of de Spotle-waarde.'));
   };
-  const profile=await musicBrainzProfile(artist);
-  if(!profile?.id)return spotifyFallback();
-  const groups=await mbFetch('https://musicbrainz.org/ws/2/release-group?artist='+encodeURIComponent(profile.id)+'&fmt=json&limit=100');
-  const valid=(groups['release-groups']||[]).filter(x=>/^(Album|Single|EP)$/.test(x['primary-type']||'')&&!/Bootleg|Demo|Live/.test((x['secondary-types']||[]).join(' '))&&/^\d{4}(?:-\d{2}(?:-\d{2})?)?$/.test(x['first-release-date']||''));
-  const chosen=valid.sort((a,b)=>a['first-release-date'].localeCompare(b['first-release-date']))[0];
-  return chosen?{year:Number(chosen['first-release-date'].slice(0,4)),source:chosen.title,link:'https://musicbrainz.org/release-group/'+chosen.id}:spotifyFallback();
- })().catch(async()=>{try{const page=await spotify('artists/'+encodeURIComponent(artist.id)+'/albums?include_groups=album&limit=50');const albums=(page?.items||[]).filter(x=>/^\d{4}/.test(x.release_date||''));albums.sort((a,b)=>a.release_date.localeCompare(b.release_date));return albums[0]?{year:Number(albums[0].release_date.slice(0,4)),source:'Spotify (voorlopig)',approximate:true}:null;}catch{return null;}});
- debutCache.set(artist.id,task);return task;
+  if (example) { ({ info, wd, mb, debut } = example); pending = 0; update(); return; }
+  const load = (promise, assign) => promise.then(value => { if (alive()) assign(value); }).catch(() => {}).finally(() => { pending--; update(); });
+  load(spotify('artists/' + encodeURIComponent(artist.id)), value => { info = value; });
+  load(wikidataArtist(artist.name, artist.id), value => { wd = value; });
+  load(musicBrainzProfile(artist), value => { mb = value; });
+  load(musicBrainzDebut(artist), value => { debut = value; });
 }
-const trackReleaseCache=new Map();
-async function earliestRecordingRelease(isrc){
- if(!/^[A-Z]{2}[A-Z0-9]{3}[0-9]{7}$/i.test(isrc||''))return null;
- const key=isrc.toUpperCase();
- if(trackReleaseCache.has(key))return trackReleaseCache.get(key);
- const task=(async()=>{
-  const result=await mbFetch('https://musicbrainz.org/ws/2/recording/?query='+encodeURIComponent('isrc:'+key)+'&fmt=json&limit=100');
-  const recordings=(result.recordings||[]).filter(x=>Number(x.score)>=95);
-  const candidates=[];
-  for(const rec of recordings.slice(0,5)){
-   const detail=await mbFetch('https://musicbrainz.org/ws/2/recording/'+encodeURIComponent(rec.id)+'?inc=releases&fmt=json');
-   for(const release of detail.releases||[]){
-    if(release.status!=='Official'||!/^\d{4}-\d{2}-\d{2}$/.test(release.date||''))continue;
-    candidates.push({date:release.date,title:release.title,recordingId:rec.id});
-   }
+function renderTrack(track, playing, version) {
+  $('emptyState').hidden = true; $('result').hidden = false;
+  $('trackTitle').textContent = track.name;
+  $('artistNames').textContent = (track.artists || []).map(artist => artist.name).join(', ');
+  $('playbackState').textContent = demo ? 'VOORBEELD · FICTIEVE GEGEVENS' : playing.is_playing ? 'NU OP SPOTIFY' : 'GEPAUZEERD OP SPOTIFY';
+  $('spotifyLink').hidden = demo;
+  $('spotifyLink').href = track.external_urls?.spotify || 'https://open.spotify.com/';
+  setImage($('cover'), track.album?.images?.[0]?.url, 'Albumhoes van ' + (track.album?.name || track.name));
+  addFacts($('trackFacts'), [['Titel', track.name], ['Artiest(en)', (track.artists || []).map(artist => artist.name).join(', ')],
+    ['Spotify-uitgave', dateNL(track.album?.release_date)], ['Album', track.album?.name], ['Speelduur', duration(track.duration_ms)], ['Tracknummer', track.track_number]]);
+  $('releaseStatus').textContent = demo ? 'Voorbeeld van een Spotify-uitgave, geen echte releasedatum.' : 'De Spotify-uitgave kan een heruitgave zijn. De vroegste bekende opname-uitgave wordt apart opgezocht.';
+  $('releaseSource').replaceChildren();
+  $('sampleSearch').hidden = demo;
+  $('sampleSearch').href = 'https://www.google.com/search?q=' + encodeURIComponent('site:whosampled.com ' + (track.artists || []).map(artist => artist.name).join(' ') + ' ' + track.name);
+  $('artists').replaceChildren();
+  for (const artist of track.artists || []) renderArtist(artist, version, demo ? exampleArtist : null);
+  addFacts($('extras'), [['Spotify-albumtype', track.album?.album_type], ['ISRC', track.external_ids?.isrc], ['Expliciete inhoud', track.explicit ? 'Ja' : 'Nee']]);
+  if (demo) return;
+  if (!track.external_ids?.isrc) { $('releaseStatus').textContent = 'Geen ISRC beschikbaar om de oorspronkelijke opname betrouwbaar op te zoeken.'; return; }
+  earliestRecordingRelease(track.external_ids.isrc).then(first => {
+    if (version !== viewVersion) return;
+    $('releaseStatus').textContent = first ? 'Vroegste gevonden officiële uitgave van deze opname: ' + dateNL(first.date) + ' · ' + first.title + '. Dit is niet noodzakelijk de eerste uitgave van de compositie.' : 'Geen eerdere opname-uitgave gevonden of MusicBrainz niet bereikbaar. De Spotify-datum hierboven blijft de datum van die specifieke uitgave.';
+    if (first) $('releaseSource').append(sourceLink('Opnamebron: MusicBrainz', 'https://musicbrainz.org/recording/' + first.recordingId));
+  });
+}
+async function loadTrack(force = false) {
+  if (loading || Date.now() < rateLimitUntil) return;
+  const session = sessionVersion;
+  loading = true; $('refresh').disabled = true; $('refresh').textContent = 'Ophalen…';
+  $('result').setAttribute('aria-busy', 'true');
+  message('Huidig nummer ophalen…');
+  try {
+    const playing = await spotify('me/player/currently-playing?additional_types=track');
+    if (session !== sessionVersion) return;
+    demo = false;
+    if (!playing?.item || playing.item.type !== 'track') {
+      viewVersion++; currentKey = null; $('result').hidden = true; $('emptyState').hidden = false;
+      message(playing?.item?.type === 'episode' ? 'Er speelt een podcast. Speel een muzieknummer af voor artiestenkennis.' : 'Er speelt geen beschikbaar Spotify-nummer. Start muziek in Spotify en probeer opnieuw.'); return;
+    }
+    const track = playing.item;
+    const key = track.id || track.uri;
+    if (!force && currentKey === key) {
+      $('playbackState').textContent = playing.is_playing ? 'NU OP SPOTIFY' : 'GEPAUZEERD OP SPOTIFY';
+      message('Gecontroleerd om ' + new Date().toLocaleTimeString('nl-BE') + '.'); return;
+    }
+    currentKey = key; const version = ++viewVersion;
+    renderTrack(track, playing, version);
+    message('Nummer opgehaald. Het artiestenkader wordt aangevuld vanuit de bronnen.');
+  } catch (error) {
+    if (session === sessionVersion || !accessToken) message(error.message);
+  } finally {
+    loading = false; $('refresh').disabled = !accessToken && !sessionStorage.getItem('skc_refresh'); $('refresh').textContent = 'Huidig nummer ophalen';
+    $('result').setAttribute('aria-busy', 'false');
   }
-  candidates.sort((a,b)=>a.date.localeCompare(b.date));
-  return candidates[0]||null;
- })().catch(()=>null);
- trackReleaseCache.set(key,task);return task;
 }
-const genreCache=new Map();
-async function musicBrainzGenre(artist){
- if(genreCache.has(artist.id))return genreCache.get(artist.id);
- const task=(async()=>{
-  const name=artist.name.trim();
-  const query=encodeURIComponent('artist:"'+name.replace(/"/g,'')+'"');
-  const result=await mbFetch('https://musicbrainz.org/ws/2/artist/?query='+query+'&fmt=json&limit=10');
-  const normalize=x=>x.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/gi,'').toLowerCase();
-  const matches=(result.artists||[]).filter(x=>normalize(x.name)===normalize(name)&&Number(x.score)>=95);
-  if(matches.length!==1)return null;
-  const detail=await mbFetch('https://musicbrainz.org/ws/2/artist/'+encodeURIComponent(matches[0].id)+'?inc=genres&fmt=json');
-  const genres=(detail.genres||[]).filter(x=>x.name&&x.count>=0).sort((a,b)=>(b.count||0)-(a.count||0));
-  return genres[0]?.name||null;
- })().catch(()=>null);
- genreCache.set(artist.id,task);return task;
+function stopAuto() {
+  if (timer !== null) clearInterval(timer);
+  timer = null; $('toggleAuto').textContent = 'Kennismodus starten'; $('toggleAuto').setAttribute('aria-pressed', 'false');
+  $('modeStatus').textContent = 'Uit · er wordt niets automatisch opgehaald.';
 }
-const mbProfileCache=new Map();
-async function musicBrainzProfile(artist){
- if(mbProfileCache.has(artist.id))return mbProfileCache.get(artist.id);
- const task=(async()=>{
-  const query=encodeURIComponent('artist:"'+artist.name.replace(/"/g,'')+'"');
-  const result=await mbFetch('https://musicbrainz.org/ws/2/artist/?query='+query+'&fmt=json&limit=25');
-  const norm=x=>x.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/gi,'').toLowerCase();
-  const matches=(result.artists||[]).filter(x=>norm(x.name)===norm(artist.name)&&Number(x.score)>=95);
-  if(matches.length!==1)return null;
-  const match=matches[0];
-  const detail=await mbFetch('https://musicbrainz.org/ws/2/artist/'+encodeURIComponent(match.id)+'?inc=genres+url-rels&fmt=json');
-  const spotifyLinks=(detail.relations||[]).filter(x=>x.type==='streaming music'&&/open\.spotify\.com\/artist\//.test(x.url?.resource||'')).map(x=>x.url.resource);
-  if(spotifyLinks.length&&!spotifyLinks.some(url=>url.includes('/artist/'+artist.id)))return null;
-  const genres=(detail.genres||[]).filter(x=>x.name).sort((a,b)=>(b.count||0)-(a.count||0));
-  return {id:match.id,genre:genres[0]?.name||null,countryCode:detail.country||null,countryName:detail.area?.name||null,type:detail.type||null};
- })().catch(()=>null);
- mbProfileCache.set(artist.id,task);return task;
-}
-function mbCountry(profile){
- if(!profile?.countryCode||!/^[A-Z]{2}$/.test(profile.countryCode))return null;
- const code=profile.countryCode;
- const flag=String.fromCodePoint(...[...code].map(c=>127397+c.charCodeAt(0)));
- const names={US:'USA',GB:'UK',BE:'Belgium',NL:'Netherlands',FR:'France',DE:'Germany',CA:'Canada',AU:'Australia',IE:'Ireland',IT:'Italy',ES:'Spain',SE:'Sweden',NO:'Norway',DK:'Denmark',FI:'Finland',JP:'Japan',KR:'South Korea',BR:'Brazil',MX:'Mexico'};
- return flag+' '+(names[code]||profile.countryName||code);
-}
-function spotleGenre(name,info,wd,extraGenre){
- const confirmed={'jelly roll':'Hip-hop','red hot chili peppers':'Rock'};
- const key=(name||'').trim().toLowerCase();
- if(confirmed[key])return confirmed[key];
- const raw=info?.genres?.[0]||wd?.genre||extraGenre||'—';
- if(/^(southern rap|trap|gangsta rap|conscious hip hop|alternative hip hop|pop rap)$/i.test(raw))return 'Hip-hop';
- return raw;
-}
-function spotleGender(wd,verifiedBand){
- if(verifiedBand?.gender)return verifiedBand.gender;
- const raw=(wd?.gender||'').trim().toLowerCase();
- if(!wd?.human)return wd?.groupGender||'—';
- if(['male','mannelijk','man','masculin','männlich'].includes(raw))return 'Male';
- if(['female','vrouwelijk','vrouw','féminin','weiblich'].includes(raw))return 'Female';
- if(['non-binary','nonbinary','non-binair','non-binaire','non-binary gender','genderqueer'].includes(raw))return 'Non-binair';
- return '—';
-}
-const verifiedBands={
- 'red hot chili peppers':{
-  debut:1984,
-  popularity:82,
-  country:'🇺🇸 USA',
-  members:['Anthony Kiedis — zang','Flea — basgitaar','John Frusciante — gitaar','Chad Smith — drums'],
-  gender:'Male'
- }
+$('refresh').onclick = () => loadTrack(true);
+$('toggleAuto').onclick = () => {
+  if (timer !== null) { stopAuto(); message('Kennismodus gestopt. Je kunt gewoon verder luisteren.'); return; }
+  loadTrack(true);
+  timer = setInterval(() => { if (!document.hidden) loadTrack(false); }, 12000);
+  $('toggleAuto').textContent = 'Kennismodus stoppen'; $('toggleAuto').setAttribute('aria-pressed', 'true');
+  $('modeStatus').textContent = 'Aan · controle om de 12 seconden, alleen zolang dit tabblad zichtbaar is.';
 };
-function spotleGrid(info,wd,debut,extraGenre,artistName,mbProfile){
- const countryFlags={'Q30':['🇺🇸','USA'],'Q145':['🇬🇧','UK'],'Q16':['🇨🇦','Canada'],'Q408':['🇦🇺','Australia'],'Q31':['🇧🇪','Belgium'],'Q55':['🇳🇱','Netherlands'],'Q142':['🇫🇷','France'],'Q183':['🇩🇪','Germany'],'Q38':['🇮🇹','Italy'],'Q29':['🇪🇸','Spain'],'Q668':['🇮🇳','India'],'Q17':['🇯🇵','Japan'],'Q148':['🇨🇳','China'],'Q155':['🇧🇷','Brazil'],'Q96':['🇲🇽','Mexico'],'Q258':['🇿🇦','South Africa'],'Q34':['🇸🇪','Sweden'],'Q33':['🇫🇮','Finland'],'Q20':['🇳🇴','Norway'],'Q35':['🇩🇰','Denmark'],'Q36':['🇵🇱','Poland'],'Q39':['🇨🇭','Switzerland'],'Q40':['🇦🇹','Austria'],'Q27':['🇮🇪','Ireland'],'Q43':['🇹🇷','Turkey'],'Q159':['🇷🇺','Russia'],'Q414':['🇦🇷','Argentina'],'Q739':['🇨🇴','Colombia'],'Q298':['🇨🇱','Chile'],'Q77':['🇺🇾','Uruguay'],'Q1033':['🇳🇬','Nigeria'],'Q114':['🇰🇪','Kenya'],'Q117':['🇬🇭','Ghana'],'Q79':['🇪🇬','Egypt'],'Q801':['🇮🇱','Israel'],'Q851':['🇸🇦','Saudi Arabia'],'Q45':['🇵🇹','Portugal'],'Q41':['🇬🇷','Greece'],'Q212':['🇺🇦','Ukraine'],'Q213':['🇨🇿','Czechia'],'Q218':['🇷🇴','Romania'],'Q219':['🇧🇬','Bulgaria'],'Q28':['🇭🇺','Hungary'],'Q32':['🇱🇺','Luxembourg'],'Q189':['🇮🇸','Iceland'],'Q37':['🇱🇹','Lithuania'],'Q191':['🇪🇪','Estonia'],'Q21197':['🇱🇻','Latvia'],'Q252':['🇮🇩','Indonesia'],'Q928':['🇵🇭','Philippines'],'Q869':['🇹🇭','Thailand'],'Q884':['🇰🇷','South Korea'],'Q865':['🇹🇼','Taiwan'],'Q833':['🇲🇾','Malaysia'],'Q334':['🇸🇬','Singapore'],'Q664':['🇳🇿','New Zealand']};
- const country=countryFlags[wd?.countryId];
- const verifiedBand=verifiedBands[(artistName||'').trim().toLowerCase()];
- const grid=document.createElement('div');grid.className='spotle-grid';
- const values=[['Debut',verifiedBand?.debut||debut?.year||'—'],['Members',verifiedBand?verifiedBand.members.length:(wd?.human?'Solo':wd?.members?.length||(mbProfile?.type==='Person'?'Solo':'—'))],['Popularity','—'],['Gender',spotleGender(wd,verifiedBand)],['Genre',spotleGenre(artistName,info,wd,extraGenre)],['Country',verifiedBand?.country||(country?country.join(' '):(wd?.country||mbCountry(mbProfile)||'—'))]];
- for(const [label,value] of values){const tile=document.createElement('div');tile.className='spotle-tile';const name=document.createElement('div');name.className='spotle-label';name.textContent=label;const val=document.createElement('div');val.className='spotle-value';val.textContent=value;tile.append(name,val);grid.append(tile);}
- return grid;
+$('logout').onclick = () => { clearSession(); demo = false; $('result').hidden = true; $('emptyState').hidden = false; message('Verbinding verbroken. Er wordt niets meer opgehaald.'); };
+window.addEventListener('pagehide', stopAuto);
+const exampleArtist = {
+  info: { genres: ['Indierock'], popularity: 64, followers: { total: 123456 } },
+  wd: { human: false, country: 'België', place: 'Gent', started: '2012', groupGender: 'Gemengd',
+    members: ['Alex Voorbeeld', 'Sam Voorbeeld'], memberDetails: [
+      { id: '', name: 'Alex Voorbeeld', current: true, birth: '14/03/1992', place: 'Gent', country: 'België', instruments: ['Zang', 'Gitaar'] },
+      { id: '', name: 'Sam Voorbeeld', current: true, birth: '22/09/1991', place: 'Antwerpen', country: 'België', instruments: ['Drums'] }
+    ] },
+  debut: { year: 2014, title: 'Eerste licht' }, mb: { type: 'Group' }
+};
+$('showExample').onclick = () => {
+  if (loading) return;
+  stopAuto(); demo = true; document.querySelector('.settings').open = false; currentKey = null; const version = ++viewVersion;
+  renderTrack({ name: 'Nacht in de stad', artists: [{ id: 'example', name: 'De Voorbeeldband' }], album: { name: 'Eerste licht', release_date: '2014-05-16', album_type: 'album' }, duration_ms: 213000, track_number: 3 }, { is_playing: false }, version);
+  message('Je bekijkt fictieve voorbeeldgegevens. Verbind met Spotify en haal je eigen nummer op.');
+};
+async function init() {
+  accessToken = sessionStorage.getItem('skc_access'); expiresAt = Number(sessionStorage.getItem('skc_exp') || 0);
+  connected(Boolean(sessionStorage.getItem('skc_refresh') || accessToken));
+  const url = new URL(location.href), code = url.searchParams.get('code'), error = url.searchParams.get('error');
+  if (!code && !error) return;
+  history.replaceState({}, '', REDIRECT);
+  const state = url.searchParams.get('state'), expected = sessionStorage.getItem('skc_state'), verifier = sessionStorage.getItem('skc_verifier');
+  sessionStorage.removeItem('skc_state'); sessionStorage.removeItem('skc_verifier');
+  if (error) return message('Spotify-aanmelding geweigerd. Je kunt opnieuw verbinden.');
+  if (!expected || state !== expected || !verifier) return message('Aanmelding afgebroken: ongeldige beveiligingscontrole. Probeer opnieuw.');
+  const version = sessionVersion;
+  try {
+    const data = await tokenRequest({ grant_type: 'authorization_code', code, redirect_uri: REDIRECT, code_verifier: verifier });
+    if (version !== sessionVersion) return;
+    saveTokens(data); message('Spotify verbonden. Start de kennismodus wanneer jij wilt, of haal één nummer op.');
+  } catch (error) { message(error.message); }
 }
-function dateNL(s){if(!s)return null;const p=s.split('-');return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:p.length===2?`${p[1]}/${p[0]}`:p[0];}
-function duration(ms){if(!Number.isFinite(ms))return null;return `${Math.floor(ms/60000)}:${String(Math.floor(ms/1000)%60).padStart(2,'0')}`;}
-async function loadTrack(force=false){try{const playing=await spotify('me/player/currently-playing?additional_types=track');if(!playing?.item || playing.item.type!=='track'){message('Er speelt momenteel geen Spotify-nummer. Start een nummer en probeer opnieuw.');return;}const t=playing.item;const sampleQuery='site:whosampled.com '+(t.artists||[]).map(a=>a.name).join(' ')+' '+t.name;const sampleLink=$('sampleSearch');if(sampleLink)sampleLink.href='https://www.google.com/search?q='+encodeURIComponent(sampleQuery);const key=t.id||t.uri;if(!force && key===currentKey)return;currentKey=key;message('Nummer opgehaald.');$('result').hidden=false;$('cover').src=t.album?.images?.[0]?.url||'';$('cover').alt='Albumhoes van '+(t.album?.name||t.name);$('trackTitle').textContent=t.name;$('artistNames').textContent=(t.artists||[]).map(a=>a.name).join(', ');$('spotifyLink').href=t.external_urls?.spotify||'https://open.spotify.com/';addFacts($('trackFacts'),[['Titel',t.name],['Artiest(en)',(t.artists||[]).map(a=>a.name).join(', ')],['Releasedatum Spotify-uitgave',dateNL(t.album?.release_date)],['Album',t.album?.name],['Speelduur',duration(t.duration_ms)],['Tracknummer',t.track_number],['Disc',t.disc_number]]);$('artists').replaceChildren();
-const releaseFacts=$('trackFacts');
-const releaseTrackKey=key;
-if(t.external_ids?.isrc){
- earliestRecordingRelease(t.external_ids.isrc).then(first=>{
-  if(!first||currentKey!==releaseTrackKey||!releaseFacts.isConnected)return;
-  const spotifyDate=t.album?.release_date;
-  if(spotifyDate&&/^\d{4}-\d{2}-\d{2}$/.test(spotifyDate)&&first.date>=spotifyDate)return;
-  const node=fact('Vroegste bekende uitgave van deze opname',dateNL(first.date)+' · '+first.title);
-  if(!node)return;
-  releaseFacts.append(node);
-  const source=document.createElement('a');
-  source.href='https://musicbrainz.org/recording/'+encodeURIComponent(first.recordingId);
-  source.target='_blank';source.rel='noopener noreferrer';
-  source.textContent='Bron: MusicBrainz ↗';
-  source.className='artist-source';
-  releaseFacts.append(source);
- });
-}
-for(const a of t.artists||[]){const card=document.createElement('article');card.className='artist';const head=document.createElement('button');head.type='button';head.className='artisthead artist-toggle';head.setAttribute('aria-expanded','false');const profile=document.createElement('div');profile.className='artist-profile';profile.hidden=true;head.addEventListener('click',()=>{profile.hidden=!profile.hidden;head.setAttribute('aria-expanded',String(!profile.hidden));});const img=document.createElement('img');img.alt='Foto van '+a.name;const detail=document.createElement('div');const h=document.createElement('h4');h.textContent=a.name;const link=document.createElement('a');link.textContent='Spotify-profiel ↗';link.href=a.external_urls?.spotify||'https://open.spotify.com/';link.target='_blank';link.rel='noopener noreferrer';detail.append(h);head.append(img,detail);card.append(head,profile);const spotifyRow=document.createElement('div');spotifyRow.className='artist-link';spotifyRow.append(link);profile.append(spotifyRow);const knownDebut={'zach bryan':2019,'martin garrix':2012,'john mayer':1999,'red hot chili peppers':1984}[a.name.trim().toLowerCase()];const spotle=spotleGrid(null,null,knownDebut?{year:knownDebut}:null,null,a.name);profile.prepend(spotle);$('artists').append(card);if(a.id){spotify('artists/'+encodeURIComponent(a.id)).then(info=>{img.src=info.images?.[0]?.url||t.album?.images?.[0]?.url||'';const rows=[['Naam',info.name],['Genres',info.genres?.join(', ')||null],['Spotify-volgers',Number.isFinite(info.followers?.total)?info.followers.total.toLocaleString('nl-BE'):null]];const dl=document.createElement('dl');dl.className='facts';addFacts(dl,rows);let artistWd=null,artistDebut=null,artistGenre=null,artistMb=null;let shownGrid=spotleGrid(info,null,null,null,a.name);spotle.replaceWith(shownGrid);profile.prepend(dl);const updateGrid=()=>{if(!card.isConnected)return;const next=spotleGrid(info,artistWd,artistDebut,artistGenre,a.name,artistMb);shownGrid.replaceWith(next);shownGrid=next;};musicBrainzProfile(a).then(profile=>{if(!profile||!card.isConnected)return;artistMb=profile;if(!info.genres?.length)artistGenre=profile.genre;updateGrid();});musicBrainzDebut(a).then(debut=>{if(!debut||!card.isConnected)return;artistDebut=debut;updateGrid();if(debut.approximate){const note=document.createElement('p');note.className='muted';note.textContent='Debuutjaar voorlopig: vroegste gevonden Spotify-uitgave, mogelijk niet het echte debuut.';profile.append(note);}if(debut.link){const link=document.createElement('a');link.href=debut.link;link.target='_blank';link.rel='noopener noreferrer';link.className='artist-source';link.textContent='Debuutbron: MusicBrainz ('+debut.source+') ↗';profile.append(link);}});wikidataArtist(a.name,a.id).then(wd=>{if(!wd||!card.isConnected)return;artistWd=wd;updateGrid();addFacts(dl,[...rows,['Geboortedatum',wd.birth],['Leeftijd',wd.age===null?null:wd.age+' jaar'],['Geboorteplaats',wd.place],['Land',wd.country],['Geslacht',wd.gender],['Genres (Wikidata)',wd.genre],['Actief / opgericht sinds',wd.started],['Huidige bandleden (volgens bron)',verifiedBands[a.name.trim().toLowerCase()]?.members.join(', ')|| (wd.members?.length?wd.members.join(', '):null)],['Voormalige bandleden (volgens bron)',wd.formerMembers?.length?wd.formerMembers.join(', '):null]]);if(wd.memberDetails?.length&&!verifiedBands[a.name.trim().toLowerCase()]){
- const memberSection=document.createElement('details');memberSection.className='member-details';
- const summary=document.createElement('summary');summary.textContent='Bandleden · extra gegevens';memberSection.append(summary);
- const memberList=document.createElement('div');memberList.className='extras';
- for(const member of wd.memberDetails){
-  const item=document.createElement('div');item.className='fact';
-  const title=document.createElement('dt');title.textContent=member.name+(member.current?' · huidig volgens Wikidata':' · voormalig volgens Wikidata');
-  const value=document.createElement('dd');
-  const parts=[];
-  if(member.instruments?.length)parts.push('Instrumenten: '+member.instruments.join(', '));
-  if(member.birth){
-   parts.push('Geboren: '+member.birth);
-   const p=member.birth.split('/').map(Number);
-   const now=new Date();const age=now.getFullYear()-p[2]-(now.getMonth()+1<p[1]||(now.getMonth()+1===p[1]&&now.getDate()<p[0])?1:0);
-   if(age>=0&&age<125)parts.push('Leeftijd: '+age+' jaar');
-  }
-  value.textContent=parts.join(' · ')||'Geen aanvullende biografische gegevens beschikbaar';
-  const ref=document.createElement('a');ref.href='https://www.wikidata.org/wiki/'+encodeURIComponent(member.id);ref.target='_blank';ref.rel='noopener noreferrer';ref.textContent='Bekijk lid op Wikidata ↗';
-  item.append(title,value,ref);memberList.append(item);
- }
- memberSection.append(memberList);profile.append(memberSection);
-}
-const source=document.createElement('a');source.href='https://www.wikidata.org/wiki/'+wd.id;source.target='_blank';source.rel='noopener noreferrer';source.textContent='Bron: Wikidata ↗';source.className='artist-source';profile.append(source);});}).catch(()=>{img.src=t.album?.images?.[0]?.url||'';});}}addFacts($('extras'),[['Spotify-albumtype',t.album?.album_type],['ISRC',t.external_ids?.isrc],['Expliciete inhoud',t.explicit?'Ja':'Nee']]);}catch(e){message(e.message||String(e));}}
-$('refresh').onclick=()=>loadTrack(true);
-function stopAuto(){if(timer!==null)clearInterval(timer);timer=null;$('toggleAuto').textContent='Automatisch starten';}
-$('toggleAuto').onclick=()=>{if(timer!==null){stopAuto();message('Automatisch volgen gestopt.');return;}loadTrack(true);timer=setInterval(()=>{if(!document.hidden)loadTrack(false);},12000);$('toggleAuto').textContent='Automatisch stoppen';message('Automatisch volgen gestart.');};
-$('logout').onclick=()=>{stopAuto();accessToken=null;expiresAt=0;currentKey=null;['skc_access','skc_exp','skc_refresh','skc_verifier','skc_state'].forEach(k=>sessionStorage.removeItem(k));connected(false);$('result').hidden=true;message('Verbinding op dit tabblad verbroken.');};
-async function init(){accessToken=sessionStorage.getItem('skc_access');expiresAt=Number(sessionStorage.getItem('skc_exp')||0);if(sessionStorage.getItem('skc_refresh')||accessToken)connected(true);const u=new URL(location.href);const code=u.searchParams.get('code');const error=u.searchParams.get('error');if(!code&&!error)return;history.replaceState({},'',REDIRECT);if(error){message('Spotify-aanmelding geweigerd: '+error);return;}const state=u.searchParams.get('state');const expected=sessionStorage.getItem('skc_state');const verifier=sessionStorage.getItem('skc_verifier');sessionStorage.removeItem('skc_state');sessionStorage.removeItem('skc_verifier');if(!expected||state!==expected||!verifier){message('Aanmelding afgebroken: ongeldige beveiligingscontrole. Probeer opnieuw.');return;}try{const data=await tokenRequest({grant_type:'authorization_code',code,redirect_uri:REDIRECT,code_verifier:verifier});saveTokens(data);message('Spotify verbonden. Klik op Huidig nummer ophalen of start automatisch volgen.');}catch(e){message(e.message);}}
 init();

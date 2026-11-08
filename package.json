@@ -1,0 +1,13 @@
+{
+  "name": "spotify-kenniscentrum",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Spotify-artiestenkennis op jouw moment",
+  "scripts": {
+    "start": "python3 -m http.server 8000 --bind 127.0.0.1",
+    "check": "node --check app.js",
+    "test": "node --test tests/browser.test.cjs"
+  },
+  "engines": { "node": ">=22" },
+  "devDependencies": { "playwright": "1.62.1" }
+}
