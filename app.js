@@ -157,6 +157,34 @@ function setImage(image, url, alt) {
   if (url) image.src = url; else image.removeAttribute('src');
 }
 
+// Source-backed snapshots from the owner's Billboard and Ultratop projects.
+// Load only after the user requests music information; no background refresh job.
+let referenceCatalog = null;
+async function loadReferenceCatalog() {
+  if (!referenceCatalog) {
+    const job = request('data/artist-references.json?v=1').then(async response => {
+      if (!response.ok) throw Error('Referentieprofielen niet beschikbaar');
+      const catalog = await response.json();
+      return catalog.version === 1 && Array.isArray(catalog.artists) ? catalog.artists : [];
+    }).catch(() => []);
+    referenceCatalog = job;
+    job.then(records => { if (!records.length && referenceCatalog === job) referenceCatalog = null; });
+  }
+  return referenceCatalog;
+}
+function findReference(records, artist, wd = null) {
+  const direct = records.filter(record => record.spotifyIds?.includes(artist.id));
+  if (direct.length === 1) return direct[0];
+  if (!wd?.verifiedSpotify || !wd.musicBrainzId) return null;
+  const verified = records.filter(record => record.musicBrainzId === wd.musicBrainzId);
+  return verified.length === 1 ? verified[0] : null;
+}
+function referenceFact(profile, field) {
+  const fact = profile?.[field];
+  // Do not silently choose between disagreeing saved sources.
+  return !profile?.conflicts?.[field] && fact?.value != null && /^https:\/\//.test(fact.url || '') ? fact : null;
+}
+
 const wdCache=new Map();
 async function wikidataArtist(name,spotifyArtistId){
  const cacheKey=spotifyArtistId||name;
@@ -274,9 +302,11 @@ async function musicBrainzProfile(artist) {
   if (mbProfileCache.has(artist.id)) return mbProfileCache.get(artist.id);
   const task = (async () => {
     const norm = value => value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^\p{L}\p{N}]/gu, '').toLowerCase();
-    const wd = await wikidataArtist(artist.name, artist.id);
+    const saved = findReference(await loadReferenceCatalog(), artist);
+    const wd = saved ? null : await wikidataArtist(artist.name, artist.id);
     // A verified cross-reference avoids the separate, sometimes unavailable search service.
-    let id = wd?.verifiedSpotify && /^[a-f\d]{8}(?:-[a-f\d]{4}){3}-[a-f\d]{12}$/i.test(wd.musicBrainzId || '') ? wd.musicBrainzId : null;
+    const linkedId = saved?.musicBrainzId || (wd?.verifiedSpotify ? wd.musicBrainzId : null);
+    let id = /^[a-f\d]{8}(?:-[a-f\d]{4}){3}-[a-f\d]{12}$/i.test(linkedId || '') ? linkedId : null;
     if (!id) {
       const query = 'artist:"' + artist.name.replace(/["\\]/g, '') + '"';
       const result = await mbFetch('https://musicbrainz.org/ws/2/artist/?query=' + encodeURIComponent(query) + '&fmt=json&limit=25');
@@ -398,21 +428,23 @@ function countryName(code) {
 }
 function debutExplanation(debut) {
   if (!debut) return 'Geen betrouwbare debuutbron gevonden. Probeer later opnieuw.';
+  if (debut.reference) return 'Opgeslagen debuutjaar uit je Billboard-/Ultratop-project. Dit kan afwijken van de eerste single of EP.';
   if (debut.upperBound) return 'Alleen deze Spotify-uitgave is bekend: het debuut was uiterlijk in ' + debut.year + '. Het exacte debuutjaar is niet bevestigd.';
   if (debut.approximate) return 'Schatting op basis van de vroegste gevonden Spotify-uitgave. Het historische debuut kan vroeger liggen.' + (debut.partial ? ' De discografie is niet volledig opgehaald.' : '');
   return (debut.partial ? 'Gedeeltelijke discografie. ' : '') + 'Vroegste gevonden studio-uitgave in MusicBrainz; geen garantie op het historische debuut.';
 }
-function spotleGrid(info, wd, debut, mb, debutPending = false) {
+function spotleGrid(info, wd, debut, mb, debutPending = false, reference = null) {
   const grid = document.createElement('dl'); grid.className = 'spotle-grid';
   const popularity = Number.isFinite(info?.popularity) ? info.popularity + '/100' : 'Onbekend';
-  const gender = wd?.human ? wd.gender : wd?.groupGender;
+  const gender = referenceFact(reference, 'gender')?.value || (wd?.human ? wd.gender : wd?.groupGender);
+  const savedType = referenceFact(reference, 'type')?.value;
   const values = [
     ['Debut', debut ? (debut.upperBound ? '≤ ' : '') + debut.year + (!debut.upperBound && (debut.partial || debut.approximate) ? ' ≈' : '') : debutPending ? 'Zoeken…' : 'Onbekend', debutExplanation(debut)],
-    ['Members', wd?.human || mb?.type === 'Person' ? 'Solo' : wd?.members?.length || 'Onbekend', 'Huidige leden volgens Wikidata; de bron kan onvolledig of verouderd zijn.'],
+    ['Members', savedType === 'Person' ? 'Solo' : referenceFact(reference, 'members')?.value || (wd?.human || mb?.type === 'Person' ? 'Solo' : wd?.members?.length || 'Onbekend'), 'Opgeslagen aantal uit je chartproject indien beschikbaar, anders Wikidata. Bezettingen kunnen veranderen.'],
     ['Popularity', popularity, 'Spotify-populariteit van 0 tot 100, geen Spotle-rangschikking. Niet voor elke app beschikbaar.'],
-    ['Gender', gender || 'Onbekend', 'Volgens Wikidata; bij groepen alleen bepaald als alle bekende huidige leden gegevens hebben.'],
-    ['Genre', info?.genres?.[0] || wd?.genre || mb?.genre || 'Onbekend', 'Eerste Spotify-genre, anders Wikidata of het meest gestemde MusicBrainz-genre.'],
-    ['Country', wd?.country || countryName(mb?.countryCode) || 'Onbekend', 'Nationaliteit of land van herkomst volgens Wikidata, anders MusicBrainz.']
+    ['Gender', gender || 'Onbekend', 'Opgeslagen waarde uit je chartproject indien beschikbaar, anders Wikidata.'],
+    ['Genre', referenceFact(reference, 'genre')?.value || info?.genres?.[0] || wd?.genre || mb?.genre || 'Onbekend', 'Opgeslagen genre uit je chartproject indien beschikbaar, anders Spotify, Wikidata of MusicBrainz.'],
+    ['Country', referenceFact(reference, 'country')?.value || wd?.country || countryName(mb?.countryCode) || 'Onbekend', 'Opgeslagen herkomst uit je chartproject indien beschikbaar, anders Wikidata of MusicBrainz.']
   ];
   for (const [label, value, explanation] of values) {
     const tile = document.createElement('div'); tile.className = 'spotle-tile'; tile.title = explanation;
@@ -464,37 +496,44 @@ function renderArtist(artist, version, example = null, album = null) {
   const members = document.createElement('div');
   details.append(summary, facts, members, sources);
   card.append(head, grid, debutStatus, sourceStatus, details); $('artists').append(card);
-  let info = null, wd = null, mb = null, debut = null, spotifyEstimate = null, pending = 5, debutPending = 2;
+  let info = null, wd = null, mb = null, debut = null, spotifyEstimate = null, references = [], pending = 6, debutPending = 2;
   const albumBound = album ? catalogDebut([album], artist.id) : null;
   if (albumBound) albumBound.upperBound = true;
   const alive = () => version === viewVersion && card.isConnected;
   const update = () => {
     if (!alive()) return;
-    // A source can miss older releases. Never replace known earlier evidence with a later year.
-    const chosenDebut = [debut, spotifyEstimate, albumBound].filter(Boolean).sort((a, b) => a.year - b.year)[0] || null;
-    const next = spotleGrid(info, wd, chosenDebut, mb, debutPending > 0); grid.replaceWith(next); grid = next;
+    const reference = example ? null : findReference(references, artist, wd);
+    const savedYear = referenceFact(reference, 'debut');
+    const savedDebut = savedYear && releasedYear(String(savedYear.value)) ? { year: savedYear.value, link: savedYear.url, title: 'opgeslagen debuutjaar', reference: true } : null;
+    const firstRelease = [debut, spotifyEstimate, albumBound].filter(Boolean).sort((a, b) => a.year - b.year)[0] || null;
+    // User preference: their saved chart-project values take precedence over live inferences.
+    const chosenDebut = savedDebut || firstRelease;
+    const next = spotleGrid(info, wd, chosenDebut, mb, debutPending > 0, reference); grid.replaceWith(next); grid = next;
     debutStatus.textContent = example ? 'Fictief debuutjaar, alleen ter illustratie.' : chosenDebut ? debutExplanation(chosenDebut) : debutPending ? 'Debuutjaar wordt gezocht in MusicBrainz en Spotify…' : debutExplanation(null);
     if (chosenDebut?.link && !example) debutStatus.append(' ', sourceLink('Debuutbron', chosenDebut.link));
     setImage(image, info?.images?.[0]?.url || wd?.image, 'Foto van ' + artist.name);
-    addFacts(facts, [['Naam', artist.name], ['Genres', info?.genres?.join(', ') || wd?.genre || mb?.genre || 'Onbekend'],
-      ['Land', wd?.country || countryName(mb?.countryCode) || 'Onbekend'], ['Geboorteplaats / opgericht in', wd?.place || 'Onbekend'],
+    addFacts(facts, [['Naam', artist.name], ['Genres', referenceFact(reference, 'genre')?.value || info?.genres?.join(', ') || wd?.genre || mb?.genre || 'Onbekend'],
+      ['Land', referenceFact(reference, 'country')?.value || wd?.country || countryName(mb?.countryCode) || 'Onbekend'], ['Geboorteplaats / opgericht in', wd?.place || 'Onbekend'],
       ['Geboortedatum', wd?.birth], ['Leeftijd', wd?.death ? 'Overleden in ' + wd.death : wd?.age != null ? wd.age + ' jaar' : null],
-      ['Actief / opgericht sinds', wd?.started], ['Spotify-volgers', Number.isFinite(info?.followers?.total) ? info.followers.total.toLocaleString('nl-BE') : null]]);
+      ['Actief / opgericht sinds', wd?.started], ['Vroegste automatisch gevonden uitgave', savedDebut && firstRelease ? (firstRelease.upperBound ? 'Uiterlijk ' : '') + firstRelease.year + (firstRelease.approximate && !firstRelease.upperBound ? ' (schatting)' : '') : null], ['Spotify-volgers', Number.isFinite(info?.followers?.total) ? info.followers.total.toLocaleString('nl-BE') : null]]);
     members.replaceChildren(...(wd?.memberDetails?.length ? [renderMembers(wd.memberDetails)] : []));
     sources.replaceChildren();
     if (!example) sources.append(sourceLink('Spotify-profiel', 'https://open.spotify.com/artist/' + encodeURIComponent(artist.id)));
     if (wd?.id && !example) sources.append(sourceLink('Biografie: Wikidata', 'https://www.wikidata.org/wiki/' + wd.id));
     if (mb?.id && !example) sources.append(sourceLink('Genre / identiteit: MusicBrainz', 'https://musicbrainz.org/artist/' + mb.id));
     if (chosenDebut?.link && !example) sources.append(sourceLink('Debuut: ' + chosenDebut.title, chosenDebut.link));
+    if (referenceFact(reference, 'genre')) sources.append(sourceLink('Bron opgeslagen genre', reference.genre.url));
+    if (reference?.references?.[0]) sources.append(sourceLink('Profiel uit je chartproject', reference.references[0]));
     if (example) sourceStatus.textContent = 'Fictief voorbeeld · geen echte Spotify- of Spotle-gegevens.';
     else if (pending) sourceStatus.textContent = 'Bronnen laden… De beschikbare gegevens verschijnen meteen.';
-    else sourceStatus.textContent = [info || spotifyEstimate || albumBound ? 'Spotify' : null, wd ? 'Wikidata' : null, mb ? 'MusicBrainz' : null].filter(Boolean).join(' · ') || 'Geen betrouwbare aanvullende match gevonden. Probeer later opnieuw.';
+    else sourceStatus.textContent = [reference ? 'Opgeslagen Billboard-/Ultratop-profiel' : null, info || spotifyEstimate || albumBound ? 'Spotify' : null, wd ? 'Wikidata' : null, mb ? 'MusicBrainz' : null].filter(Boolean).join(' · ') || 'Geen betrouwbare aanvullende match gevonden. Probeer later opnieuw.';
     if (!pending && !example) sourceStatus.append(document.createTextNode(' · Onbekend betekent: niet beschikbaar of niet eenduidig gevonden.'));
     if (chosenDebut && !example) sources.append(note(debutExplanation(chosenDebut)));
   };
   if (example) { ({ info, wd, mb, debut } = example); pending = 0; update(); return; }
   update();
   const load = (promise, assign, isDebut = false) => promise.then(value => { if (alive()) assign(value); }).catch(() => {}).finally(() => { pending--; if (isDebut) debutPending--; update(); });
+  load(loadReferenceCatalog(), value => { references = value; });
   load(spotify('artists/' + encodeURIComponent(artist.id)), value => { info = value; });
   load(wikidataArtist(artist.name, artist.id), value => { wd = value; });
   load(musicBrainzProfile(artist), value => { mb = value; });

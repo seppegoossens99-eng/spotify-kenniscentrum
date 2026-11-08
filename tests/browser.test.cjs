@@ -9,8 +9,8 @@ const root = join(__dirname, '..');
 before(async () => {
   server = createServer(async (req, res) => {
     const path = new URL(req.url, 'http://test').pathname;
-    if (!['/', '/index.html', '/app.js', '/style.css'].includes(path)) { res.writeHead(404).end(); return; }
-    res.setHeader('Content-Type', path.endsWith('.js') ? 'text/javascript' : path.endsWith('.css') ? 'text/css' : 'text/html');
+    if (!['/', '/index.html', '/app.js', '/style.css', '/data/artist-references.json'].includes(path)) { res.writeHead(404).end(); return; }
+    res.setHeader('Content-Type', path.endsWith('.json') ? 'application/json' : path.endsWith('.js') ? 'text/javascript' : path.endsWith('.css') ? 'text/css' : 'text/html');
     res.end(await readFile(join(root, path === '/' ? 'index.html' : path.slice(1))));
   });
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
@@ -243,7 +243,7 @@ test('Wikidata gebruikt de Spotify-identiteit ook als de artiest een andere schr
 
 // Regression: Zach Top's MusicBrainz search returned 503, while the verified
 // Wikidata P434 lookup and his 2019 single remained available (2026-11-08).
-test('Zach Top: directe identiteit vult 2019 in wanneer de zoekdienst uitvalt', async t => {
+test('Zach Top: opgeslagen 2024 blijft leidend, automatische eerste uitgave 2019 blijft afzonderlijk beschikbaar', async t => {
   const artistId = '4FGPzWzgjURDNT7JQ8pYgH', mbId = '9939a762-5ca9-4c12-a735-0d62e21df4e3';
   const { page, calls } = await setup(t, { route: async (route, url, json) => {
     if (url.pathname.endsWith('/currently-playing')) {
@@ -267,9 +267,11 @@ test('Zach Top: directe identiteit vult 2019 in wanneer de zoekdienst uitvalt', 
     return false;
   } });
   await page.locator('#refresh').click(); await waitSources(page);
-  assert.equal((await values(page))[0], '2019');
+  assert.equal((await values(page))[0], '2024');
   assert.equal(calls.some(url => new URL(url).pathname === '/ws/2/artist/'), false, 'broken name search was bypassed');
-  assert.match(await page.locator('.debut-status a').getAttribute('href'), /b93d4d9f-38e4-47a5-830d-9bc84a2187f2/);
+  assert.match(await page.locator('.debut-status a').getAttribute('href'), /Cold_Beer/);
+  await page.locator('.artist details summary').click();
+  assert.match(await page.locator('.artist .facts').first().textContent(), /Vroegste automatisch gevonden uitgave2019/);
 });
 const catalogAlbum = (id, date, artists = [{ id: 'artist1' }]) => ({ id, name: id, release_date: date, album_type: 'single', album_group: 'single', artists });
 test('Spotify-terugval leest alle paginas en sluit andere artiesten, compilaties en toekomstige uitgaven uit', async t => {
@@ -335,4 +337,71 @@ test('vroegere Spotify-uitgave wordt niet vervangen door een latere MusicBrainz-
   } });
   await page.locator('#refresh').click(); await waitSources(page);
   assert.equal((await values(page))[0], '2001 ≈');
+});
+
+test('opgeslagen Zach Top-profiel blijft beschikbaar als externe bronnen uitvallen', async t => {
+  const { page } = await setup(t, { noSources: true, artistForbidden: true, route: async (route, url, json) => {
+    if (!url.pathname.endsWith('/currently-playing')) return false;
+    await json({ is_playing: true, item: { ...track, name: 'South of Sanity', artists: [{ id: '4FGPzWzgjURDNT7JQ8pYgH', name: 'Zach Top' }] } }); return true;
+  } });
+  await page.locator('#refresh').click(); await waitSources(page);
+  assert.deepEqual(await values(page), ['2024', 'Solo', 'Onbekend', 'Man', 'Country', 'Verenigde Staten']);
+  assert.match(await page.locator('.source-status').textContent(), /Opgeslagen Billboard/);
+});
+test('naamgenoot met andere Spotify-ID krijgt geen opgeslagen profiel', async t => {
+  const { page } = await setup(t, { noSources: true, artistForbidden: true, route: async (route, url, json) => {
+    if (!url.pathname.endsWith('/currently-playing')) return false;
+    await json({ is_playing: true, item: { ...track, artists: [{ id: 'unrelated-id', name: 'Zach Top' }] } }); return true;
+  } });
+  await page.locator('#refresh').click(); await waitSources(page);
+  assert.deepEqual(await values(page), Array(6).fill('Onbekend'));
+});
+test('meerdere Spotify-paginas vereisen live identiteit voordat een opgeslagen profiel wordt gebruikt', async t => {
+  const { page } = await setup(t, { noSources: true, artistForbidden: true, route: async (route, url, json) => {
+    if (!url.pathname.endsWith('/currently-playing')) return false;
+    await json({ is_playing: true, item: { ...track, artists: [{ id: '57vWImR43h4CaDao012Ofp', name: 'Steve Lacy' }] } }); return true;
+  } });
+  await page.locator('#refresh').click(); await waitSources(page);
+  assert.deepEqual(await values(page), Array(6).fill('Onbekend'));
+});
+test('bevestigde Spotify-/Wikidata-identiteit ontsluit het juiste opgeslagen Steve Lacy-profiel', async t => {
+  const sid = '57vWImR43h4CaDao012Ofp';
+  const { page } = await setup(t, { noSources: true, artistForbidden: true, route: async (route, url, json) => {
+    if (url.pathname.endsWith('/currently-playing')) { await json({ is_playing: true, item: { ...track, artists: [{ id: sid, name: 'Steve Lacy' }] } }); return true; }
+    if (url.hostname !== 'www.wikidata.org') return false;
+    if (url.searchParams.get('action') === 'wbsearchentities') await json({ search: [{ id: 'Q56733980', label: 'Steve Lacy', description: 'American guitarist' }] });
+    else await json({ entities: { Q56733980: { claims: { P31: [item('Q5')], P1902: [claim(sid)], P434: [claim('b29020d6-5dbf-4c99-b16f-c009f8a712ff')] } } } });
+    return true;
+  } });
+  await page.locator('#refresh').click(); await waitSources(page);
+  assert.equal((await values(page))[0], '2019');
+  assert.equal((await values(page))[4], 'R&B / alternatieve pop');
+});
+test('referentiebestand wordt pas na activeren geladen en bij een nieuw verzoek hergebruikt', async t => {
+  const { page } = await setup(t); let requests = 0;
+  page.on('request', request => { if (new URL(request.url()).pathname === '/data/artist-references.json') requests++; });
+  assert.equal(requests, 0);
+  await page.locator('#refresh').click(); await waitSources(page);
+  await page.locator('#refresh').click(); await waitSources(page);
+  assert.equal(requests, 1);
+});
+test('ontbrekend referentiebestand blokkeert automatische bronnen niet', async t => {
+  const { page } = await setup(t);
+  await page.route('**/data/artist-references.json*', route => route.fulfill({ status: 503, body: '{}' }));
+  await page.locator('#refresh').click(); await waitSources(page);
+  assert.equal((await values(page))[0], '2008');
+});
+test('geimporteerde bronprofielen hebben controleerbare bronnen en geen dubbele directe Spotify-identiteiten', async () => {
+  const catalog = JSON.parse(await readFile(join(root, 'data/artist-references.json'), 'utf8'));
+  assert.equal(catalog.artists.length, 123);
+  assert.equal(catalog.sources.length, 2);
+  const ids = new Set();
+  for (const artist of catalog.artists) {
+    assert.match(artist.musicBrainzId, /^[a-f\d]{8}(?:-[a-f\d]{4}){3}-[a-f\d]{12}$/i);
+    assert.ok(artist.debut.value >= 1900 && artist.debut.value <= new Date().getFullYear());
+    assert.match(artist.debut.url, /^https:\/\//);
+    assert.ok(artist.references.length > 0);
+    for (const id of artist.spotifyIds) { assert.equal(ids.has(id), false, id); ids.add(id); }
+    if (artist.candidateSpotifyIds) assert.equal(artist.spotifyIds.length, 0);
+  }
 });

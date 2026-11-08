@@ -1,0 +1,3771 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "repository": "seppegoossens99-eng/billboard-hot-100-reversed",
+      "commit": "d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed"
+    },
+    {
+      "repository": "seppegoossens99-eng/ultratop-50-reversed",
+      "commit": "73e0c745cccf613c8a65720b78e19728c7b6152b"
+    }
+  ],
+  "artists": [
+    {
+      "name": "21 Savage",
+      "musicBrainzId": "37b2cb82-ef79-4d46-a184-a549450aa231",
+      "spotifyIds": [
+        "1URnnhqYAYcrqrcwql10ft"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Hip-hop / trap",
+        "url": "https://www.allmusic.com/artist/21-savage-mn0003515232"
+      },
+      "debut": {
+        "value": 2017,
+        "url": "https://music.apple.com/us/album/issa-album/1256644768"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/37b2cb82-ef79-4d46-a184-a549450aa231"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "54 Ultra",
+      "musicBrainzId": "6f4926ae-865e-483b-86f9-9ae3b9584507",
+      "spotifyIds": [
+        "6X5L6rmyvrWWu60Gx6exiZ"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2021,
+        "url": "https://musicbrainz.org/release-group/53918ccc-18d1-41d1-bd0d-81445129cef5"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Aaron Blommaert",
+      "musicBrainzId": "2d66ed4c-f2fb-489d-a66a-9722252d2910",
+      "spotifyIds": [
+        "5IV4Xi8nYMqAuxGTUXNRis"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2023,
+        "url": "https://musicbrainz.org/release-group/47773bda-0375-4e4f-9fcd-90f2abe4ce6f"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "België",
+        "url": "https://musicbrainz.org/artist/2d66ed4c-f2fb-489d-a66a-9722252d2910"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "ADELA",
+      "musicBrainzId": "f40856e6-079f-4a0a-916e-9e6a5e04f646",
+      "spotifyIds": [
+        "2qanRMyA5bNuTvz1dK45OP"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop",
+        "url": "https://www.wikidata.org/wiki/Q131629817"
+      },
+      "debut": {
+        "value": 2025,
+        "url": "https://musicbrainz.org/artist/f40856e6-079f-4a0a-916e-9e6a5e04f646"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Slovakia",
+        "url": "https://musicbrainz.org/artist/f40856e6-079f-4a0a-916e-9e6a5e04f646"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Alex Warren",
+      "musicBrainzId": "609a2ea3-f446-4e31-8eef-9f7591afb55a",
+      "spotifyIds": [
+        "0fTSzq9jAh4c36UVb4V7CB"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop",
+        "url": "https://www.wikidata.org/wiki/Q121842162"
+      },
+      "debut": {
+        "value": 2021,
+        "url": "https://musicbrainz.org/release-group/a7f9aace-8470-44f3-acd8-e113bb6c16c7"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/609a2ea3-f446-4e31-8eef-9f7591afb55a"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "ANOTR",
+      "musicBrainzId": "5f3be62e-d166-453e-a3ea-07b9227fafae",
+      "spotifyIds": [
+        "4p5WgeiPSPpqPDs7T6OkWf"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "House / techhouse",
+        "url": "https://www.artiestenbureau.nl/artiesten/anotr/"
+      },
+      "debut": {
+        "value": 2017,
+        "url": "https://musicbrainz.org/release-group/f9c28291-164b-45a2-9576-ba0ea181e7e1"
+      },
+      "gender": {
+        "value": "Groep",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Netherlands",
+        "url": "https://musicbrainz.org/artist/5f3be62e-d166-453e-a3ea-07b9227fafae"
+      },
+      "members": {
+        "value": 2,
+        "url": "https://www.artiestenbureau.nl/artiesten/anotr/"
+      },
+      "type": {
+        "value": "Group",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Ariana Grande",
+      "musicBrainzId": "f4fdbb4c-e4b7-47a0-b83b-d91bbfcfa387",
+      "spotifyIds": [
+        "66CXWjxzNUsdJxJ2JdwvnR"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop / R&B",
+        "url": "https://music.apple.com/us/artist/ariana-grande/412778295"
+      },
+      "debut": {
+        "value": 2013,
+        "url": "https://music.apple.com/us/album/yours-truly/1440860819"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/f4fdbb4c-e4b7-47a0-b83b-d91bbfcfa387"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Ashe",
+      "musicBrainzId": "36086094-c2a4-49b9-8572-0fbf12fc3409",
+      "spotifyIds": [
+        "6P5NO5hzJbuOqSdyPB7SJM"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Indiepop",
+        "url": "https://en.wikipedia.org/wiki/Ashe_(singer)"
+      },
+      "debut": {
+        "value": 2021,
+        "url": "https://en.wikipedia.org/wiki/Ashlyn_(album)"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/36086094-c2a4-49b9-8572-0fbf12fc3409"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Audrey Hobert",
+      "musicBrainzId": "bf2bf522-581e-4c93-81c2-cb5b826b02e4",
+      "spotifyIds": [
+        "4N0TAwz9vhnQtjCqS65aKS"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop",
+        "url": "https://en.wikipedia.org/wiki/Audrey_Hobert"
+      },
+      "debut": {
+        "value": 2025,
+        "url": "https://www.sonymusic.ca/press_release/audrey-hoberts-debut-album-whos-the-clown-out-now"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/bf2bf522-581e-4c93-81c2-cb5b826b02e4"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Ava Max",
+      "musicBrainzId": "add5f522-25df-41c4-815e-0ca9f60b83e4",
+      "spotifyIds": [],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "dance-pop",
+        "url": "https://www.wikidata.org/wiki/Q56755505"
+      },
+      "debut": {
+        "value": 2008,
+        "url": "https://musicbrainz.org/release-group/5cd6ddf5-a44c-4452-b4a2-7c779e087e89"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/add5f522-25df-41c4-815e-0ca9f60b83e4"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      },
+      "candidateSpotifyIds": [
+        "0yTBNDu1PcULD41xUyZSuq",
+        "4npEfmQ6YuiwW1GpUmaq3F"
+      ]
+    },
+    {
+      "name": "Babet",
+      "musicBrainzId": "b64122e2-5d29-42da-9c39-ddf8cb239553",
+      "spotifyIds": [
+        "2Zx5UnYsOJTrLB7EerhsJh"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2017,
+        "url": "https://musicbrainz.org/release-group/1400f3c4-cc30-41d9-b4ff-ddc7b7efd9cb"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Netherlands",
+        "url": "https://musicbrainz.org/artist/b64122e2-5d29-42da-9c39-ddf8cb239553"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "BabyChiefDoit",
+      "musicBrainzId": "df033c30-93af-439f-9124-431b00c392a8",
+      "spotifyIds": [
+        "1J1pGfTqp5ReVIX8Z1Wzsg"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Drill / hiphop",
+        "url": "https://en.wikipedia.org/wiki/BabyChiefDoit"
+      },
+      "debut": {
+        "value": 2024,
+        "url": "https://soundcloud.com/stories/post/ascending-babychiefdoit"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/df033c30-93af-439f-9124-431b00c392a8"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Bailey Zimmerman",
+      "musicBrainzId": "20543896-ec2c-48c4-b6b2-507c6cbe9918",
+      "spotifyIds": [
+        "3win9vGIxFfBRag9S63wwf"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2023,
+        "url": "https://en.wikipedia.org/wiki/Religiously._The_Album."
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/20543896-ec2c-48c4-b6b2-507c6cbe9918"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Bart Kaëll",
+      "musicBrainzId": "b0aa4a2c-c234-4e6a-bdc9-c092b9b519e2",
+      "spotifyIds": [
+        "7vwpGdC4NswrFH2szqnzy3"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop",
+        "url": "https://www.wikidata.org/wiki/Q809200"
+      },
+      "debut": {
+        "value": 1989,
+        "url": "https://musicbrainz.org/release-group/a227ecc0-f302-4da2-8e38-c4f72591d8d9"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Belgium",
+        "url": "https://musicbrainz.org/artist/b0aa4a2c-c234-4e6a-bdc9-c092b9b519e2"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Bart Peeters",
+      "musicBrainzId": "6cbddeda-39b0-4d89-90e1-b2f21295b3d0",
+      "spotifyIds": [
+        "1LsW7KoHTgRLcZ7Jwt79MR"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 1988,
+        "url": "https://musicbrainz.org/release-group/7a2d609a-a6c5-36cb-8447-cfeabef6ee31"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "België",
+        "url": "https://musicbrainz.org/artist/6cbddeda-39b0-4d89-90e1-b2f21295b3d0"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Bebe Rexha",
+      "musicBrainzId": "db8fad3a-e131-47a1-8782-c2ee93708cdd",
+      "spotifyIds": [
+        "64M6ah0SkkRsnPGtGiRAbb"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop",
+        "url": "https://www.wikidata.org/wiki/Q16185856"
+      },
+      "debut": {
+        "value": 2012,
+        "url": "https://musicbrainz.org/release-group/627c9159-d8e3-4afd-9915-0e242bf2ba0f"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/db8fad3a-e131-47a1-8782-c2ee93708cdd"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Becky G",
+      "musicBrainzId": "eb90c8b8-d733-4c14-a293-105c3d1ba9b3",
+      "spotifyIds": [
+        "4obzFoKoKRHIphyHzJ35G3"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop / Rock",
+        "url": "https://www.wikidata.org/wiki/Q1393997"
+      },
+      "debut": {
+        "value": 2011,
+        "url": "https://musicbrainz.org/release-group/459d09ea-d2c1-4a16-b62d-67384826c2b9"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/eb90c8b8-d733-4c14-a293-105c3d1ba9b3"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Belly Gang Kushington",
+      "musicBrainzId": "f3cb8059-add2-4bf9-a19e-5664588e30ba",
+      "spotifyIds": [
+        "7oHPIc7BYAIUhYFF6hSggI"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Southern hiphop / trap",
+        "url": "https://www.allmusic.com/artist/belly-gang-kushington-mn0004572461"
+      },
+      "debut": {
+        "value": 2025,
+        "url": "https://bellygangkushington.com/products/introduction"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/f3cb8059-add2-4bf9-a19e-5664588e30ba"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Berre",
+      "musicBrainzId": "fa5ee2b5-7552-4fe7-9254-767e9e6294f0",
+      "spotifyIds": [
+        "1hqxH66i1ZwEBAkzORVRPW"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop",
+        "url": "https://www.wikidata.org/wiki/Q114829973"
+      },
+      "debut": {
+        "value": 2022,
+        "url": "https://musicbrainz.org/release-group/77819f8c-d674-4a64-a339-58536dac1593"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "België",
+        "url": "https://musicbrainz.org/artist/fa5ee2b5-7552-4fe7-9254-767e9e6294f0"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Beyonce",
+      "musicBrainzId": "859d0860-d480-4efd-970c-c05d5f1776b8",
+      "spotifyIds": [],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "R&B / pop",
+        "url": "https://en.wikipedia.org/wiki/Beyonce"
+      },
+      "debut": {
+        "value": 2003,
+        "url": "https://en.wikipedia.org/wiki/Dangerously_in_Love"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/859d0860-d480-4efd-970c-c05d5f1776b8"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      },
+      "candidateSpotifyIds": [
+        "6HOb77B9Vyl7bdKj8YSfDS",
+        "6vWDO969PvNqNYHIOW5v0m"
+      ]
+    },
+    {
+      "name": "boa",
+      "musicBrainzId": "ca1dcba2-792c-4550-abf2-7b45396e81ca",
+      "spotifyIds": [
+        "5jTtGLk1mGFMY5lQOvJYUj"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Alternatieve rock",
+        "url": "https://en.wikipedia.org/wiki/B%C3%B4a_(band)"
+      },
+      "debut": {
+        "value": 1998,
+        "url": "https://musicbrainz.org/release/8bd70552-0a26-466e-bfaf-49f0e5b65e5d"
+      },
+      "gender": {
+        "value": "Groep",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "United Kingdom",
+        "url": "https://musicbrainz.org/artist/ca1dcba2-792c-4550-abf2-7b45396e81ca"
+      },
+      "members": {
+        "value": 3,
+        "url": "https://www.bandsintown.com/a/15531053-b-a"
+      },
+      "type": {
+        "value": "Group",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      },
+      "conflicts": {
+        "country": [
+          {
+            "value": "Verenigd Koninkrijk",
+            "url": "https://musicbrainz.org/artist/ca1dcba2-792c-4550-abf2-7b45396e81ca"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Bruno Mars",
+      "musicBrainzId": "afb680f2-b6eb-4cd7-a70b-a63b25c763d5",
+      "spotifyIds": [
+        "0du5cEVh5yTK9QJze8zA0C"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop / funk / R&B",
+        "url": "https://en.wikipedia.org/wiki/Bruno_Mars"
+      },
+      "debut": {
+        "value": 2010,
+        "url": "https://en.wikipedia.org/wiki/Doo-Wops_%26_Hooligans"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/afb680f2-b6eb-4cd7-a70b-a63b25c763d5"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Burna Boy",
+      "musicBrainzId": "78a19169-ac75-4868-b504-7e2e073118e0",
+      "spotifyIds": [
+        "3wcj11K77LjEY1PkEazffa"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Afrobeats / dancehall",
+        "url": "https://burnaboystats.com/music/albums/life"
+      },
+      "debut": {
+        "value": 2013,
+        "url": "https://burnaboystats.com/music/albums/life"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Nigeria",
+        "url": "https://musicbrainz.org/artist/78a19169-ac75-4868-b504-7e2e073118e0"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Cameron Whitcomb",
+      "musicBrainzId": "87ac8ea4-4663-4d81-8f6a-8a80e318e9ec",
+      "spotifyIds": [
+        "6dhXvR5MsnlwYguRuqoapR"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country / folk",
+        "url": "https://www.thecamwhitcomb.com/"
+      },
+      "debut": {
+        "value": 2024,
+        "url": "https://www.thecamwhitcomb.com/"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Canada",
+        "url": "https://musicbrainz.org/artist/87ac8ea4-4663-4d81-8f6a-8a80e318e9ec"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Cardi B",
+      "musicBrainzId": "2f3c4d70-0462-40da-bba3-0aec5772c556",
+      "spotifyIds": [],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Hip-hop",
+        "url": "https://en.wikipedia.org/wiki/Cardi_B"
+      },
+      "debut": {
+        "value": 2018,
+        "url": "https://en.wikipedia.org/wiki/Invasion_of_Privacy"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/2f3c4d70-0462-40da-bba3-0aec5772c556"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      },
+      "candidateSpotifyIds": [
+        "4A91BvIz3g7H9yrBiVBUkx",
+        "4kYSro6naA4h99UJvo89HB"
+      ]
+    },
+    {
+      "name": "Chandler Moore",
+      "musicBrainzId": "8c53db5e-72b9-468b-9b86-371c64376d66",
+      "spotifyIds": [
+        "6y7frW1RUq3XBBXbYowVpk"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Gospel / christelijke muziek",
+        "url": "https://en.wikipedia.org/wiki/Chandler_Moore"
+      },
+      "debut": {
+        "value": 2020,
+        "url": "https://www.worshiptogether.com/worship-leaders/chandler-moore/"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/8c53db5e-72b9-468b-9b86-371c64376d66"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Chappell Roan",
+      "musicBrainzId": "56a55378-f155-48de-80a5-d80104221267",
+      "spotifyIds": [
+        "7GlBOeep6PqTfFi59PTUUN"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop / synthpop",
+        "url": "https://en.wikipedia.org/wiki/Chappell_Roan"
+      },
+      "debut": {
+        "value": 2023,
+        "url": "https://en.wikipedia.org/wiki/The_Rise_and_Fall_of_a_Midwest_Princess"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/56a55378-f155-48de-80a5-d80104221267"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Chase Matthew",
+      "musicBrainzId": "b9bdc8af-9641-4958-8eb3-1bead9ff632d",
+      "spotifyIds": [
+        "7HTLVyjNf0VRxfIgNcfRRH"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country",
+        "url": "https://www.allmusic.com/artist/chase-matthew-mn0004105421"
+      },
+      "debut": {
+        "value": 2021,
+        "url": "https://musicbrainz.org/artist/b9bdc8af-9641-4958-8eb3-1bead9ff632d"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/b9bdc8af-9641-4958-8eb3-1bead9ff632d"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Cody Johnson",
+      "musicBrainzId": "faabeed5-3dd0-4be5-aec5-e6486e68db2f",
+      "spotifyIds": [
+        "6zLBxLdl60ekBLpawtT63I"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2006,
+        "url": "https://en.wikipedia.org/wiki/Cody_Johnson"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/faabeed5-3dd0-4be5-aec5-e6486e68db2f"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Corey Kent",
+      "musicBrainzId": "c59c787f-75cf-405b-b4f0-8445f730bcbe",
+      "spotifyIds": [
+        "3sUpZrkehiGBaMzs2h9Mmc"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country",
+        "url": "https://www.sonymusicnashville.com/corey-kent-hits-the-pavement-with-the-release-of-new-album-blacktop/"
+      },
+      "debut": {
+        "value": 2014,
+        "url": "https://www.allmusic.com/artist/corey-kent-mn0004210884"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/c59c787f-75cf-405b-b4f0-8445f730bcbe"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Dan + Shay",
+      "musicBrainzId": "33cf3954-10af-4dcb-985f-9420d1fa4168",
+      "spotifyIds": [
+        "7z5WFjZAIYejWy0NI5lv4T"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2014,
+        "url": "https://en.wikipedia.org/wiki/Where_It_All_Began_(Dan_%2B_Shay_album)"
+      },
+      "gender": {
+        "value": "Groep",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/33cf3954-10af-4dcb-985f-9420d1fa4168"
+      },
+      "members": {
+        "value": 2,
+        "url": "https://www.qobuz.com/nz-en/album/good-things-dan-shay/tdbu5be6vyw8b"
+      },
+      "type": {
+        "value": "Group",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Dexter And The Moonrocks",
+      "musicBrainzId": "38ed4923-005f-4ba0-baf7-749269dfea29",
+      "spotifyIds": [
+        "72sOBVpZpUwHq7i0vb26lT"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Rock",
+        "url": "https://music.apple.com/us/album/dexter-and-the-moonrocks-ep/1596954880"
+      },
+      "debut": {
+        "value": 2021,
+        "url": "https://music.apple.com/us/album/dexter-and-the-moonrocks-ep/1596954880"
+      },
+      "gender": {
+        "value": "Groep",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/38ed4923-005f-4ba0-baf7-749269dfea29"
+      },
+      "members": {
+        "value": 4,
+        "url": "https://musicbrainz.org/artist/38ed4923-005f-4ba0-baf7-749269dfea29"
+      },
+      "type": {
+        "value": "Group",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "DJ Goja",
+      "musicBrainzId": "ba5d78cb-4419-40c4-8b16-5e3a41254456",
+      "spotifyIds": [
+        "2bHWbDN72wdIF0Y48669zg"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2019,
+        "url": "https://musicbrainz.org/release-group/32d48e06-f28b-460a-bc11-bc7d32080809"
+      },
+      "country": {
+        "value": "Romania",
+        "url": "https://musicbrainz.org/artist/ba5d78cb-4419-40c4-8b16-5e3a41254456"
+      }
+    },
+    {
+      "name": "Dominic Fike",
+      "musicBrainzId": "e337c918-098f-418e-97a2-81dc224b1bf9",
+      "spotifyIds": [
+        "6USv9qhCn6zfxlBQIYJ9qs"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Alternatieve pop / hip-hop",
+        "url": "https://en.wikipedia.org/wiki/Dominic_Fike"
+      },
+      "debut": {
+        "value": 2020,
+        "url": "https://en.wikipedia.org/wiki/What_Could_Possibly_Go_Wrong_(Dominic_Fike_album)"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/e337c918-098f-418e-97a2-81dc224b1bf9"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Don Toliver",
+      "musicBrainzId": "a0723a3c-4135-438e-85c5-012712144ede",
+      "spotifyIds": [
+        "4Gso3d4CscCijv0lmajZWs"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Hip-hop / R&B",
+        "url": "https://en.wikipedia.org/wiki/Don_Toliver"
+      },
+      "debut": {
+        "value": 2020,
+        "url": "https://en.wikipedia.org/wiki/Heaven_or_Hell_(Don_Toliver_album)"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/a0723a3c-4135-438e-85c5-012712144ede"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Drake",
+      "musicBrainzId": "9fff2f8a-21e6-47de-a2b8-7f449929d43f",
+      "spotifyIds": [
+        "3TVXtAsR1Inumwj472S9r4"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Hip-hop / R&B",
+        "url": "https://www.allmusic.com/artist/mn0001035294"
+      },
+      "debut": {
+        "value": 2010,
+        "url": "https://en.wikipedia.org/wiki/Thank_Me_Later"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Canada",
+        "url": "https://musicbrainz.org/artist/9fff2f8a-21e6-47de-a2b8-7f449929d43f"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Ed Sheeran",
+      "musicBrainzId": "b8a7c51f-362c-4dcb-a259-bc6e0095f0a6",
+      "spotifyIds": [
+        "6eUKZXaKkcviH0Ku9w2n3V"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop / Rock / Rock-'n-roll",
+        "url": "https://www.wikidata.org/wiki/Q47447"
+      },
+      "debut": {
+        "value": 2005,
+        "url": "https://musicbrainz.org/release-group/3386ab22-77ef-4aa5-a5d8-b1e99eb16c67"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "United Kingdom",
+        "url": "https://musicbrainz.org/artist/b8a7c51f-362c-4dcb-a259-bc6e0095f0a6"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Elevation Worship",
+      "musicBrainzId": "f3bb45c8-dcb3-4358-ab21-645e6d0935e4",
+      "spotifyIds": [
+        "3YCKuqpv9nCsIhJ2v8SMix"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Christelijke muziek / worship",
+        "url": "https://en.wikipedia.org/wiki/Elevation_Worship"
+      },
+      "debut": {
+        "value": 2006,
+        "url": "https://www.allmusic.com/artist/elevation-worship-mn0001944458"
+      },
+      "gender": {
+        "value": "Groep",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/f3bb45c8-dcb3-4358-ab21-645e6d0935e4"
+      },
+      "members": {
+        "value": 7,
+        "url": "https://store.elevationchurch.org/products/so-be-it-vinyl"
+      },
+      "type": {
+        "value": "Group",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Ella Langley",
+      "musicBrainzId": "b16c0872-31a7-4db9-8569-0e3146fcecfc",
+      "spotifyIds": [
+        "6BRxQ8cD3eqnrVj6WKDok8"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country",
+        "url": "https://en.wikipedia.org/wiki/Ella_Langley"
+      },
+      "debut": {
+        "value": 2024,
+        "url": "https://en.wikipedia.org/wiki/Hungover_(Ella_Langley_album)"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/b16c0872-31a7-4db9-8569-0e3146fcecfc"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Faithless",
+      "musicBrainzId": "23d9d74d-c95e-46a6-be26-a6075c49747a",
+      "spotifyIds": [
+        "5T4UKHhr4HGIC0VzdZQtAE"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "electronic / trip hop / trance",
+        "url": "https://musicbrainz.org/artist/23d9d74d-c95e-46a6-be26-a6075c49747a"
+      },
+      "debut": {
+        "value": 1995,
+        "url": "https://musicbrainz.org/release-group/1c19140d-86ca-35df-8977-0e478e8d8fbe"
+      },
+      "gender": {
+        "value": "Groep",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "United Kingdom",
+        "url": "https://musicbrainz.org/artist/23d9d74d-c95e-46a6-be26-a6075c49747a"
+      },
+      "members": {
+        "value": 2,
+        "url": "https://press.music.tomorrowland.com/symphony-of-unity-honors-30-years-of-faithless-insomnia-with-the-release-of-a-grand-orchestral-rework"
+      },
+      "type": {
+        "value": "Group",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Freya Skye",
+      "musicBrainzId": "75b9caea-c639-4120-9391-05dbf15f30be",
+      "spotifyIds": [
+        "2puBSdvuiPd5L4ENw6mxsn"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2022,
+        "url": "https://musicbrainz.org/release-group/d1368181-3c3a-4fd1-8727-9f8cc1c28f0e"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigd Koninkrijk",
+        "url": "https://musicbrainz.org/artist/75b9caea-c639-4120-9391-05dbf15f30be"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Froukje",
+      "musicBrainzId": "64f014d1-9bfe-4093-ae58-1cd2ff5e355e",
+      "spotifyIds": [
+        "0uBVyPbLZRDNEBiA4fZUlp"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop",
+        "url": "https://www.wikidata.org/wiki/Q105064078"
+      },
+      "debut": {
+        "value": 2020,
+        "url": "https://musicbrainz.org/release-group/51e55579-f6d6-48be-a572-4294b357db01"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Nederland",
+        "url": "https://musicbrainz.org/artist/64f014d1-9bfe-4093-ae58-1cd2ff5e355e"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Greylan James",
+      "musicBrainzId": "c539265b-99c9-49fb-b47f-bb1dce6d5cf3",
+      "spotifyIds": [
+        "0obiwW8UEpyliJ4xhXqrra"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country",
+        "url": "https://www.opry.com/artists/greylan-james"
+      },
+      "debut": {
+        "value": 2022,
+        "url": "https://musicrow.com/2022/08/greylan-james-puts-on-his-artist-hat-with-debut-ep/"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/c539265b-99c9-49fb-b47f-bb1dce6d5cf3"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Gunna",
+      "musicBrainzId": "100b8734-f4f0-4536-9960-47f7c59d1b4c",
+      "spotifyIds": [
+        "2hlmm7s2ICUX0LVIhVFlZQ"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Hip-hop / trap",
+        "url": "https://en.wikipedia.org/wiki/Gunna"
+      },
+      "debut": {
+        "value": 2019,
+        "url": "https://en.wikipedia.org/wiki/Drip_or_Drown_2"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/100b8734-f4f0-4536-9960-47f7c59d1b4c"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Harry Styles",
+      "musicBrainzId": "7eb1ce54-a355-41f9-8d68-e018b096d427",
+      "spotifyIds": [
+        "6KImCVD70vtIoJWnq6nGn3"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop / rock",
+        "url": "https://en.wikipedia.org/wiki/Harry_Styles"
+      },
+      "debut": {
+        "value": 2017,
+        "url": "https://en.wikipedia.org/wiki/Harry_Styles_(album)"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "United Kingdom",
+        "url": "https://musicbrainz.org/artist/7eb1ce54-a355-41f9-8d68-e018b096d427"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Hudson Westbrook",
+      "musicBrainzId": "5b511be8-fd02-4de2-a017-7f5d06db53e4",
+      "spotifyIds": [
+        "0C4gtx1iHMfuaQ73GKWvtZ"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country",
+        "url": "https://www.opry.com/artists/hudson-westbrook"
+      },
+      "debut": {
+        "value": 2024,
+        "url": "https://www.warnerrecordsnashville.com/artists/hudson-westbrook"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/5b511be8-fd02-4de2-a017-7f5d06db53e4"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "HUGEL",
+      "musicBrainzId": "eead7215-59da-45f5-b719-62f349ef4133",
+      "spotifyIds": [
+        "5PlfkPxwCpRRWQJBxCa0By"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "dance",
+        "url": "https://www.wikidata.org/wiki/Q55217093"
+      },
+      "debut": {
+        "value": 2015,
+        "url": "https://musicbrainz.org/release-group/16e9b1ae-98e3-42d0-b168-d33a6146a6d5"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Frankrijk",
+        "url": "https://musicbrainz.org/artist/eead7215-59da-45f5-b719-62f349ef4133"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Imael Angel",
+      "musicBrainzId": "a3c9387a-6e60-4f49-8405-6056998e01d7",
+      "spotifyIds": [
+        "17yREPqyU875WJnX9U082A"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2026,
+        "url": "https://musicbrainz.org/release-group/5c048d00-1885-4739-8f80-13d7635b7f4e"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "HU",
+        "url": "https://musicbrainz.org/artist/a3c9387a-6e60-4f49-8405-6056998e01d7"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "JADE",
+      "musicBrainzId": "f4108df8-cf1f-4279-a840-599b2a291127",
+      "spotifyIds": [
+        "24b0qNYNgeOfpP5rbljIB3"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop",
+        "url": "https://en.wikipedia.org/wiki/Jade_Thirlwall"
+      },
+      "debut": {
+        "value": 2025,
+        "url": "https://en.wikipedia.org/wiki/That%27s_Showbiz_Baby!"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "United Kingdom",
+        "url": "https://musicbrainz.org/artist/f4108df8-cf1f-4279-a840-599b2a291127"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Jamie Miller",
+      "musicBrainzId": "081e71fb-4291-4a0c-a0f7-52b6c9ea8b31",
+      "spotifyIds": [
+        "2LkkwxA19J8C52wPQl5bG6"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop / R&B",
+        "url": "https://www.wikidata.org/wiki/Q106604082"
+      },
+      "debut": {
+        "value": 2022,
+        "url": "https://music.apple.com/us/album/broken-memories-ep/1615789010"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/081e71fb-4291-4a0c-a0f7-52b6c9ea8b31"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Jelly Roll",
+      "musicBrainzId": "ab5a7a60-1b71-4e5b-b622-e0ae2ce84c32",
+      "spotifyIds": [
+        "19k8AgwwTSxeaxkOuCQEJs"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country / hip-hop",
+        "url": "https://en.wikipedia.org/wiki/Jelly_Roll_(singer)"
+      },
+      "debut": {
+        "value": 2003,
+        "url": "https://en.wikipedia.org/wiki/Jelly_Roll_discography"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/ab5a7a60-1b71-4e5b-b622-e0ae2ce84c32"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "JENNIE",
+      "musicBrainzId": "779351de-0da5-4943-928b-495a3c40e8c0",
+      "spotifyIds": [
+        "250b0Wlc5Vk0CoUsaCY84M"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "K-pop / hip-hop",
+        "url": "https://en.wikipedia.org/wiki/JENNIE"
+      },
+      "debut": {
+        "value": 2025,
+        "url": "https://en.wikipedia.org/wiki/Ruby_(Jennie_album)"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Korea, Republic of",
+        "url": "https://musicbrainz.org/artist/779351de-0da5-4943-928b-495a3c40e8c0"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Jhene Aiko",
+      "musicBrainzId": "ceb3f5b7-9f1a-430f-afbe-976fdcf30482",
+      "spotifyIds": [
+        "5ZS223C6JyBfXasXxrRqOk"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "R&B",
+        "url": "https://www.grammy.com/news/jhen-aiko-lets-go-with-souled-out/"
+      },
+      "debut": {
+        "value": 2014,
+        "url": "https://www.grammy.com/news/jhen-aiko-lets-go-with-souled-out/"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/ceb3f5b7-9f1a-430f-afbe-976fdcf30482"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "John Mayer",
+      "musicBrainzId": "144ef525-85e9-40c3-8335-02c32d0861f3",
+      "spotifyIds": [
+        "0hEurMDQu99nJRq8pTxO14"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Poprock / blues",
+        "url": "https://en.wikipedia.org/wiki/John_Mayer"
+      },
+      "debut": {
+        "value": 1999,
+        "url": "https://en.wikipedia.org/wiki/Inside_Wants_Out"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/144ef525-85e9-40c3-8335-02c32d0861f3"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Jonas Blue",
+      "musicBrainzId": "17678771-5799-4017-851a-319f25b6948d",
+      "spotifyIds": [
+        "1HBjj22wzbscIZ9sEb5dyf"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "tropical house / snap music / trap",
+        "url": "https://www.wikidata.org/wiki/Q22246459"
+      },
+      "debut": {
+        "value": 2015,
+        "url": "https://musicbrainz.org/release-group/e4b8b150-eae2-4a2b-91bc-f4d3dbcebbb3"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigd Koninkrijk",
+        "url": "https://musicbrainz.org/artist/17678771-5799-4017-851a-319f25b6948d"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Judeline",
+      "musicBrainzId": "b828d419-2928-4286-9509-5d920d524358",
+      "spotifyIds": [
+        "1H6X7yhnXZg73f9bssaj1Q"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Alternatieve pop / flamenco",
+        "url": "https://en.wikipedia.org/wiki/Judeline"
+      },
+      "debut": {
+        "value": 2024,
+        "url": "https://en.wikipedia.org/wiki/Bodhiria"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Spain",
+        "url": "https://musicbrainz.org/artist/b828d419-2928-4286-9509-5d920d524358"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Judith",
+      "musicBrainzId": "fd05a773-a507-4578-a8e1-66f0f3f07a90",
+      "spotifyIds": [
+        "6N3rD8rvf1LIOtQqTCXnVA"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Folkpop / singer-songwriter / country",
+        "url": "https://www.damusic.be/dossier/judith-you-did-not-sign-up-for-this"
+      },
+      "debut": {
+        "value": 2022,
+        "url": "https://www.damusic.be/dossier/judith-you-did-not-sign-up-for-this"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Belgium",
+        "url": "https://musicbrainz.org/artist/fd05a773-a507-4578-a8e1-66f0f3f07a90"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Justice",
+      "musicBrainzId": "860b2707-6153-4e3a-aa57-74d2b42c55b5",
+      "spotifyIds": [
+        "1gR0gsQYfi6joyO1dlp76N"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2007,
+        "url": "https://en.wikipedia.org/wiki/Cross_(Justice_album)"
+      },
+      "gender": {
+        "value": "Groep",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "France",
+        "url": "https://musicbrainz.org/artist/860b2707-6153-4e3a-aa57-74d2b42c55b5"
+      },
+      "members": {
+        "value": 2,
+        "url": "https://www.synthhistory.com/post/interview-with-justice"
+      },
+      "type": {
+        "value": "Group",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Justė",
+      "musicBrainzId": "a0cf2733-ce5a-4b1f-aad6-fd0800a4b2c2",
+      "spotifyIds": [
+        "0LWUxoJXKsDsPenrHZ0key"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2025,
+        "url": "https://musicbrainz.org/release-group/7d8140cc-f7b0-4a05-8257-a705ab2aef4f"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Lithuania",
+        "url": "https://musicbrainz.org/artist/a0cf2733-ce5a-4b1f-aad6-fd0800a4b2c2"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Karol G",
+      "musicBrainzId": "de22adae-f8ac-414f-b653-b0162611bd60",
+      "spotifyIds": [
+        "790FomKkXshlbRYZFtlgla"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Reggaeton / Latin pop",
+        "url": "https://en.wikipedia.org/wiki/Karol_G"
+      },
+      "debut": {
+        "value": 2017,
+        "url": "https://en.wikipedia.org/wiki/Unstoppable_(Karol_G_album)"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Colombia",
+        "url": "https://musicbrainz.org/artist/de22adae-f8ac-414f-b653-b0162611bd60"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "KATSEYE",
+      "musicBrainzId": "abbf7d85-9a7f-4a6c-80bd-bf71f2c7d520",
+      "spotifyIds": [
+        "3c0gDdb9lhnHGFtP4prQpn"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop",
+        "url": "https://www.wikidata.org/wiki/Q123480242"
+      },
+      "debut": {
+        "value": 2024,
+        "url": "https://www.universalmusic.ca/2024/08/16/katseyes-debut-ep-sis-soft-is-strong-is-out-today/"
+      },
+      "gender": {
+        "value": "Groep",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/abbf7d85-9a7f-4a6c-80bd-bf71f2c7d520"
+      },
+      "members": {
+        "value": 6,
+        "url": "https://www.katseye.world/the-members/"
+      },
+      "type": {
+        "value": "Group",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Kendrick Lamar",
+      "musicBrainzId": "381086ea-f511-4aba-bdf9-71c753dc5077",
+      "spotifyIds": [
+        "2YZyLoL8N0Wb9xBt1NhZWg"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Hip-hop",
+        "url": "https://en.wikipedia.org/wiki/Kendrick_Lamar"
+      },
+      "debut": {
+        "value": 2011,
+        "url": "https://en.wikipedia.org/wiki/Section.80"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "King Gizzard & The Lizard Wizard",
+      "musicBrainzId": "f58384a4-2ad2-4f24-89c5-c7b74ae1cce7",
+      "spotifyIds": [
+        "6XYvaoDGE0VmRt83Jss9Sn"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Psychedelische rock",
+        "url": "https://en.wikipedia.org/wiki/King_Gizzard_%26_the_Lizard_Wizard"
+      },
+      "debut": {
+        "value": 2012,
+        "url": "https://en.wikipedia.org/wiki/12_Bar_Bruise"
+      },
+      "gender": {
+        "value": "Groep",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Australia",
+        "url": "https://musicbrainz.org/artist/f58384a4-2ad2-4f24-89c5-c7b74ae1cce7"
+      },
+      "members": {
+        "value": 6,
+        "url": "https://musicbrainz.org/artist/f58384a4-2ad2-4f24-89c5-c7b74ae1cce7"
+      },
+      "type": {
+        "value": "Group",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Koe Wetzel",
+      "musicBrainzId": "cf59723d-febb-4481-9b9b-3cb2c7f2a7e6",
+      "spotifyIds": [
+        "1Tie3AZgLQZqYEp8Fv4zOZ"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Countryrock",
+        "url": "https://en.wikipedia.org/wiki/Koe_Wetzel"
+      },
+      "debut": {
+        "value": 2012,
+        "url": "https://en.wikipedia.org/wiki/Koe_Wetzel"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/cf59723d-febb-4481-9b9b-3cb2c7f2a7e6"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Kris Kross Amsterdam",
+      "musicBrainzId": "e90b7b86-7930-4e67-a9c2-806171d11ac4",
+      "spotifyIds": [
+        "4LcUpNlXFEleaLlelmkv2R"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Dance / pop",
+        "url": "https://kriskross.amsterdam/about/"
+      },
+      "debut": {
+        "value": 2015,
+        "url": "https://musicbrainz.org/artist/e90b7b86-7930-4e67-a9c2-806171d11ac4"
+      },
+      "gender": {
+        "value": "Groep",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Netherlands",
+        "url": "https://musicbrainz.org/artist/e90b7b86-7930-4e67-a9c2-806171d11ac4"
+      },
+      "members": {
+        "value": 2,
+        "url": "https://kriskross.amsterdam/"
+      },
+      "type": {
+        "value": "Group",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Kygo",
+      "musicBrainzId": "ba0e7638-0cd6-4ff4-8987-c3e224d22c23",
+      "spotifyIds": [
+        "23fqKkggKUBHNkbKtXEls4"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "tropical house / deephouse / downtempo",
+        "url": "https://www.wikidata.org/wiki/Q16845512"
+      },
+      "debut": {
+        "value": 2013,
+        "url": "https://musicbrainz.org/release-group/f574825a-3cda-46d6-811e-c355e40269db"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Noorwegen",
+        "url": "https://musicbrainz.org/artist/ba0e7638-0cd6-4ff4-8987-c3e224d22c23"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Lainey Wilson",
+      "musicBrainzId": "a6e613d6-ff65-4972-beff-303a1b10ab05",
+      "spotifyIds": [
+        "6tPHARSq45lQ8BSALCfkFC"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country",
+        "url": "https://en.wikipedia.org/wiki/Lainey_Wilson"
+      },
+      "debut": {
+        "value": 2014,
+        "url": "https://en.wikipedia.org/wiki/Lainey_Wilson_(album)"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/a6e613d6-ff65-4972-beff-303a1b10ab05"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Lana Del Rey",
+      "musicBrainzId": "b7539c32-53e7-4908-bda3-81449c367da6",
+      "spotifyIds": [],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Alternatieve pop",
+        "url": "https://en.wikipedia.org/wiki/Lana_Del_Rey"
+      },
+      "debut": {
+        "value": 2010,
+        "url": "https://en.wikipedia.org/wiki/Lana_Del_Ray_(album)"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/b7539c32-53e7-4908-bda3-81449c367da6"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      },
+      "candidateSpotifyIds": [
+        "00FQb4jTyendYWaN8pK0wa",
+        "1cFLbtIb1KD6nE7zGwIAp6"
+      ]
+    },
+    {
+      "name": "Laura Tesoro",
+      "musicBrainzId": "5b171695-1ea9-441a-9d39-d44f39b3538c",
+      "spotifyIds": [
+        "2vmZupMPxLgT8MNNXTRfa2"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop",
+        "url": "https://www.wikidata.org/wiki/Q18225863"
+      },
+      "debut": {
+        "value": 2014,
+        "url": "https://musicbrainz.org/release-group/1c2e324f-f95f-4721-9dae-0ee1fed1a29f"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "België",
+        "url": "https://musicbrainz.org/artist/5b171695-1ea9-441a-9d39-d44f39b3538c"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Lauren Alaina",
+      "musicBrainzId": "f2506ff4-4091-4e57-ac5b-156110732aa9",
+      "spotifyIds": [
+        "1v3tdpIdBSW14rHUfiEVOv"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2011,
+        "url": "https://en.wikipedia.org/wiki/Wildflower_(Lauren_Alaina_album)"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/f2506ff4-4091-4e57-ac5b-156110732aa9"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Lil Baby",
+      "musicBrainzId": "d42a5768-ada1-4fb6-85fd-f61aba6264e0",
+      "spotifyIds": [
+        "5f7VJjfbwm532GiveGC0ZK"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Hip-hop / trap",
+        "url": "https://en.wikipedia.org/wiki/Lil_Baby"
+      },
+      "debut": {
+        "value": 2018,
+        "url": "https://en.wikipedia.org/wiki/Harder_Than_Ever"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/d42a5768-ada1-4fb6-85fd-f61aba6264e0"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Line De Dauw",
+      "musicBrainzId": "e2e13082-ed4d-4ab6-a121-326bc46f28d4",
+      "spotifyIds": [
+        "5tzFHUjiUr3LkxuWK7ibBX"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2025,
+        "url": "https://musicbrainz.org/release-group/d8866a1e-f58e-4939-903f-fea685d4aa44"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Belgium",
+        "url": "https://musicbrainz.org/artist/e2e13082-ed4d-4ab6-a121-326bc46f28d4"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Loe Shimmy",
+      "musicBrainzId": "ed411d15-00f4-4e56-b264-94e0d2f64ffe",
+      "spotifyIds": [
+        "6UIpxj5ggLdOebFVCOxVax"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Southern hiphop / trap",
+        "url": "https://artist.degy.com/major-acts/loe-shimmy"
+      },
+      "debut": {
+        "value": 2020,
+        "url": "https://artist.degy.com/major-acts/loe-shimmy"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/ed411d15-00f4-4e56-b264-94e0d2f64ffe"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Luke Bryan",
+      "musicBrainzId": "aab35942-f176-4f77-bbf9-1d6aa98ccf3f",
+      "spotifyIds": [
+        "0BvkDsjIUla7X0k6CSWh1I"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country",
+        "url": "https://en.wikipedia.org/wiki/Luke_Bryan"
+      },
+      "debut": {
+        "value": 2007,
+        "url": "https://en.wikipedia.org/wiki/I'll_Stay_Me"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/aab35942-f176-4f77-bbf9-1d6aa98ccf3f"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Luke Combs",
+      "musicBrainzId": "c20ee61f-071f-4e65-9c81-45ee931a54ce",
+      "spotifyIds": [
+        "718COspgdWOnwOFpJHRZHS"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country",
+        "url": "https://en.wikipedia.org/wiki/Luke_Combs"
+      },
+      "debut": {
+        "value": 2017,
+        "url": "https://en.wikipedia.org/wiki/This_One's_for_You_(Luke_Combs_album)"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/c20ee61f-071f-4e65-9c81-45ee931a54ce"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Luísa Sonza",
+      "musicBrainzId": "ed667cac-2fdb-4401-973b-81c5b4a1717d",
+      "spotifyIds": [
+        "4PzYKhC14sTJNEr0dzoo0d"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop",
+        "url": "https://www.wikidata.org/wiki/Q43193714"
+      },
+      "debut": {
+        "value": 2017,
+        "url": "https://musicbrainz.org/release-group/49f78229-9dd3-4916-bb85-b6b6dc1b690a"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Brazilië",
+        "url": "https://musicbrainz.org/artist/ed667cac-2fdb-4401-973b-81c5b4a1717d"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Lykke Li",
+      "musicBrainzId": "cc7d4686-ea02-45fd-956e-94c1a322558c",
+      "spotifyIds": [
+        "6oBm8HB0yfrIc9IHbxs6in"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop",
+        "url": "https://www.wikidata.org/wiki/Q270724"
+      },
+      "debut": {
+        "value": 2007,
+        "url": "https://musicbrainz.org/release-group/82dfc3de-c937-3740-b773-44cc54063a56"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Zweden",
+        "url": "https://musicbrainz.org/artist/cc7d4686-ea02-45fd-956e-94c1a322558c"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Mack Geiger",
+      "musicBrainzId": "e07e1915-2fe7-4ffb-acd8-8ae47ce58207",
+      "spotifyIds": [
+        "1ylRveckaItA2kOhQh8rnQ"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country / neotraditionele country",
+        "url": "https://mackgeiger.com/"
+      },
+      "debut": {
+        "value": 2026,
+        "url": "https://music.apple.com/us/album/walk-a-straight-line-ep/6769457482"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Australia",
+        "url": "https://musicbrainz.org/artist/e07e1915-2fe7-4ffb-acd8-8ae47ce58207"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "MAKSIM",
+      "musicBrainzId": "3e17154a-7c4a-4560-81ef-af97b3475d3e",
+      "spotifyIds": [
+        "5ncHUtKhiVsHlugFN0DCDl"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2022,
+        "url": "https://musicbrainz.org/release-group/663ba29a-c0f2-4847-b67d-8081da6e9359"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Belgium",
+        "url": "https://musicbrainz.org/artist/3e17154a-7c4a-4560-81ef-af97b3475d3e"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Malcolm Todd",
+      "musicBrainzId": "6c2a79b8-2b5c-4c2d-b495-6a446811bf9d",
+      "spotifyIds": [
+        "7eKkW1zo5uzW8kUntiiBvz"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Alternatieve R&B / indiepop",
+        "url": "https://www.allmusic.com/artist/malcolm-todd-mn0004484896"
+      },
+      "debut": {
+        "value": 2022,
+        "url": "https://www.allmusic.com/album/demos-before-prom-mw0004076371"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/6c2a79b8-2b5c-4c2d-b495-6a446811bf9d"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Malive",
+      "musicBrainzId": "2cc36bf8-5f41-4ac2-bd79-9928ce0cdbf8",
+      "spotifyIds": [
+        "5JsnFhU4OqgEtNXs7Sq1Vm"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2017,
+        "url": "https://musicbrainz.org/release-group/a77c273e-23bc-4433-90cf-86afab0169f0"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Martin Garrix",
+      "musicBrainzId": "3e1f2ee4-16be-4406-bf18-6173840cf2b1",
+      "spotifyIds": [
+        "60d24wfXkVzDSfLS6hyCjZ"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "dance / electrohouse / Dutch house",
+        "url": "https://www.wikidata.org/wiki/Q14544318"
+      },
+      "debut": {
+        "value": 2012,
+        "url": "https://musicbrainz.org/release-group/c0e08187-04e4-46cb-b12f-cffb9537abae"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Nederland",
+        "url": "https://musicbrainz.org/artist/3e1f2ee4-16be-4406-bf18-6173840cf2b1"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Megan Moroney",
+      "musicBrainzId": "9eb2030a-c311-4cbf-a8f2-c57a58aa18ce",
+      "spotifyIds": [
+        "5Ppie0uPnbnvGBYRwYmlt0"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2023,
+        "url": "https://en.wikipedia.org/wiki/Lucky_(Megan_Moroney_album)"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/9eb2030a-c311-4cbf-a8f2-c57a58aa18ce"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Megan Thee Stallion",
+      "musicBrainzId": "ee27b2d8-648c-4a9d-a68c-e55066959975",
+      "spotifyIds": [
+        "181bsRPaVXVlUKXrxwZfHK"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Hip-hop",
+        "url": "https://en.wikipedia.org/wiki/Megan_Thee_Stallion"
+      },
+      "debut": {
+        "value": 2020,
+        "url": "https://en.wikipedia.org/wiki/Good_News_(Megan_Thee_Stallion_album)"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/ee27b2d8-648c-4a9d-a68c-e55066959975"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Metejoor",
+      "musicBrainzId": "4fd61054-7939-4c59-a117-dcea7ec9fdb4",
+      "spotifyIds": [
+        "7hdCH3dJ27WvUbo00gAMwE"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop",
+        "url": "https://www.wikidata.org/wiki/Q98407148"
+      },
+      "debut": {
+        "value": 2017,
+        "url": "https://musicbrainz.org/release-group/f218a4ec-e288-43eb-98cc-2eb85d5e6f47"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "België",
+        "url": "https://musicbrainz.org/artist/4fd61054-7939-4c59-a117-dcea7ec9fdb4"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Michael Jackson",
+      "musicBrainzId": "f27ec8db-af05-4f36-916e-3d57f91ecf5e",
+      "spotifyIds": [
+        "3fMbdgg4jU18AjLCKBhRSm"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop / soul / R&B",
+        "url": "https://en.wikipedia.org/wiki/Michael_Jackson"
+      },
+      "debut": {
+        "value": 1972,
+        "url": "https://en.wikipedia.org/wiki/Got_to_Be_There"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/f27ec8db-af05-4f36-916e-3d57f91ecf5e"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Miranda Lambert",
+      "musicBrainzId": "4eca1aa0-c79f-481b-af8a-4a2d6c41aa5c",
+      "spotifyIds": [
+        "66lH4jAE7pqPlOlzUKbwA0"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country",
+        "url": "https://en.wikipedia.org/wiki/Miranda_Lambert"
+      },
+      "debut": {
+        "value": 2001,
+        "url": "https://en.wikipedia.org/wiki/Miranda_Lambert_(album)"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/4eca1aa0-c79f-481b-af8a-4a2d6c41aa5c"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Morgan Wallen",
+      "musicBrainzId": "2077273e-eaa1-4f49-903c-f286ededecb9",
+      "spotifyIds": [
+        "4oUHIQIBe0LHzYfvXNW4QM"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country",
+        "url": "https://en.wikipedia.org/wiki/Morgan_Wallen"
+      },
+      "debut": {
+        "value": 2018,
+        "url": "https://en.wikipedia.org/wiki/If_I_Know_Me"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/2077273e-eaa1-4f49-903c-f286ededecb9"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Noah Kahan",
+      "musicBrainzId": "a2a3f910-b188-43e7-81d0-f1ac2a2f3e12",
+      "spotifyIds": [
+        "2RQXRUsr4IW1f3mKyKsy4B"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Folkpop",
+        "url": "https://en.wikipedia.org/wiki/Noah_Kahan"
+      },
+      "debut": {
+        "value": 2019,
+        "url": "https://en.wikipedia.org/wiki/Busyhead"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/a2a3f910-b188-43e7-81d0-f1ac2a2f3e12"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Olivia Dean",
+      "musicBrainzId": "15e0d608-0869-429b-898d-3d8db3ecedd5",
+      "spotifyIds": [
+        "00x1fYSGhdqScXBRpSj3DW"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Neo-soul / pop",
+        "url": "https://musicbrainz.org/artist/15e0d608-0869-429b-898d-3d8db3ecedd5"
+      },
+      "debut": {
+        "value": 2019,
+        "url": "https://musicbrainz.org/artist/15e0d608-0869-429b-898d-3d8db3ecedd5"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "United Kingdom",
+        "url": "https://musicbrainz.org/artist/15e0d608-0869-429b-898d-3d8db3ecedd5"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Olivia Rodrigo",
+      "musicBrainzId": "6925db17-f35e-42f3-a4eb-84ee6bf5d4b0",
+      "spotifyIds": [
+        "1McMsnEElThX1knmY4oliG"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop / poprock",
+        "url": "https://musicbrainz.org/artist/6925db17-f35e-42f3-a4eb-84ee6bf5d4b0"
+      },
+      "debut": {
+        "value": 2021,
+        "url": "https://en.wikipedia.org/wiki/Sour_(album)"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/6925db17-f35e-42f3-a4eb-84ee6bf5d4b0"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Ray Dalton",
+      "musicBrainzId": "6c7f57c4-8f11-4c59-9d63-bca189f343c1",
+      "spotifyIds": [
+        "4e0nWw2r4BoQSKPQ2zpU13"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Rock / Pop",
+        "url": "https://www.wikidata.org/wiki/Q13426816"
+      },
+      "debut": {
+        "value": 2015,
+        "url": "https://musicbrainz.org/release-group/223eb031-c8c0-4daf-93aa-9f2007524d8e"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/6c7f57c4-8f11-4c59-9d63-bca189f343c1"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Riley Green",
+      "musicBrainzId": "d8c85c0e-ad88-47a7-a1df-b70608c2f52f",
+      "spotifyIds": [
+        "2QMsj4XJ7ne2hojxt6v5eb"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2019,
+        "url": "https://en.wikipedia.org/wiki/Different_%27Round_Here"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/d8c85c0e-ad88-47a7-a1df-b70608c2f52f"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Robert Smith",
+      "musicBrainzId": "7d1a1624-784b-4f89-8ff9-b9b493cd059d",
+      "spotifyIds": [],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Postpunk / gothic rock",
+        "url": "https://en.wikipedia.org/wiki/Robert_Smith_(musician)"
+      },
+      "debut": {
+        "value": 1979,
+        "url": "https://www.thecure.com/bio/"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "United Kingdom",
+        "url": "https://musicbrainz.org/artist/7d1a1624-784b-4f89-8ff9-b9b493cd059d"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      },
+      "candidateSpotifyIds": [
+        "0SHJWEBfbcjkE8bGiSTykk",
+        "6G7P2EzH5A36ujN9VPm4B0"
+      ]
+    },
+    {
+      "name": "Rockwell",
+      "musicBrainzId": "57ea7aef-42d6-4c16-a4a7-88b4ba8283a4",
+      "spotifyIds": [
+        "3xs0LEzcPXtgNfMNcHzLIP"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop / R&B",
+        "url": "https://en.wikipedia.org/wiki/Rockwell_(musician)"
+      },
+      "debut": {
+        "value": 1984,
+        "url": "https://en.wikipedia.org/wiki/Somebody%27s_Watching_Me_(album)"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/57ea7aef-42d6-4c16-a4a7-88b4ba8283a4"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "rusowsky",
+      "musicBrainzId": "d836bdef-52ef-4142-baba-573e5b529478",
+      "spotifyIds": [
+        "1XEVu7gdRFfzEFqsPrancH"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Alternatieve pop / R&B / experimenteel",
+        "url": "https://es.rollingstone.com/future-of-music-rusowsky/"
+      },
+      "debut": {
+        "value": 2019,
+        "url": "https://www.top40.nl/top40-artiesten/rusowsky"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Spain",
+        "url": "https://musicbrainz.org/artist/d836bdef-52ef-4142-baba-573e5b529478"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Sam Harper",
+      "musicBrainzId": "189f1f97-5a0f-4afd-95ec-21ba3afb58a9",
+      "spotifyIds": [],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "debut": {
+        "value": 2024,
+        "url": "https://musicbrainz.org/release-group/11e68c85-3c51-499a-b852-6d2007edb744"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      },
+      "candidateSpotifyIds": [
+        "0czTwfZBBvlvlOiypvDvwe",
+        "1wWt8oLQnkTYOBWPbnvMf1"
+      ]
+    },
+    {
+      "name": "Shaboozey",
+      "musicBrainzId": "0b427dad-1ee5-48f1-aa4b-026680a3338e",
+      "spotifyIds": [
+        "3y2cIKLjiOlp1Np37WiUdH"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country / hip-hop",
+        "url": "https://en.wikipedia.org/wiki/Shaboozey"
+      },
+      "debut": {
+        "value": 2018,
+        "url": "https://en.wikipedia.org/wiki/Lady_Wrangler"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/0b427dad-1ee5-48f1-aa4b-026680a3338e"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Shakira",
+      "musicBrainzId": "bf24ca37-25f4-4e34-9aec-460b94364cfc",
+      "spotifyIds": [
+        "0EmeFodog0BfCgMzAIvKQp"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Latin pop / poprock",
+        "url": "https://en.wikipedia.org/wiki/Shakira"
+      },
+      "debut": {
+        "value": 1991,
+        "url": "https://en.wikipedia.org/wiki/Magia_(Shakira_album)"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Colombia",
+        "url": "https://musicbrainz.org/artist/bf24ca37-25f4-4e34-9aec-460b94364cfc"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Sienna Spiro",
+      "musicBrainzId": "ea696191-407a-4bf2-8302-7e05f6c163c5",
+      "spotifyIds": [
+        "02gSuSAWEdWa5UOvqzjX6v"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop / Jazz",
+        "url": "https://www.wikidata.org/wiki/Q131631266"
+      },
+      "debut": {
+        "value": 2025,
+        "url": "https://www.universalmusic.ca/2025/02/21/sienna-spiro-releases-debut-ep-sink-now-swim-later/"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "United Kingdom",
+        "url": "https://musicbrainz.org/artist/ea696191-407a-4bf2-8302-7e05f6c163c5"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "sombr",
+      "musicBrainzId": "502cf908-9921-48bc-bf0e-265c881c0156",
+      "spotifyIds": [
+        "4G9NDjRyZFDlJKMRL8hx3S"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Indierock / alternatieve pop",
+        "url": "https://en.wikipedia.org/wiki/Sombr"
+      },
+      "debut": {
+        "value": 2025,
+        "url": "https://en.wikipedia.org/wiki/I_Barely_Know_Her"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/502cf908-9921-48bc-bf0e-265c881c0156"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Stella Lefty",
+      "musicBrainzId": "e881b225-42b1-41d9-9d5e-eff55568585b",
+      "spotifyIds": [
+        "6hp2uD84OrQ3u3ukmTjLz2"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Countrypop / indiefolk",
+        "url": "https://www.opry.com/artists/stella-lefty"
+      },
+      "debut": {
+        "value": 2025,
+        "url": "https://musicbrainz.org/artist/e881b225-42b1-41d9-9d5e-eff55568585b"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/e881b225-42b1-41d9-9d5e-eff55568585b"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Steve Lacy",
+      "musicBrainzId": "b29020d6-5dbf-4c99-b16f-c009f8a712ff",
+      "spotifyIds": [],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "R&B / alternatieve pop",
+        "url": "https://en.wikipedia.org/wiki/Steve_Lacy_(guitarist)"
+      },
+      "debut": {
+        "value": 2019,
+        "url": "https://en.wikipedia.org/wiki/Apollo_XXI"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/b29020d6-5dbf-4c99-b16f-c009f8a712ff"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      },
+      "candidateSpotifyIds": [
+        "1BEsuwAkTQMG50TeHB5qny",
+        "57vWImR43h4CaDao012Ofp"
+      ]
+    },
+    {
+      "name": "Suzan & Freek",
+      "musicBrainzId": "c0f1c9e6-8b9a-4510-96c6-b8131d78aef9",
+      "spotifyIds": [
+        "77IW5ZK1smDQYYKDCQugXh"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop / Nederlandstalig",
+        "url": "https://musicbrainz.org/artist/c0f1c9e6-8b9a-4510-96c6-b8131d78aef9"
+      },
+      "debut": {
+        "value": 2015,
+        "url": "https://musicbrainz.org/artist/c0f1c9e6-8b9a-4510-96c6-b8131d78aef9"
+      },
+      "gender": {
+        "value": "Groep",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Netherlands",
+        "url": "https://musicbrainz.org/artist/c0f1c9e6-8b9a-4510-96c6-b8131d78aef9"
+      },
+      "members": {
+        "value": 2,
+        "url": "https://www.suzanenfreek.nl/"
+      },
+      "type": {
+        "value": "Group",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Swedish House Mafia",
+      "musicBrainzId": "99075985-0d80-4692-a15e-b16f78831792",
+      "spotifyIds": [
+        "1h6Cn3P4NGzXbaXidqURXs"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "housemuziek / dance / electro",
+        "url": "https://www.wikidata.org/wiki/Q20709"
+      },
+      "debut": {
+        "value": 2009,
+        "url": "https://musicbrainz.org/release-group/48443d02-f4ac-468e-8ace-5c9d4ca93f0c"
+      },
+      "gender": {
+        "value": "Groep",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Sweden",
+        "url": "https://musicbrainz.org/artist/99075985-0d80-4692-a15e-b16f78831792"
+      },
+      "members": {
+        "value": 3,
+        "url": "https://www.swedishhousemafia.com/"
+      },
+      "type": {
+        "value": "Group",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "SZA",
+      "musicBrainzId": "272989c8-5535-492d-a25c-9f58803e027f",
+      "spotifyIds": [
+        "7tYKF4w9nC0nq9CsPZTHyP"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "R&B / alternatieve R&B",
+        "url": "https://en.wikipedia.org/wiki/SZA"
+      },
+      "debut": {
+        "value": 2017,
+        "url": "https://en.wikipedia.org/wiki/Ctrl_(SZA_album)"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/272989c8-5535-492d-a25c-9f58803e027f"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Tame Impala",
+      "musicBrainzId": "63aa26c3-d59b-4da4-84ac-716b54f1ef4d",
+      "spotifyIds": [
+        "5INjqkS1o8h1imAzPqGZBb"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Psychedelische rock / pop",
+        "url": "https://www.allmusic.com/album/innerspeaker-mw0001990920"
+      },
+      "debut": {
+        "value": 2010,
+        "url": "https://www.allmusic.com/album/innerspeaker-mw0001990920"
+      },
+      "gender": {
+        "value": "Groep / project",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Australia",
+        "url": "https://musicbrainz.org/artist/63aa26c3-d59b-4da4-84ac-716b54f1ef4d"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Tate McRae",
+      "musicBrainzId": "f9133869-f87c-459c-9aa7-2f176cda7e06",
+      "spotifyIds": [
+        "45dkTj5sMRSjrmBSBeiHym"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop",
+        "url": "https://en.wikipedia.org/wiki/Tate_McRae"
+      },
+      "debut": {
+        "value": 2022,
+        "url": "https://en.wikipedia.org/wiki/I_Used_to_Think_I_Could_Fly"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Canada",
+        "url": "https://musicbrainz.org/artist/f9133869-f87c-459c-9aa7-2f176cda7e06"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Taylor Swift",
+      "musicBrainzId": "20244d07-534f-4eff-b4d4-930878889970",
+      "spotifyIds": [
+        "06HL4z0CvFAxyc27GXpf02"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop / country",
+        "url": "https://en.wikipedia.org/wiki/Taylor_Swift"
+      },
+      "debut": {
+        "value": 2006,
+        "url": "https://en.wikipedia.org/wiki/Taylor_Swift_(album)"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/20244d07-534f-4eff-b4d4-930878889970"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Teddy Swims",
+      "musicBrainzId": "35feae82-8b2c-4f8f-ae7a-af5662848947",
+      "spotifyIds": [
+        "33qOK5uJ8AR2xuQQAhHump"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop / R&B",
+        "url": "https://www.wikidata.org/wiki/Q105542333"
+      },
+      "debut": {
+        "value": 2023,
+        "url": "https://en.wikipedia.org/wiki/I%27ve_Tried_Everything_but_Therapy_(Part_1)"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/35feae82-8b2c-4f8f-ae7a-af5662848947"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Temper City",
+      "musicBrainzId": "c74a9a82-29bf-486d-bf93-b4516ac3e338",
+      "spotifyIds": [
+        "5mHUmlJWkcoOk1NbjfrXWz"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Alternatieve rock / indierock",
+        "url": "https://www.allmusic.com/artist/temper-city-mn0005013032"
+      },
+      "debut": {
+        "value": 2026,
+        "url": "https://www.allmusic.com/artist/temper-city-mn0005013032"
+      },
+      "gender": {
+        "value": "Groep",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/c74a9a82-29bf-486d-bf93-b4516ac3e338"
+      },
+      "members": {
+        "value": 3,
+        "url": "https://themusic.com.au/news/honestly-surreal-temper-city-are-self-aware-when-it-comes-to-their-viral-rise/UtboREdGSUg/28-08-26"
+      },
+      "type": {
+        "value": "Group",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "The Bausa",
+      "musicBrainzId": "34739a84-b388-4cea-9e77-2609fadd8bb7",
+      "spotifyIds": [
+        "7krakxeyEmge6pzTthKNyg"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "House / dancepop",
+        "url": "https://edmhousenetwork.com/meet-the-bausa-norways-funky-house-trio-taking-europe-by-storm/"
+      },
+      "debut": {
+        "value": 2021,
+        "url": "https://en.wikipedia.org/wiki/The_Bausa"
+      },
+      "gender": {
+        "value": "Groep",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Norway",
+        "url": "https://musicbrainz.org/artist/34739a84-b388-4cea-9e77-2609fadd8bb7"
+      },
+      "members": {
+        "value": 3,
+        "url": "https://tg24.sky.it/spettacolo/musica/2026/06/29/the-bausa-magnetic-intervista"
+      },
+      "type": {
+        "value": "Group",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Topic",
+      "musicBrainzId": "c2a0f405-2761-4177-95f0-d7031043f1ee",
+      "spotifyIds": [
+        "0u6GtibW46tFX7koQ6uNJZ"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "dance-pop",
+        "url": "https://www.wikidata.org/wiki/Q20804322"
+      },
+      "debut": {
+        "value": 2014,
+        "url": "https://musicbrainz.org/release-group/986589a7-091a-46a6-a9ef-4ced5c43aaa9"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Duitsland",
+        "url": "https://musicbrainz.org/artist/c2a0f405-2761-4177-95f0-d7031043f1ee"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Turnpike Troubadours",
+      "musicBrainzId": "607edb17-d439-48db-8482-da92167e4a59",
+      "spotifyIds": [
+        "1YSA4byX5AL1zoTsSTlB03"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Red dirt / country",
+        "url": "https://en.wikipedia.org/wiki/Turnpike_Troubadours"
+      },
+      "debut": {
+        "value": 2007,
+        "url": "https://www.allmusic.com/album/bossier-city-mw0001934778"
+      },
+      "gender": {
+        "value": "Groep",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/607edb17-d439-48db-8482-da92167e4a59"
+      },
+      "members": {
+        "value": 6,
+        "url": "https://music.wmeagency.com/Music/turnpiketroubadours?client_profile=true&height=100%25&layout=grid&width=1230"
+      },
+      "type": {
+        "value": "Group",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Ultra Naté",
+      "musicBrainzId": "0004537a-4b12-43eb-a023-04009e738d2e",
+      "spotifyIds": [
+        "1cK2Abwkni7m51wJCSGllN"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "housemuziek / moderne r&b",
+        "url": "https://www.wikidata.org/wiki/Q444309"
+      },
+      "debut": {
+        "value": 1991,
+        "url": "https://musicbrainz.org/release-group/3554c816-6d18-3e93-afec-88b6a1887d86"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/0004537a-4b12-43eb-a023-04009e738d2e"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Used",
+      "musicBrainzId": "7a32d37d-41e7-4075-95d7-4672c6fe002a",
+      "spotifyIds": [
+        "4sewbfr40so8t6Zfh9tmoK"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Drum-'n-bass",
+        "url": "https://www.beatport.com/artist/used/82945"
+      },
+      "debut": {
+        "value": 2019,
+        "url": "https://musicbrainz.org/release-group/36acef6f-8100-4685-ad22-6080a6a22714"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Belgium",
+        "url": "https://musicbrainz.org/artist/7a32d37d-41e7-4075-95d7-4672c6fe002a"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Vincent Mason",
+      "musicBrainzId": "483ccf02-0faf-458e-88fc-e39e03cb9875",
+      "spotifyIds": [
+        "6QJ5CE7ujPr7oZCURhFZVS"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country",
+        "url": "https://music.apple.com/be/album/there-i-go/1837507691"
+      },
+      "debut": {
+        "value": 2024,
+        "url": "https://en.wikipedia.org/wiki/Vincent_Mason_(singer)"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/483ccf02-0faf-458e-88fc-e39e03cb9875"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Willy William",
+      "musicBrainzId": "afd6e960-0e48-444d-b65d-99e85cae90ba",
+      "spotifyIds": [
+        "4RSyJzf7ef6Iu2rnLdabNq"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "housemuziek / reggaetón / zouk",
+        "url": "https://www.wikidata.org/wiki/Q17016749"
+      },
+      "debut": {
+        "value": 2010,
+        "url": "https://musicbrainz.org/release-group/785201c9-b4f9-4138-b69c-f4906b3b895c"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Frankrijk",
+        "url": "https://musicbrainz.org/artist/afd6e960-0e48-444d-b65d-99e85cae90ba"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Yebba",
+      "musicBrainzId": "0aeea1ef-8d96-4556-8c4a-84b88ae271bb",
+      "spotifyIds": [],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Soul / R&B",
+        "url": "https://en.wikipedia.org/wiki/Yebba"
+      },
+      "debut": {
+        "value": 2021,
+        "url": "https://en.wikipedia.org/wiki/Dawn_(Yebba_album)"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/0aeea1ef-8d96-4556-8c4a-84b88ae271bb"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      },
+      "candidateSpotifyIds": [
+        "0UrXaH32s3JEzVKAZoHy8O",
+        "1ooV8YZC1KbpEcrmI8WH0F"
+      ]
+    },
+    {
+      "name": "Zach Bryan",
+      "musicBrainzId": "51e90731-08c0-4f60-89b6-5b78e5844de8",
+      "spotifyIds": [
+        "40ZNYROS4zLfyyBSs2PGe2"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country / Americana",
+        "url": "https://www.allmusic.com/artist/zach-bryan-mn0003941326"
+      },
+      "debut": {
+        "value": 2019,
+        "url": "https://www.zachbryan.com/about-zach"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/51e90731-08c0-4f60-89b6-5b78e5844de8"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Zach John King",
+      "musicBrainzId": "5a2ab31d-e000-4fb6-bea6-e494835dc20d",
+      "spotifyIds": [
+        "7d00Y5kG1ZIPvWNl8LgHqB"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country / alternatieve rock",
+        "url": "https://www.allmusic.com/artist/zach-john-king-mn0004724830"
+      },
+      "debut": {
+        "value": 2024,
+        "url": "https://www.allmusic.com/artist/zach-john-king-mn0004724830"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/5a2ab31d-e000-4fb6-bea6-e494835dc20d"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Zach Top",
+      "musicBrainzId": "9939a762-5ca9-4c12-a735-0d62e21df4e3",
+      "spotifyIds": [
+        "4FGPzWzgjURDNT7JQ8pYgH"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Country",
+        "url": "https://en.wikipedia.org/wiki/Zach_Top"
+      },
+      "debut": {
+        "value": 2024,
+        "url": "https://en.wikipedia.org/wiki/Cold_Beer_%26_Country_Music"
+      },
+      "gender": {
+        "value": "Man",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Verenigde Staten",
+        "url": "https://musicbrainz.org/artist/9939a762-5ca9-4c12-a735-0d62e21df4e3"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    },
+    {
+      "name": "Zara Larsson",
+      "musicBrainzId": "134e6410-6954-45d1-bd4a-0f2d2ad5471d",
+      "spotifyIds": [
+        "1Xylc3o4UrD53lo9CvFvVg"
+      ],
+      "references": [
+        "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_extra.csv",
+        "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      ],
+      "genre": {
+        "value": "Pop",
+        "url": "https://en.wikipedia.org/wiki/Zara_Larsson"
+      },
+      "debut": {
+        "value": 2014,
+        "url": "https://en.wikipedia.org/wiki/1_(Zara_Larsson_album)"
+      },
+      "gender": {
+        "value": "Vrouw",
+        "url": "https://github.com/seppegoossens99-eng/ultratop-50-reversed/blob/73e0c745cccf613c8a65720b78e19728c7b6152b/ultratop_artist_extra.csv"
+      },
+      "country": {
+        "value": "Sweden",
+        "url": "https://musicbrainz.org/artist/134e6410-6954-45d1-bd4a-0f2d2ad5471d"
+      },
+      "type": {
+        "value": "Person",
+        "url": "https://github.com/seppegoossens99-eng/billboard-hot-100-reversed/blob/d9017183fe3ee9c66dd21bbbec8ccefacd09f6ed/billboard_artist_profiles.csv"
+      }
+    }
+  ]
+}

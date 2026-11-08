@@ -4,7 +4,7 @@ Leer de artiest achter het nummer kennen, alleen wanneer je daar zin in hebt. Ee
 
 ## Gebruik
 
-1. Publiceer `index.html`, `style.css` en `app.js` samen via GitHub Pages of een andere HTTPS-host.
+1. Publiceer `index.html`, `style.css`, `app.js` en de map `data/` samen via GitHub Pages of een andere HTTPS-host.
 2. Maak een app in het [Spotify Developer Dashboard](https://developer.spotify.com/dashboard). Registreer de **exacte Redirect URI** die de website toont.
 3. Vul de **Client ID** in op de website en verbind met Spotify. Gebruik nooit de Client Secret. Je account moet toegang hebben tot de app; Spotify stelt aanvullende eisen en beperkingen aan apps in Development Mode.
 4. Speel een muzieknummer af in Spotify. Kies **Huidig nummer ophalen** voor één nummer, of **Kennismodus starten** om nummerwissels te volgen.
@@ -18,16 +18,32 @@ De zes vakken zijn direct zichtbaar per artiest; biografieën en bandleden staan
 
 | Vak | Betekenis en bron |
 | --- | --- |
-| Debut | Vroegste gevonden studioalbum, single of EP in MusicBrainz. Live-uitgaven, compilaties en remixes tellen daar niet mee. Daarnaast wordt de eigen Spotify-discografie opgehaald (albums/singles, geen compilaties of uitgaven van andere artiesten). De vroegste bronuitgave bepaalt het getoonde jaar. Een Spotify-schatting of gedeeltelijke inventarisatie is gemarkeerd met ≈. Als alleen de huidige eigen albumuitgave bekend is, betekent ≤ dat het debuut uiterlijk in dat jaar plaatsvond, niet dat het exacte debuut bevestigd is. Maximaal 500 releasegroepen of Spotify-uitgaven per artiest; geen garantie op het historische debuut. |
-| Members | Solo, of het aantal bekende huidige leden volgens Wikidata. Ontbrekende einddatums betekenen niet dat een bron actueel is. |
+| Debut | Het opgeslagen debuutjaar uit de Billboard-/Ultratop-projecten heeft voorrang, ook als een oudere single bekend is. Voor overige artiesten: vroegste gevonden studioalbum, single of EP in MusicBrainz. Live-uitgaven, compilaties en remixes tellen daar niet mee. Daarnaast wordt de eigen Spotify-discografie opgehaald (albums/singles, geen compilaties of uitgaven van andere artiesten). De vroegste bronuitgave bepaalt het getoonde jaar. Een Spotify-schatting of gedeeltelijke inventarisatie is gemarkeerd met ≈. Als alleen de huidige eigen albumuitgave bekend is, betekent ≤ dat het debuut uiterlijk in dat jaar plaatsvond, niet dat het exacte debuut bevestigd is. Maximaal 500 releasegroepen of Spotify-uitgaven per artiest; geen garantie op het historische debuut. |
+| Members | Opgeslagen type/aantal leden uit het chartprofiel; anders solo of het aantal bekende huidige leden volgens Wikidata. Ontbrekende einddatums betekenen niet dat een bron actueel is. |
 | Popularity | Spotify-score tussen 0 en 100, als die beschikbaar is voor jouw app. **Geen Spotle-rangschikking.** |
-| Gender | Wikidata. Bij bands alleen weergegeven als de bron voor alle bekende huidige leden een waarde bevat. |
-| Genre | Eerste Spotify-genre; anders Wikidata of het meest gestemde MusicBrainz-genre. |
-| Country | Wikidata-nationaliteit of herkomst, anders MusicBrainz. |
+| Gender | Opgeslagen chartwaarde, anders Wikidata. Bij bands alleen weergegeven als de bron voor alle bekende huidige leden een waarde bevat. |
+| Genre | Het opgeslagen chartgenre; anders het eerste Spotify-genre; anders Wikidata of het meest gestemde MusicBrainz-genre. |
+| Country | Opgeslagen chartherkomst, anders Wikidata-nationaliteit of herkomst, anders MusicBrainz. |
 
-Dit zijn **geen officiële Spotle-antwoorden**. Het spel kan andere definities en eigen gegevens gebruiken. Onbekende of niet eenduidig gevonden gegevens blijven onbekend; er zijn geen handmatig ingevulde populariteitscijfers of uitzonderingen per bekende artiest. Naamgenoten worden niet willekeurig samengevoegd; Spotify-identificaties in de bron worden gecontroleerd waar beschikbaar. Een via Spotify geverifieerde Wikidata-koppeling naar MusicBrainz wordt rechtstreeks gebruikt, zodat uitval van de naamzoekdienst het debuut niet onnodig blokkeert. Tijdelijke MusicBrainz-fouten (429/503) worden één keer opnieuw geprobeerd als de opgegeven wachttijd maximaal tien seconden is.
+Dit zijn **geen officiële Spotle-antwoorden**. Het spel kan andere definities en eigen gegevens gebruiken. Onbekende of niet eenduidig gevonden gegevens blijven onbekend; er zijn geen verzonnen populariteitscijfers. Bronprofielen uit de eigen chartprojecten worden met hun oorspronkelijke bronlinks hergebruikt. Naamgenoten worden niet willekeurig samengevoegd; Spotify-identificaties in de bron worden gecontroleerd waar beschikbaar. Een via Spotify geverifieerde Wikidata-koppeling naar MusicBrainz wordt rechtstreeks gebruikt, zodat uitval van de naamzoekdienst het debuut niet onnodig blokkeert. Tijdelijke MusicBrainz-fouten (429/503) worden één keer opnieuw geprobeerd als de opgegeven wachttijd maximaal tien seconden is.
 
 Per bandlid worden naam, lidmaatschap, instrumenten, geboortedatum, leeftijd, geboorteplaats, land en foto getoond waar de bron die bevat. Voor overleden personen wordt geen huidige leeftijd berekend. De Spotify-releasedatum is die van de specifieke albumuitgave. Een ISRC-zoekopdracht zoekt daarnaast naar de vroegste gevonden officiële uitgave van dezelfde opname, niet van de oorspronkelijke compositie. De WhoSampled-link is een zoeklink; samples worden niet automatisch bevestigd.
+
+## Gedeelde artiestenprofielen uit de chartprojecten
+
+`data/artist-references.json` bevat 123 profielen uit `billboard-hot-100-reversed` en `ultratop-50-reversed`. Per profiel zijn de oorspronkelijke bronlinks en de exacte Git-commits bewaard. Het bestand hoort bij de website en moet dus samen met HTML/CSS/JavaScript worden gepubliceerd. Er zijn geen externe credentials of processen nodig om deze opgeslagen gegevens te tonen.
+
+De keuze van de eigenaar is leidend: **hetzelfde opgeslagen debuutjaar als in de andere projecten**. Zach Top toont daarom 2024 (bron: *Cold Beer & Country Music*). Een automatisch gevonden oudere uitgave, zoals de single uit 2019, wordt apart bij de artiestdetails getoond en overschrijft dit jaar niet. De opgeslagen jaren zijn niet bij alle artiesten volgens dezelfde debuutdefinitie vastgesteld; de bronlinks maken de invulling controleerbaar.
+
+Koppeling gebeurt uitsluitend via een unieke Spotify-ID of een door Wikidata bevestigde Spotify-/MusicBrainz-identiteit. Er is geen naamvergelijking om opgeslagen gegevens toe te kennen. Profielen met meerdere Spotify-pagina's vereisen een live bevestiging, zodat een naamgenoot niet zomaar het profiel krijgt. Verschillen tussen opgeslagen bronnen worden bewaard; conflicterende velden worden niet automatisch gekozen. Bezettingen blijven momentopnamen.
+
+De snapshots worden niet tijdens het luisteren uit de andere repositories gedownload of bijgewerkt. Vernieuwen kan expliciet vanuit gecontroleerde checkouts:
+
+```sh
+python3 scripts/import-artist-references.py /pad/naar/billboard-hot-100-reversed /pad/naar/ultratop-50-reversed
+```
+
+De importer leest CSV/JSON en letterlijke Python-constanten zonder code uit die repositories uit te voeren. Hij wijzigt de bronprojecten niet. Bekijk het gegenereerde verschil en voer de browsertests uit voordat je een vernieuwde snapshot publiceert. Nieuwe/onbekende artiesten blijven de automatische bronketen gebruiken.
 
 ## Lokaal ontwikkelen en testen
 
